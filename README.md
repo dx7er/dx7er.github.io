@@ -9,27 +9,27 @@
 
 <div align="center">
 <a href="snaqviO7@protonmail.com">
-  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/gmail.png" width=35 style="margin: 0 10px;">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/gmail.png" alt="Email">
 </a>
 
 <a href="https://github.com/dx7er">
-  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/github.png" width=35 style="margin: 0 10px;">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/github.png" alt="GitHub">
 </a>
 
 <a href="https://twitter.com/dx73r0">
-    <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/twitter.png" width=35 style="margin: 0 10px;">
+    <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/twitter.png" alt="Twitter">
 </a>
 
 <a href="https://medium.com/@dx7er">
-  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/medium.png" width=35 style="margin: 0 10px;">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/medium.png" alt="Medium">
 </a>
 
 <a href="https://www.linkedin.com/in/naqvio7/">
-  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/linkedin.png" width=35 style="margin:0 10px;">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/linkedin.png" alt="LinkedIn">
 </a>
 
 <a href="https://t.me/dx73r0">
-  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/teegram.png" width=35 style="margin:0 10px;">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/teegram.png" alt="Telegram">
 </a>
 
 </div>
