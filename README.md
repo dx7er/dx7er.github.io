@@ -4,7 +4,7 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/dx7er/dx7er.github.io/main/imgs/display_pic.png" alt="Batman" width="200" height="120" style="border-radius: 50%; object-fit: cover;"> <br>
   <h1 align="center"> Syed Muhammad Saqlain <br>
-    <pre><code>OSINT Investigator</code></pre> </h1>
+    <h4 align="center">Penetration Tester | OSINT Investgator | Information Security Expert | Red Team Enthusiast </h4>
 </p>
 
 
