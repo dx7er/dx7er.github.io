@@ -1,6 +1,10 @@
 # About Me.
 
----
+<p align="center">
+  <img src="![display_pic](https://github.com/dx7er/dx7er.github.io/assets/79792270/69d395dc-81dc-434d-b3d6-4a3aeff21761)"/>
+</p>
+<h2 align="center"> Syed Muhammad Saqlain </h2> 
+
 
 #### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
 
