@@ -16,7 +16,6 @@
   <a href="https://t.me/dx73r0">Telegram</a>
 </div>
 
-
 <!-- Social Media with Icons
 <div align="center">
 <a href="snaqviO7@protonmail.com">
