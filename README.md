@@ -5,7 +5,9 @@
 </p>
 
 <h2 align="center"> Syed Muhammad Saqlain </h2> 
-
+<h2><p align="center">
+    OSINT Investigator and Script Kiddie
+</p></h2>
 
 #### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
 
