@@ -8,6 +8,17 @@
 </p>
 
 <div align="center">
+  <a href="snaqviO7@protonmail.com">Email</a>
+  <a href="https://github.com/dx7er">Github</a>
+  <a href="https://twitter.com/dx73r0">Twitter</a>
+  <a href="https://medium.com/@dx7er">Medium</a>
+  <a href="https://www.linkedin.com/in/naqvio7/">LinkedIn</a>
+  <a href="https://t.me/dx73r0">Telegram</a>
+</div>
+
+
+<!-- Social Media with Icons
+<div align="center">
 <a href="snaqviO7@protonmail.com">
   <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/gmail.png" alt="Email" width="25">
 </a>
@@ -31,8 +42,9 @@
 <a href="https://t.me/dx73r0">
   <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/teegram.png" alt="Telegram" width="25">
 </a>
-
 </div>
+-->
+
 
 #### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
 
