@@ -2,5 +2,4 @@ title: Saqlain Naqvi
 logo: https://raw.githubusercontent.com/dx7er/dx7er.github.io/main/imgs/display_pic.png
 #description: text below image
 show_downloads: true
-#theme: jekyll-theme-minimal
-layout: custom
+theme: dark-theme
