@@ -1,19 +1,38 @@
 [comment]: <> (<h1>dx73r</h1>)
 
-
 <br>
 <p align="center">
   <img src="https://raw.githubusercontent.com/dx7er/dx7er.github.io/main/imgs/display_pic.png" alt="Batman" width="200" height="120" style="border-radius: 50%; object-fit: cover;"> <br>
+  <h2 align="center">Saqlain Naqvi - dx73r </h2>
+  <h4 align="center">Penetration Tester | OSINT Investigator | Information Security Expert | Red Team Enthusiast</h4>
 </p>
 
+<div align="center">
+<a href="snaqviO7@protonmail.com">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/gmail.png" width=35 style="margin: 0 10px;">
+</a>
 
-<p>
-  <h2 style="color: #3498db;" align="center">dx73r</h2>
-  <h4 style="color: #2ecc71;" align="center">Penetration Tester | OSINT Investigator | Information Security Expert | Red Team Enthusiast</h4>
-</p>
+<a href="https://github.com/dx7er">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/github.png" width=35 style="margin: 0 10px;">
+</a>
 
+<a href="https://twitter.com/dx73r0">
+    <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/twitter.png" width=35 style="margin: 0 10px;">
+</a>
 
+<a href="https://medium.com/@dx7er">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/medium.png" width=35 style="margin: 0 10px;">
+</a>
 
+<a href="https://www.linkedin.com/in/naqvio7/">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/linkedin.png" width=35 style="margin:0 10px;">
+</a>
+
+<a href="https://t.me/dx73r0">
+  <img src="https://github.com/dx7er/dx7er.github.io/blob/main/imgs/teegram.png" width=35 style="margin:0 10px;">
+</a>
+
+</div>
 
 #### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
 
