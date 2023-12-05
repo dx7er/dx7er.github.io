@@ -3,14 +3,14 @@
 <br>
 <p align="center">
   <img src="https://raw.githubusercontent.com/dx7er/dx7er.github.io/main/imgs/display_pic.png" alt="Batman" width="200" height="120" style="border-radius: 50%; object-fit: cover;"> <br>
-  <h1 align="center"> Syed Muhammad Saqlain <br>
-    <h4 align="center">Penetration Tester | OSINT Investgator | Information Security Expert | Red Team Enthusiast </h4>
 </p>
 
 
-<h1 align="center"> Syed Muhammad Saqlain <br> <h3 align="center">OSINT Investigator and Script Kiddie</h3></h1> 
-<h2><p align="center">
-</p></h2>
+<p >
+  <h1 style="color: #3498db;" align="center">Syed Muhammad Saqlain</h1>
+  <h4 style="color: #2ecc71;" align="center">Penetration Tester | OSINT Investigator | Information Security Expert | Red Team Enthusiast</h4>
+</p>
+
 
 #### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
 
