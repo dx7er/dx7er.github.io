@@ -1,7 +1,7 @@
 # About Me.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/dx7er/dx7er.github.io/main/imgs/display_pic.png" alt="Batman">
+  <img src="https://raw.githubusercontent.com/dx7er/dx7er.github.io/main/imgs/display_pic.png" alt="Batman" style="width: 150px; height: 150px; border-radius:50%;">
 </p>
 
 <h2 align="center"> Syed Muhammad Saqlain </h2> 
