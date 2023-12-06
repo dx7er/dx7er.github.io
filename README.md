@@ -52,21 +52,16 @@
 - #### Cybersecurity.
    Penetration Testing, Vulnerability Assessment, OSINT Investigation, Malware Analysis/Removal, Web/Web-App Pentesting, Red Team Ops (little-bit) and CTFs.
   
-## Education
-- Ph.D., Physics | The University of Texas at Dallas (_May 2022_)								       		
-- M.S., Physics	| The University of Texas at Dallas (_December 2019_)	 			        		
-- B.S., Physics | The University of Texas at Dallas (_May 2017_)
+## Experience.
+- **OSINT Investigator** at <a href="https://www.linkedin.com/company/confidentialcompany/">Confidential.</a> (September 2023 -Present)
+- **Final Year Project Team Lead** at <a href="https://nastp.gov.pk/alpha">Siber Koza.</a> (May 2023 - Aug 2023)
+- **Cybersecurity Intern** at <a href="https://nccs.pk/">NCCS.</a> (Jun 2022 - Sep 2022)
+- **Professional Freelancer** at <a href="https://www.upwork.com/">Upwork</a>. (December 2021 - Present)
 
-## Work Experience
-**Data Scientist @ Toyota Financial Services (_June 2022 - Present_)**
-- Uncovered and corrected missing step in production data pipeline which impacted over 70% of active accounts
-- Redeveloped loan originations model which resulted in 50% improvement in model performance and saving 1 million dollars in potential losses
+## Education.
+- **Bachelors in Cybersecurity** from <a href="https://www.au.edu.pk/">Air University</a>. (2019 - 2023)
 
-**Data Science Consultant @ Shawhin Talebi Ventures LLC (_December 2020 - Present_)**
-- Conducted data collection, processing, and analysis for novel study evaluating the impact of over 300 biometrics variables on human performance in hyper-realistic, live-fire training scenarios
-- Applied unsupervised deep learning approaches to longitudinal ICU data to discover novel sepsis sub-phenotypes
-
-## Projects
+## Certifications.
 ### Data-Driven EEG Band Discovery with Decision Trees
 [Publication](https://www.mdpi.com/1424-8220/22/8/3048)
 
