@@ -44,9 +44,14 @@
 </div>
 -->
 
-
-#### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
-
+## Skills.
+- #### Programming Languages/Libraries.
+    Python (Sk-Learn, Keras, Socket, Beautifulsoup), Bash & C/C++.
+- #### Operating Systems.
+   ParrotSec OS, Kali Linux, Windows 10/11, Ubuntu.
+- #### Cybersecurity.
+   Penetration Testing, Vulnerability Assessment, OSINT Investigation, Malware Analysis/Removal, Web/Web-App Pentesting, Red Team Ops (little-bit) and CTFs.
+  
 ## Education
 - Ph.D., Physics | The University of Texas at Dallas (_May 2022_)								       		
 - M.S., Physics	| The University of Texas at Dallas (_December 2019_)	 			        		
