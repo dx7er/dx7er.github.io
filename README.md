@@ -47,7 +47,7 @@
 ## Skills.
 - **Programming Languages/Libraries:** Python (Sk-Learn, Keras, Socket, Beautifulsoup), C/C++, Batch/Bash & Powershell.
 - **Operating Systems:** ParrotSec OS, Kali Linux, Windows 10/11, Ubuntu.
-- **Cybersecurity:** Penetration Testing, Vulnerability Assessment, OSINT Investigation, Malware Analysis/Removal, Web/Web-App Pentesting, CTFs and Red-Team Ops (little-bit).
+- **Cybersecurity:** Penetration Testing, Vulnerability Assessment, OSINT Investigation, Malware Analysis/Removal, Web/Web-App Pentesting, Digital Forensics, Reverse Engineering, CTFs and Red-Team Ops (little-bit).
   
 ## Experience.
 - **OSINT Investigator** at <a href="https://www.linkedin.com/company/confidentialcompany/">Confidential</a>. (September 2023 -Present)
