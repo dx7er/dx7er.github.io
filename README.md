@@ -13,7 +13,6 @@
   <a href="https://twitter.com/dx73r0">Twitter</a>
   <a href="https://medium.com/@dx7er">Medium</a>
   <a href="https://www.linkedin.com/in/naqvio7/">LinkedIn</a>
-  <a href="https://t.me/dx73r0">Telegram</a>
 </div>
 
 <!-- Social Media with Icons
@@ -81,6 +80,5 @@
 
 ## Reach Me.
 - Email: <a href="snaqviO7@protonmail.com">`snaqviO7@protonmail.com`</a>
-- Telegram: <a href="https://t.me/dx73r0">`@dx73r0`</a>
   
 ---
