@@ -8,8 +8,8 @@
 </p>
 
 <div align="center">
-<!--   <a href="snaqviO7@protonmail.com">Email</a>
-  <a href="https://github.com/dx7er">Github</a>
+<a href="snaqviO7@protonmail.com">Contact ME</a>
+<!--   <a href="https://github.com/dx7er">Github</a>
   <a href="https://twitter.com/dx73r0">Twitter</a>
   <a href="https://medium.com/@dx7er">Medium</a>
   <a href="https://www.linkedin.com/in/naqvio7/">LinkedIn</a> -->
