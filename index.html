@@ -1,244 +1,559 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Under Construction — Portfolio</title>
-  <meta name="description" content="Portfolio under construction placeholder page." />
-  <meta name="color-scheme" content="dark light" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>dx73r.me</title>
+  <meta name="description" content="Cybersecurity portfolio: projects, blogs, and contact. Professional hacker-theme, fast and lightweight. Built with HTML, CSS, JS, and Markdown." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg-1:#0f0c29; /* deep indigo */
-      --bg-2:#302b63; /* royal purple */
-      --bg-3:#24243e; /* midnight */
-      --card:#11131a;
-      --text:#e8ecff;
-      --muted:#a6b0d9;
-      --accent:#ffd166; /* construction yellow */
-      --accent-2:#ef476f; /* pop pink */
-      --ring: rgba(255, 209, 102, .55);
+      --bg:#0a0d10;           /* deep charcoal */
+      --panel:#0f141a;        /* slightly lighter for cards */
+      --panel-2:#111820;      /* darker for contrast */
+      --text:#e7f0f2;         /* soft white */
+      --muted:#8aa0a6;        /* muted text */
+      --primary:#37ff8b;      /* neon green */
+      --primary-dim:#1db96a;  /* dimmer green */
+      --accent:#39c6ff;       /* cyan accent */
+      --danger:#ff496e;       /* pink/red */
+      --glow: 0 0 12px rgba(55,255,139,.35), 0 0 24px rgba(55,255,139,.12);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background: radial-gradient(1200px 800px at 80% -10%, var(--bg-2), transparent 60%),
-                  radial-gradient(900px 600px at -20% 120%, var(--bg-2), transparent 60%),
-                  linear-gradient(135deg, var(--bg-1), var(--bg-3));
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-    }
-    /* floating glow orbs */
-    .orb{position:absolute; filter:blur(60px); opacity:.45; animation: float 14s ease-in-out infinite; mix-blend:screen}
-    .orb.one{width:260px;height:260px;background:#8ec5ff33; top:8vh; left:8vw; animation-delay:.2s}
-    .orb.two{width:360px;height:360px;background:#ffd1662e; bottom:10vh; right:10vw; animation-delay:1s}
-    @keyframes float { 0%,100%{transform:translate(0,0)} 50%{transform:translate(12px,-10px)} }
-
-    .container{
-      width:min(960px, 92vw);
-      position:relative;
-      z-index:2;
+      margin:0; background:linear-gradient(180deg,var(--bg),#060809);
+      color:var(--text); font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.55; overflow-x:hidden;
     }
 
-    .card{
-      position:relative;
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 20px 50px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.05);
-      overflow:hidden;
+    /* Matrix-like animated backdrop */
+    .grid-bg{
+      position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.08;
+      background-image: linear-gradient(var(--panel) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--panel) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px;
+      animation: drift 40s linear infinite;
     }
-
-    /* animated construction tape */
-    .tape{
-      --gap: 24px;
-      position:absolute; inset:auto -20px -28px -20px; height:62px;
-      background:
-        repeating-linear-gradient( 135deg,
-          var(--accent) 0 28px,
-          #11131a 28px 56px
-        );
-      transform: rotate(-2.25deg);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      border: 1px solid rgba(0,0,0,.25);
-      animation: slide 18s linear infinite;
-    }
-    @keyframes slide { to{ background-position: 560px } }
+    @keyframes drift{0%{background-position:0 0,0 0}100%{background-position:0 1000px,1000px 0}}
 
     header{
-      display:flex; align-items:center; gap:14px; padding:22px 26px; border-bottom:1px solid rgba(255,255,255,.06);
+      position:sticky; top:0; z-index:20; backdrop-filter: blur(8px);
+      background:linear-gradient(180deg, rgba(10,13,16,.9), rgba(10,13,16,.5));
+      border-bottom:1px solid rgba(55,255,139,.15);
     }
+    .nav{
+      max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:16px;
+      padding:14px 20px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
     .logo{
-      width:40px;height:40px; border-radius:14px; display:grid; place-items:center; background: linear-gradient(135deg, var(--accent), #ffe6a6);
-      box-shadow:0 6px 18px var(--ring);
-      color:#11131a; font-weight:800;
-      font-family: Outfit, Inter, system-ui;
+      width:34px; height:34px; display:grid; place-items:center; border-radius:10px;
+      background:radial-gradient(ellipse at top left, rgba(55,255,139,.25), transparent 60%),
+                 radial-gradient(ellipse at bottom right, rgba(57,198,255,.25), transparent 60%),
+                 var(--panel-2);
+      box-shadow:var(--glow); font-family:"JetBrains Mono",monospace; font-weight:700;
     }
-    .brand{letter-spacing:.4px; font-weight:700; font-family: Outfit, Inter;}
+    .brand span{font-weight:800; letter-spacing:.4px}
 
-    main{
-      display:grid; gap:24px; padding:38px 28px 64px;
+    .nav a{
+      color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px;
+      transition:.2s ease; font-weight:600; font-size:14px;
     }
-    h1{
-      margin:0; font-size: clamp(28px, 5vw, 48px); line-height:1.08; font-weight:800; letter-spacing:.2px; font-family: Outfit, Inter;
-      text-wrap:balance;
-    }
-    .lead{ color:var(--muted); font-size: clamp(14px, 2.1vw, 18px); line-height:1.6; margin-top:6px; }
+    .nav a.active, .nav a:hover{ color:var(--text); background:rgba(55,255,139,.08); box-shadow:var(--glow)}
+    .spacer{flex:1}
+    .cta{ border:1px solid rgba(55,255,139,.35)}
 
-    /* crane illustration */
-    .hero{
-      display:grid; grid-template-columns: 1.2fr 1fr; gap:18px; align-items:center;
-    }
-    @media (max-width:800px){ .hero{ grid-template-columns: 1fr; } }
+    main{ position:relative; z-index:1 }
+    section{ max-width:1100px; margin:32px auto; padding:24px; }
 
-    .scene{
-      position:relative; aspect-ratio: 16/11; border-radius:20px; background: radial-gradient(600px 280px at 30% 20%, rgba(255,209,102,.18), transparent 60%), linear-gradient(180deg, #0b0e16, #0b0e16);
-      border:1px solid rgba(255,255,255,.06);
-      overflow:hidden;
-    }
-    .crane{ position:absolute; inset:0; }
-    .cable{ transform-origin: top center; animation: swing 4.8s ease-in-out infinite; }
-    @keyframes swing { 0%,100%{ transform: rotate(-4deg); } 50%{ transform: rotate(4deg); } }
+    .hero{ display:grid; gap:18px; padding:36px 24px 6px }
+    .hero h1{ font-size:38px; line-height:1.15; margin:0; font-weight:800 }
+    .hero p{ color:var(--muted); margin:0 }
 
-    .progress{
-      width:100%; height:10px; background: rgba(255,255,255,.06); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,.08);
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(55,255,139,.35); color:var(--primary); font-family:"JetBrains Mono",monospace;
+      background:linear-gradient(180deg, rgba(55,255,139,.08), rgba(55,255,139,.03)); box-shadow:var(--glow);
+      font-size:12px; letter-spacing:.2px
     }
-    .bar{ height:100%; width:36%; background: linear-gradient(90deg, var(--accent), #ffe6a6); box-shadow: 0 0 22px var(--ring);
-      animation: grow 3.2s ease-in-out infinite alternate;
+
+    .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:18px }
+    .card{ background:linear-gradient(180deg, rgba(17,24,32,.9), rgba(17,24,32,.7)); border:1px solid rgba(255,255,255,.05);
+      border-radius:16px; padding:18px; box-shadow: 0 10px 30px rgba(0,0,0,.3)}
+    .card h3{ margin:.2rem 0 .4rem; font-size:18px }
+    .card p{ margin:0; color:var(--muted) }
+    .tag{ display:inline-block; font-size:12px; border:1px solid rgba(255,255,255,.08); padding:4px 8px; border-radius:999px; margin-right:6px; margin-top:8px; color:var(--text); opacity:.9 }
+
+    .two-col{ display:grid; gap:24px; grid-template-columns:1.2fr .8fr }
+    @media (max-width: 900px){ .two-col{ grid-template-columns:1fr } .hero h1{ font-size:32px } }
+
+    .terminal{
+      background:var(--panel-2); border:1px solid rgba(55,255,139,.2); border-radius:14px; overflow:hidden;
+      box-shadow:var(--glow)
     }
-    @keyframes grow { from{ width:18% } to{ width:86% } }
+    .term-top{ display:flex; align-items:center; gap:10px; padding:10px 12px; background:linear-gradient(180deg, rgba(57,198,255,.1), transparent) }
+    .dot{ width:10px; height:10px; border-radius:50%; background:var(--primary); opacity:.8 }
+    .term-body{ padding:14px 16px; font-family:"JetBrains Mono",monospace; font-size:14px; color:var(--primary) }
 
-    .button-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:8px }
-    .btn{ --tw: rgba(255,255,255,.12); display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; border:1px solid var(--tw); text-decoration:none; color:var(--text); font-weight:600; transition:.22s transform, .22s background, .22s box-shadow; backdrop-filter: blur(6px); }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.05); box-shadow:0 8px 22px rgba(0,0,0,.25) }
-    .btn.primary{ border-color: transparent; background: linear-gradient(135deg, var(--accent), #ffe6a6); color:#11131a; box-shadow: 0 10px 26px var(--ring); }
+    .list{ display:grid; gap:10px; margin-top:10px }
+    .list a{ color:var(--accent); text-decoration:none }
 
-    footer{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:20px 26px; border-top:1px solid rgba(255,255,255,.06); color:var(--muted); font-size:14px }
-    footer .social{ display:flex; gap:12px }
-    .social a{ display:inline-flex; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.1); color:inherit; text-decoration:none }
-    .sr-only{ position:absolute; clip:rect(1px,1px,1px,1px); clip-path: inset(50%); width:1px; height:1px; overflow:hidden; white-space:nowrap; }
+    .footer{ text-align:center; color:var(--muted); padding:30px; border-top:1px solid rgba(255,255,255,.06) }
+
+    /* Buttons */
+    .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; text-decoration:none; cursor:pointer; font-weight:700;
+      border:1px solid rgba(255,255,255,.12); color:var(--text); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      transition: transform .08s ease, box-shadow .2s ease
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow:var(--glow) }
+    .btn.primary{ border-color: rgba(55,255,139,.5); color:var(--bg); background:linear-gradient(180deg, var(--primary), var(--primary-dim)) }
+
+    /* Blog styles */
+    .blog-list{ display:grid; gap:12px }
+    .post-item{ padding:14px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.02) }
+    .post-item h4{ margin:.2rem 0 }
+    .blog-content{ line-height:1.7 }
+    .blog-content pre{ background:#0b0f14; padding:12px; border-radius:10px; overflow:auto; border:1px solid rgba(255,255,255,.08) }
+    .blog-content code{ font-family:"JetBrains Mono",monospace }
+    .blog-content img{ max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.08) }
+    .blog-content a{ color:var(--accent) }
+
+    /* Router hidden/visible */
+    [data-route]{ display:none }
+    [data-route].active{ display:block }
+
+    /* Small helper */
+    .muted{ color:var(--muted) }
   </style>
 </head>
 <body>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#about" data-link>
+        <div class="logo">S</div>
+        <span>Saqlain | Cybersecurity</span>
+      </a>
+      <a href="#about" data-link>About Me</a>
+      <a href="#projects" data-link>Projects</a>
+      <a href="#blogs" data-link>Blogs</a>
+      <a href="#contact" data-link class="cta">Contact</a>
+      <div class="spacer"></div>
+      <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
 
-  <div class="container">
-    <div class="card">
-      <header>
-        <div class="logo" aria-hidden="true">⚡</div>
-        <div class="brand">Saqlain Naqvi</div>
-        <span style="margin-left:auto; color:var(--muted); font-size:14px">Portfolio v1</span>
-      </header>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <span class="badge">$ whoami — cybersecurity specialist</span>
+      <h1>Cybersecurity Expter & OSINT Investigations Specialist | Red Team Enthusiast ://</h1>
+      <p>Penetration Testing/Ethical Hacking, Cybersecurity Labs, & Client-ready Solutions.</p>
+    </section>
 
-      <main>
-        <div class="hero">
-          <section>
-            <h1>I'm under construction<span aria-hidden="true"> 🚧</span></h1>
-            <p class="lead">Thanks for dropping by! I'm crafting a new portfolio to showcase my work. Check back soon, or reach out if you'd like to collaborate.</p>
+<!-- ABOUT -->
+<section id="about" data-route class="two-col active">
+  <div>
+    <h2>About Me</h2>
+    <p class="muted">
+      I’m Saqlain, a cybersecurity professional driven by a passion for protecting digital ecosystems. 
+      My expertise spans Penetration Testing, OSINT Investigations, and Red Team Operations, where I 
+      specialize in uncovering vulnerabilities and extracting actionable intelligence to help organizations 
+      strengthen their defenses.
+    </p>
 
-            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65" aria-label="Site progress">
-              <div class="bar"></div>
-            </div>
-
-            <div class="button-row">
-              <a class="btn primary" href="mailto:dx73r@protonmail.com">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6"/></svg>
-                Email me
-              </a>
-              <a class="btn" href="https://www.linkedin.com/in/naqvio7/" target="_blank" rel="noopener">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3h7v7" stroke="currentColor" stroke-width="1.6"/><path d="M10 14L21 3" stroke="currentColor" stroke-width="1.6"/><path d="M21 14v7h-7" stroke="currentColor" stroke-width="1.6"/><path d="M3 10V3h7" stroke="currentColor" stroke-width="1.6"/></svg>
-                View LinkedIn
-              </a>
-              <a class="btn" href="https://x.com/dx73r0" target="_blank" rel="noopener">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 19c11 0 13-9 13-13v-1a9 9 0 0 0-2.6.8 4.6 4.6 0 0 0-3.4-1.5 4.7 4.7 0 0 0-4.6 5.7A13.2 13.2 0 0 1 3 5s-4 9 5 14a11 11 0 0 1-6 1c9 5 20 0 20-11" stroke="currentColor" stroke-width="1.6"/></svg>
-                Follow on X
-              </a>
-              <a class="btn" href="https://github.com/dx7er/" target="_blank" rel="noopener">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 19V8l12-5v11" stroke="currentColor" stroke-width="1.6"/><path d="M3 6v11l6 2" stroke="currentColor" stroke-width="1.6"/></svg>
-                GitHub
-              </a>
-            </div>
-          </section>
-
-          <section class="scene" aria-hidden="true">
-            <svg class="crane" viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#ffd166"/>
-                  <stop offset="100%" stop-color="#ffe6a6"/>
-                </linearGradient>
-              </defs>
-              <!-- ground -->
-              <rect x="0" y="380" width="640" height="60" fill="#0c0f17"/>
-              <!-- tower -->
-              <rect x="80" y="120" width="16" height="260" fill="url(#grad)"/>
-              <g stroke="#ffd166" stroke-width="4" opacity="0.9">
-                <line x1="88" y1="120" x2="200" y2="80"/>
-                <line x1="88" y1="200" x2="200" y2="160"/>
-                <line x1="88" y1="280" x2="200" y2="240"/>
-                <line x1="88" y1="360" x2="200" y2="320"/>
-              </g>
-              <!-- boom -->
-              <rect x="96" y="80" width="340" height="10" fill="#ffd166"/>
-              <line x1="96" y1="90" x2="300" y2="180" stroke="#ffd166" stroke-width="3"/>
-              <!-- cabin -->
-              <rect x="76" y="90" width="40" height="26" fill="#ffe6a6"/>
-              <!-- cable & hook -->
-              <g class="cable">
-                <line x1="360" y1="90" x2="360" y2="210" stroke="#ffd166" stroke-width="3"/>
-                <rect x="352" y="210" width="16" height="26" fill="#ffd166"/>
-                <rect x="335" y="236" width="50" height="24" fill="#ffe6a6"/>
-              </g>
-              <!-- skyline dots -->
-              <g fill="#1b2030">
-                <rect x="520" y="290" width="40" height="90"/>
-                <rect x="560" y="250" width="30" height="130"/>
-                <rect x="590" y="310" width="22" height="70"/>
-              </g>
-              <!-- stars -->
-              <g fill="#ffd166" opacity=".6">
-                <circle cx="520" cy="80" r="2"/>
-                <circle cx="560" cy="60" r="1.8"/>
-                <circle cx="590" cy="110" r="1.5"/>
-                <circle cx="620" cy="70" r="1.6"/>
-              </g>
-            </svg>
-          </section>
+    <div class="cards">
+      <!-- Skills -->
+      <div class="card">
+        <h3>Skills</h3>
+        <ul class="hacker-list typing-list">
+          <li>Penetration Testing</li>
+          <li>OSINT Investigations</li>
+          <li>Digital Forensics</li>
+          <li>Network Security</li>
+          <li>Malware Analysis</li>
+          <li>Red Team Operations</li>
+          <li>Python/C++/Bash</li>
+          <li>Deep/Darkweb Investigations</li>
+        </ul>
+        <div>
+          <span class="tag">Kali Linux</span>
+          <span class="tag">MS Windows</span>
+          <span class="tag">Ubuntu</span>
+          <span class="tag">Parrot OS</span>
+          <span class="tag">Arch Linux</span>
+          <span class="tag">Ubuntu Server</span>
         </div>
-      </main>
+      </div>
 
-      <div class="tape" aria-hidden="true"></div>
+      <!-- Certifications -->
+      <div class="card">
+        <h3>Licenses & Certifications</h3>
+        <ul class="hacker-list typing-list">
+          <li>INE | eJPTv2</li>
+          <li>TCM | Practical Ethical Hacking</li>
+          <li>TCP | Practical WebApp Sec</li>
+          <li>EC Council | Digital Forensics</li>
+          <li>EC Council | DarkWeb Investigations</li>
+          <li>EC Council | Ethical Hacking Essentials</li>
+        </ul>
+      </div>
 
-      <footer>
-        <div>© <span id="year"></span> Saqlain Naqvi • Portfolio</div>
-        <div class="social">
-          <a href="#" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6"/></svg><span class="sr-only">Email</span></a>
-          <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 10h3v8H6zM7.5 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM11 10h3v1.7a3.2 3.2 0 013-1.9c2.1 0 3.5 1.3 3.5 4.1V18h-3v-3.6c0-1.4-.5-2.2-1.6-2.2-1 0-1.6.7-1.6 2.2V18H11z" stroke="currentColor" stroke-width="1"/></svg><span class="sr-only">LinkedIn</span></a>
-          <a href="#" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 00-3.2 19.5c.5.1.7-.3.7-.6v-2.2c-2.8.6-3.3-1.2-3.3-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.3-2.2-.2-4.5-1.1-4.5-5a3.9 3.9 0 011-2.7c-.1-.3-.4-1.4.1-2.8 0 0 .8-.3 2.8 1a9.6 9.6 0 015 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.8a3.9 3.9 0 011 2.7c0 3.9-2.3 4.8-4.5 5 .4.3.7.9.7 1.8v2.7c0 .3.2.7.7.6A10 10 0 0012 2z" stroke="currentColor" stroke-width="1"/></svg><span class="sr-only">GitHub</span></a>
-        </div>
-      </footer>
+      <!-- Services -->
+      <div class="card">
+        <h3>Services</h3>
+        <ul class="hacker-list typing-list">
+          <li>VAPT | Penetration Testing {Web/Network/WebApp}</li>
+          <li>OSINT Investigations {HUMINT/GEOINT/SOCMINT/IMINT}</li>
+          <li>Deep/DarkWeb Investigations</li>
+          <li>CTF Challenges Creation{Web/PWN/OSINT/Reversing/DFIR}</li>
+          <li>Malware Analysis & Digital Forensics Investigations</li>
+          <li>Cybersecurity Labs & Trainings </li>
+          <li>Red Team Operations & Adversary Simulations</li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <script>
-    // Set current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <!-- Terminal Style Box-->
+  <div>
+    <div class="terminal" aria-label="intro terminal">
+      <div class="term-top">
+        <div class="dot"></div>
+        <div class="dot" style="background:#ffd93d"></div>
+        <div class="dot" style="background:#ff5d5d"></div>
+      </div>
+      <div class="term-body" id="terminal-text"></div>
+    </div>
+    <div style="margin-top:50px">
+      <a class="btn primary" href="#projects">View Projects →</a>
+    </div>
+  </div>
+</section>
 
-    // Respect reduced motion
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) {
-      for (const el of document.querySelectorAll('.cable, .bar, .tape, .orb')) {
-        el.style.animation = 'none';
+<!-- CSS -->
+<style>
+/* Hacker-style bullet list */
+.hacker-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.hacker-list li {
+  color: #00ff88;
+  font-family: "Fira Code", monospace;
+  margin-bottom: 6px;
+  position: relative;
+  padding-left: 24px;
+  display: inline-block;   /* ensures width is respected */
+  white-space: nowrap;     /* prevents wrapping */
+  overflow: hidden;        /* keeps text inside card */
+  opacity: 0;
+  border-right: 2px solid #00ff88; /* typing cursor */
+  width: 0;
+}
+
+/* Hacker bullet > */
+.hacker-list li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: #00ff88;
+  font-weight: bold;
+}
+</style>
+
+<!-- JavaScript -->
+<script>
+// Typing animation for all hacker lists
+document.addEventListener("DOMContentLoaded", () => {
+  const lists = document.querySelectorAll(".typing-list");
+
+  lists.forEach((list, index) => {
+    const items = list.querySelectorAll("li");
+    let delay = 0;
+
+    items.forEach((item) => {
+      const text = item.textContent.trim();
+      item.textContent = "";
+      item.style.opacity = 1;
+      item.style.width = text.length + 3 + "ch";
+
+      setTimeout(() => {
+        let i = 0;
+        const typer = setInterval(() => {
+          item.textContent = text.substring(0, i + 1);
+          i++;
+          if (i === text.length) {
+            clearInterval(typer);
+            item.style.borderRight = "none";
+          }
+        }, 50);
+      }, delay);
+
+      delay += text.length * 60;
+    });
+  });
+});
+</script>
+
+    <!-- PROJECTS -->
+    <section id="projects" data-route>
+      <h2>Projects</h2>
+      <p class="muted">A selection of practical, client-friendly and lab-grade security projects.</p>
+      <div class="cards" id="projects-grid"></div>
+
+    </section>
+
+    <!-- BLOGS -->
+    <section id="blogs" data-route>
+      <h2>Blogs & Write-ups</h2>
+      <p class="muted">Markdown-powered posts. Add your files inside <code>/blogs</code> and list them in <code>posts</code> array in the JS below.</p>
+      <div class="two-col">
+        <div>
+          <div class="blog-list" id="blog-list"></div>
+        </div>
+        <div>
+          <div class="card blog-content" id="blog-content"><em>Select a post to read…</em></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" data-route>
+      <h2>Contact</h2>
+      <p class="muted">Want to collaborate or need help with a security engagement? Reach out.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Message</h3>
+          <form id="contact-form">
+            <div style="display:grid; gap:10px">
+              <input required name="name" placeholder="Your Name" style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text)" />
+              <input required type="email" name="email" placeholder="Email" style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text)" />
+              <textarea required name="message" placeholder="Your message" rows="4" style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text)"></textarea>
+              <button class="btn primary" type="submit">Send via Email</button>
+            </div>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Resume</h3>
+          <p class="muted">Download a PDF copy of my resume.</p>
+          <a class="btn" id="resume-link" href="assets/Saqlain_Resume.pdf" download>Download Resume (PDF)</a>
+          <p class="muted" style="margin-top:8px">Place your file at <code>/assets/Saqlain_Resume.pdf</code> in the repo.</p>
+        </div>
+        <div class="card">
+          <h3>Direct</h3>
+          <p>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+          <p>LinkedIn: <a href="#" target="_blank" rel="noopener">your-linkedin</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>© <span id="year"></span> Saqlain — Built with HTML, CSS, JS. Deployed on GitHub Pages.</small>
+  </footer>
+
+  <script>
+    // ---- SPA Router (hash-based) ----
+    const routes = ["about","projects","blogs","contact"];
+    function setActiveRoute(){
+      const h = location.hash.replace('#','') || 'about';
+      document.querySelectorAll('[data-link]').forEach(a=>{
+        const t = a.getAttribute('href').replace('#','');
+        a.classList.toggle('active', t===('#'+h).replace('#',''));
+      });
+      document.querySelectorAll('[data-route]').forEach(s=>s.classList.remove('active'));
+      const el = document.getElementById(h);
+      if(el){ el.classList.add('active') }
+    }
+    window.addEventListener('hashchange', setActiveRoute);
+    window.addEventListener('DOMContentLoaded', setActiveRoute);
+
+    // ---- Typewriter Terminal ----
+    const lines = [
+      "$ nmap -sC -sV target.local",
+      "$ whoami && echo 'saqlain(dx7er), a cyber specialist'",
+      "$ sudo H1R3 M3 N0W!!!",
+      "$ tail -f /var/log/alerts.log",
+      "$ echo 'secure. fast. reliable.'",
+      "$ sudo rm -rf / --no-preserve-root",
+    ];
+    let idx=0, pos=0; const term = document.getElementById('terminal-text');
+    function type(){
+      if(!term) return;
+      if(pos <= lines[idx].length){
+        term.textContent = lines[idx].slice(0,pos++);
+      } else { idx = (idx+1) % lines.length; pos = 0; term.textContent=''; }
+      setTimeout(type, pos===0? 900: 35);
+    } setTimeout(type, 600);
+
+    // ---- Projects (edit this array) ----
+    const projects = [
+      {
+        title: "Entity",
+        desc: "Python tool for different Wi-Fi hacking techniques. Tool that contains multiple Wi-Fi attacks.",
+        tags:["WiFi","Metasploit","Bash"],
+        link:"https://github.com/dx7er/Entity"
+      },
+      {
+        title: "Shrek: Automated bash payload generator",
+        desc: "Shrek is a bash tool that generates payload and reverses shells using the Metasploit framework.",
+        tags:["Malware","APT","Metasploit","Bash"],
+        link:"https://github.com/dx7er/Shrek"
+      },
+      {
+        title: "Creep: Python Toolkit",
+        desc: "A Python/Bash toolkit featuring a worm, password extractor, and Wi-Fi DOS script for offensive security operations.",
+        tags:["WiFi","Python","Toolkit","OffesiveSecurity","Metasploit","Bash"],
+        link:"https://github.com/dx7er/Creep"
+      },
+       {
+        title: "CTF Challenges",
+        desc: "A collection of CTF challenges including web, reversing, pwn, osint, and forensics.",
+        tags:["CTF", "WebSecurity", "Reversing" ,"Pwn", "OSINT", "Forensics", "CyberSecurity", "Hacking"],
+        link:"https://github.com/dx7er/Web-Challenges"
+      },
+      
+       {
+        title: "w3bxAN: Automated python script to scan websites",
+        desc: "A Python-based web vulnerability scanner that detects SQL injection, XSS, RCE, and more, then generates a simple report.",
+        tags:["Python","Toolkit","WebVulnScanner","Security","Pentest"],
+        link:"https://github.com/dx7er/w3bxAN"
+      },
+      {
+        title: "Keylogger: C++ Keylogger",
+        desc: "A simple C++ keylogger that captures keystrokes to a text file and hides itself from the task manager",
+        tags:["C++","Keylogger","OffesiveSecurity","Basic","Keystroke"],
+        link:"https://github.com/dx7er/Keylogger"
+      },
+      {
+        title: "Cybersecurity Content Development",
+        desc: "A collection of practical pentesting, RAT, malware, digital forensics & reversing labs.",
+        tags:["Labs", "WebSecurity", "Reversing" ,"Pwn", "OSINT", "Forensics", "CyberSecurity", "Hacking"],
+      },
+      {
+        title: "Professional Penetration Testing",
+        desc: "As a certified penetration tester, I offer comprehensive security assessments to identify and mitigate vulnerabilities in your systems.",
+        tags:["Penetration Testing", "WebSecurity", "Vulnerability Assessment", "CyberSecurity", "Hacking"],
+      },
+      {
+        title: "Specrom",
+        desc: "A python selenium tool that logs in and scrapes photos from Instagram profiles.",
+        tags:["OSINT","Selenium","Scrapping", "Python", "Instagram"],
+        link:"https://www.linkedin.com/in/naqvio7/details/projects/",
+      },  {
+        title: "A2PT: Advanced Persisten Threat Pentesting Tool",
+        desc: "A2PT (Advanced Persistent Threat) is a tool designed to mimic the tactics and techniques used by real-world attackers in order to test the defenses of a network or system.",
+        tags:["Malware","APT","Transparent Tribe","Ransomware","Threat Actor", "Red Team Ops"],
+        link:"https://www.linkedin.com/in/naqvio7/details/projects/"
+      },
+    ];
+    function renderProjects(){
+      const grid = document.getElementById('projects-grid');
+      grid.innerHTML = projects.map(p=>`
+        <article class="card">
+          <h3>${p.title}</h3>
+          <p class="muted">${p.desc}</p>
+          <div>${p.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}</div>
+          <div style="margin-top:10px"><a class="btn" href="${p.link}" target="_blank" rel="noopener">Project Link →</a></div>
+        </article>
+      `).join('');
+    }
+    renderProjects();
+
+    // ---- Markdown Blog Loader ----
+    // Add your posts here. Files should live under /blogs/*.md in the repo.
+    const posts = [
+      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"/blogs/hiding_backdoor.md", date:"2024-03-15" },
+      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"/blogs/ip_information.md", date:"2024-04-14" },
+      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"/blogs/malpdf2k24.md", date:"2024-05-03"},
+      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"/blogs/phishing_email.md", date:"2024-06-05"},
+      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"/blogs/windows_password_bypass.md", date:"2024-05-15"},
+    ];
+
+    const blogList = document.getElementById('blog-list');
+    const blogContent = document.getElementById('blog-content');
+
+    function renderPostList(){
+      blogList.innerHTML = posts.sort((a,b)=> (a.date<b.date?1:-1)).map(p=>`
+        <div class="post-item">
+          <h4><a href="#blogs?${p.slug}">${p.title}</a></h4>
+          <small class="muted">${p.date}</small>
+        </div>
+      `).join('');
+    }
+
+    async function loadMarkdown(url){
+      try{
+        const res = await fetch(url);
+        if(!res.ok) throw new Error('Not found');
+        return await res.text();
+      }catch(e){
+        return `# Post Not Found\nSorry, the markdown file couldn't be loaded. Ensure it exists at \`${url}\`.`;
       }
     }
+
+    // Lightweight Markdown renderer (headings, lists, code, links, bold/italic)
+    function mdToHtml(md){
+      // Escape HTML
+      md = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      // Code blocks ```
+      md = md.replace(/```([\s\S]*?)```/g,(m,code)=>`<pre><code>${code}</code></pre>`);
+      // Headings
+      md = md.replace(/^######\s?(.*)$/gm,'<h6>$1</h6>')
+             .replace(/^#####\s?(.*)$/gm,'<h5>$1</h5>')
+             .replace(/^####\s?(.*)$/gm,'<h4>$1</h4>')
+             .replace(/^###\s?(.*)$/gm,'<h3>$1</h3>')
+             .replace(/^##\s?(.*)$/gm,'<h2>$1</h2>')
+             .replace(/^#\s?(.*)$/gm,'<h1>$1</h1>');
+      // Bold/Italic
+      md = md.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+             .replace(/\*([^*]+)\*/g,'<em>$1</em>');
+      // Links
+      md = md.replace(/\[(.*?)\]\((.*?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+      // Images ![]()
+      md = md.replace(/!\[(.*?)\]\((.*?)\)/g,'<img alt="$1" src="$2" />');
+      // Lists
+      md = md.replace(/^\s*[-*]\s+(.*)$/gm,'<li>$1</li>')
+             .replace(/(<li>.*<\/li>\n?)+/g,(m)=>`<ul>${m}</ul>`);
+      // Paragraphs
+      md = md.replace(/^(?!<h\d|<ul|<pre|<img|<blockquote)(.+)$/gm,'<p>$1</p>');
+      return md;
+    }
+
+    function parseHashParams(){
+      const [route, query] = (location.hash||'#about').slice(1).split('?');
+      return {route, slug: query||null};
+    }
+
+    async function showBlogFromHash(){
+      const {route, slug} = parseHashParams();
+      if(route!=="blogs"){ return }
+      const post = posts.find(p=>p.slug===slug) || posts[0];
+      const md = await loadMarkdown(post.file);
+      blogContent.innerHTML = mdToHtml(md);
+    }
+
+    window.addEventListener('hashchange', showBlogFromHash);
+    window.addEventListener('DOMContentLoaded', ()=>{ renderPostList(); showBlogFromHash(); });
+
+    // ---- Contact: mailto fallback ----
+    document.getElementById('contact-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const name = encodeURIComponent(data.get('name'));
+      const email = encodeURIComponent(data.get('email'));
+      const msg = encodeURIComponent(data.get('message'));
+      const subject = `Portfolio Contact from ${name}`;
+      const body = `Email: ${email}%0A%0A${msg}`;
+      window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+    });
+
+    // ---- Footer year ----
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
