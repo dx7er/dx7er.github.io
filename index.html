@@ -467,12 +467,44 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- Markdown Blog Loader ----
     // Add your posts here. Files should live under /blogs/*.md in the repo.
     const posts = [
-      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"blogs/hiding_backdoor.md", date:"2024-03-15" },
-      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"blogs/ip_information.md", date:"2024-04-14" },
-      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"blogs/malpdf2k24.md", date:"2024-05-03"},
-      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"blogs/phishing_email.md", date:"2024-06-05"},
-      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"blogs/windows_password_bypass.md", date:"2024-05-15"},
+      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"/blogs/hiding_backdoor.md", date:"2024-03-15" },
+      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"/blogs/ip_information.md", date:"2024-04-14" },
+      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"/blogs/malpdf2k24.md", date:"2024-05-03"},
+      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"/blogs/phishing_email.md", date:"2024-06-05"},
+      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"/blogs/windows_password_bypass.md", date:"2024-05-15"},
     ];
+
+    async function loadPosts() {
+  try {
+    const res = await fetch('blogs/posts.json'); // Path relative to root
+    if(!res.ok) throw new Error('posts.json not found');
+    const dynamicPosts = await res.json();
+    return dynamicPosts;
+  } catch(e) {
+    console.warn('Could not load dynamic posts, falling back to static array', e);
+    return posts; // fallback to existing static array
+  }
+}
+
+async function initBlogs() {
+  const dynamicPosts = await loadPosts();
+  blogList.innerHTML = dynamicPosts.sort((a,b)=> (a.date<b.date?1:-1)).map(p=>`
+    <div class="post-item">
+      <h4><a href="#blogs?${p.slug}">${p.title}</a></h4>
+      <small class="muted">${p.date}</small>
+    </div>
+  `).join('');
+
+  // Show first blog or selected blog
+  const {slug} = parseHashParams();
+  const post = dynamicPosts.find(p=>p.slug===slug) || dynamicPosts[0];
+  const md = await loadMarkdown(post.file);
+  blogContent.innerHTML = mdToHtml(md);
+}
+
+// Initialize
+window.addEventListener('DOMContentLoaded', initBlogs);
+window.addEventListener('hashchange', initBlogs);
 
     const blogList = document.getElementById('blog-list');
     const blogContent = document.getElementById('blog-content');
