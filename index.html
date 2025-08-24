@@ -132,8 +132,8 @@
   <header>
     <nav class="nav">
       <a class="brand" href="#about" data-link>
-        <div class="logo">S</div>
-        <span>Saqlain | Cybersecurity</span>
+        <img src=assets/logo.png" class="logo-img" />
+        <span>dx73r</span>
       </a>
       <a href="#about" data-link>About Me</a>
       <a href="#projects" data-link>Projects</a>
@@ -340,20 +340,21 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="card">
           <h3>Resume</h3>
           <p class="muted">Download a PDF copy of my resume.</p>
-          <a class="btn" id="resume-link" href="assets/Saqlain_Resume.pdf" download>Download Resume (PDF)</a>
-          <p class="muted" style="margin-top:8px">Place your file at <code>/assets/Saqlain_Resume.pdf</code> in the repo.</p>
+          <a class="btn" id="resume-link" href="assets/Resume.pdf" download>Download Resume (PDF)</a>
+         <!-- <p class="muted" style="margin-top:8px">Place your file at <code>/assets/Saqlain_Resume.pdf</code> in the repo.</p>-->
         </div>
         <div class="card">
           <h3>Direct</h3>
-          <p>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
-          <p>LinkedIn: <a href="#" target="_blank" rel="noopener">your-linkedin</a></p>
+          <p>Email: <a href="mailto:dx73r@protonmail.com">dx73r@protonmail.com</a></p>
+          <p>LinkedIn: <a href="https://www.linkedin.com/in/naqvio7/" target="_blank" rel="noopener">in/naqvio7</a></p>
+          <p>GitHub: <a href="https://github.com/dx7er" target="_blank" rel="noopener">@dx7er</a></p>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <small>© <span id="year"></span> Saqlain — Built with HTML, CSS, JS. Deployed on GitHub Pages.</small>
+    <small>© <span id="year"></span> Saqlain | All rights reserved </small>
   </footer>
 
   <script>
@@ -473,38 +474,6 @@ document.addEventListener("DOMContentLoaded", () => {
       { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"/blogs/phishing_email.md", date:"2024-06-05"},
       { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"/blogs/windows_password_bypass.md", date:"2024-05-15"},
     ];
-
-    async function loadPosts() {
-  try {
-    const res = await fetch('blogs/posts.json'); // Path relative to root
-    if(!res.ok) throw new Error('posts.json not found');
-    const dynamicPosts = await res.json();
-    return dynamicPosts;
-  } catch(e) {
-    console.warn('Could not load dynamic posts, falling back to static array', e);
-    return posts; // fallback to existing static array
-  }
-}
-
-async function initBlogs() {
-  const dynamicPosts = await loadPosts();
-  blogList.innerHTML = dynamicPosts.sort((a,b)=> (a.date<b.date?1:-1)).map(p=>`
-    <div class="post-item">
-      <h4><a href="#blogs?${p.slug}">${p.title}</a></h4>
-      <small class="muted">${p.date}</small>
-    </div>
-  `).join('');
-
-  // Show first blog or selected blog
-  const {slug} = parseHashParams();
-  const post = dynamicPosts.find(p=>p.slug===slug) || dynamicPosts[0];
-  const md = await loadMarkdown(post.file);
-  blogContent.innerHTML = mdToHtml(md);
-}
-
-// Initialize
-window.addEventListener('DOMContentLoaded', initBlogs);
-window.addEventListener('hashchange', initBlogs);
 
     const blogList = document.getElementById('blog-list');
     const blogContent = document.getElementById('blog-content');
