@@ -55,6 +55,7 @@
                  var(--panel-2);
       box-shadow:var(--glow); font-family:"JetBrains Mono",monospace; font-weight:700;
     }
+    .logo-img{ height:28px; width:auto; display:block }
     .brand span{font-weight:800; letter-spacing:.4px}
 
     .nav a{
@@ -84,6 +85,10 @@
     .card h3{ margin:.2rem 0 .4rem; font-size:18px }
     .card p{ margin:0; color:var(--muted) }
     .tag{ display:inline-block; font-size:12px; border:1px solid rgba(255,255,255,.08); padding:4px 8px; border-radius:999px; margin-right:6px; margin-top:8px; color:var(--text); opacity:.9 }
+    /* About: fix card sizing and spacing */
+    #about .card{ min-height:220px }
+    #about .cards{ margin-bottom:12px }
+    @media (max-width: 900px){ #about .two-col > div + div{ margin-top:12px } }
 
     .two-col{ display:grid; gap:24px; grid-template-columns:1.2fr .8fr }
     @media (max-width: 900px){ .two-col{ grid-template-columns:1fr } .hero h1{ font-size:32px } }
@@ -113,11 +118,15 @@
     .blog-list{ display:grid; gap:12px }
     .post-item{ padding:14px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.02) }
     .post-item h4{ margin:.2rem 0 }
-    .blog-content{ line-height:1.7 }
-    .blog-content pre{ background:#0b0f14; padding:12px; border-radius:10px; overflow:auto; border:1px solid rgba(255,255,255,.08) }
+    .blog-content{ line-height:1.7; overflow-wrap:anywhere; word-break:break-word }
+    .blog-content pre{ background:#0b0f14; padding:12px; border-radius:10px; overflow:auto; border:1px solid rgba(255,255,255,.08); white-space:pre-wrap; word-break:break-word }
     .blog-content code{ font-family:"JetBrains Mono",monospace }
     .blog-content img{ max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.08) }
-    .blog-content a{ color:var(--accent) }
+    .blog-content a{ color:var(--text); word-break:break-word }
+    .blog-list a{ color:var(--text); text-decoration:none }
+    .blog-list a:hover{ text-decoration:underline }
+    #contact .card a{ color:var(--primary); text-decoration:none }
+    #contact .card a:hover{ text-decoration:underline }
 
     /* Router hidden/visible */
     [data-route]{ display:none }
@@ -125,6 +134,19 @@
 
     /* Small helper */
     .muted{ color:var(--muted) }
+
+    /* Modal (resume password) */
+    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:50 }
+    .modal-backdrop.active{ display:flex }
+    .modal{ width:min(420px, 92vw); background:linear-gradient(180deg, rgba(17,24,32,.95), rgba(17,24,32,.85)); border:1px solid rgba(55,255,139,.25); border-radius:16px; box-shadow:var(--glow) }
+    .modal header{ padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:center; justify-content:space-between }
+    .modal header h4{ margin:0; font-size:16px }
+    .modal .close{ background:none; border:0; color:var(--muted); cursor:pointer; font-size:18px }
+    .modal .body{ padding:16px }
+    .modal .body p{ margin:0 0 10px; color:var(--muted) }
+    .modal .body input{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text) }
+    .modal .footer{ padding:14px 16px; display:flex; gap:10px; justify-content:flex-end; border-top:1px solid rgba(255,255,255,.06) }
+    .error{ color:var(--danger); font-size:12px; margin-top:8px }
   </style>
 </head>
 <body>
@@ -132,15 +154,14 @@
   <header>
     <nav class="nav">
       <a class="brand" href="#about" data-link>
-        <img src=assets/logo.png" class="logo-img" />
-        <span>dx73r</span>
+        <img src="assets/logo.png" class="logo-img"/>
+        <span></span>
       </a>
       <a href="#about" data-link>About Me</a>
       <a href="#projects" data-link>Projects</a>
       <a href="#blogs" data-link>Blogs</a>
       <a href="#contact" data-link class="cta">Contact</a>
       <div class="spacer"></div>
-      <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
 
@@ -215,7 +236,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Terminal Style Box-->
   <div>
     <div class="terminal" aria-label="intro terminal">
@@ -247,12 +268,14 @@
   margin-bottom: 6px;
   position: relative;
   padding-left: 24px;
-  display: inline-block;   /* ensures width is respected */
-  white-space: nowrap;     /* prevents wrapping */
-  overflow: hidden;        /* keeps text inside card */
+  display: block;          /* changed from inline-block to block */
+  white-space: normal;     /* changed from nowrap to normal */
+  overflow: visible;       /* changed from hidden to visible */
   opacity: 0;
   border-right: 2px solid #00ff88; /* typing cursor */
-  width: 0;
+  /* Remove width: 0; to prevent single character per line */
+  word-wrap: break-word;   /* allows long words to break */
+  word-break: break-word;  /* ensures text breaks when needed */
 }
 
 /* Hacker bullet > */
@@ -279,7 +302,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const text = item.textContent.trim();
       item.textContent = "";
       item.style.opacity = 1;
-      item.style.width = text.length + 3 + "ch";
+      // Set a reasonable width that allows wrapping
+      item.style.width = "100%";
+      item.style.maxWidth = "100%";
 
       setTimeout(() => {
         let i = 0;
@@ -310,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <!-- BLOGS -->
     <section id="blogs" data-route>
       <h2>Blogs & Write-ups</h2>
-      <p class="muted">Markdown-powered posts. Add your files inside <code>/blogs</code> and list them in <code>posts</code> array in the JS below.</p>
+      <p class="muted">Deep-dive write-ups, security research, and real-world findings.</p>
       <div class="two-col">
         <div>
           <div class="blog-list" id="blog-list"></div>
@@ -340,7 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="card">
           <h3>Resume</h3>
           <p class="muted">Download a PDF copy of my resume.</p>
-          <a class="btn" id="resume-link" href="assets/Resume.pdf" download>Download Resume (PDF)</a>
+          <a class="btn" id="resume-link" href="#" data-file="assets/Resume.pdf">Download Resume (PDF)</a>
          <!-- <p class="muted" style="margin-top:8px">Place your file at <code>/assets/Saqlain_Resume.pdf</code> in the repo.</p>-->
         </div>
         <div class="card">
@@ -361,13 +386,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- SPA Router (hash-based) ----
     const routes = ["about","projects","blogs","contact"];
     function setActiveRoute(){
-      const h = location.hash.replace('#','') || 'about';
+      const raw = (location.hash || '#about').slice(1);
+      const route = raw.split('?')[0] || 'about';
       document.querySelectorAll('[data-link]').forEach(a=>{
         const t = a.getAttribute('href').replace('#','');
-        a.classList.toggle('active', t===('#'+h).replace('#',''));
+        a.classList.toggle('active', t===route);
       });
       document.querySelectorAll('[data-route]').forEach(s=>s.classList.remove('active'));
-      const el = document.getElementById(h);
+      const el = document.getElementById(route);
       if(el){ el.classList.add('active') }
     }
     window.addEventListener('hashchange', setActiveRoute);
@@ -468,11 +494,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- Markdown Blog Loader ----
     // Add your posts here. Files should live under /blogs/*.md in the repo.
     const posts = [
-      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"/blogs/hiding_backdoor.md", date:"2024-03-15" },
-      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"/blogs/ip_information.md", date:"2024-04-14" },
-      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"/blogs/malpdf2k24.md", date:"2024-05-03"},
-      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"/blogs/phishing_email.md", date:"2024-06-05"},
-      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"/blogs/windows_password_bypass.md", date:"2024-05-15"},
+      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"blogs/hiding_backdoor.md", date:"2024-03-15" },
+      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"blogs/ip_information.md", date:"2024-04-14" },
+      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"blogs/malpdf2k24.md", date:"2024-05-03"},
+      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"blogs/phishing_email.md", date:"2024-06-05"},
+      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"blogs/windows_password_bypass.md", date:"2024-05-15"},
     ];
 
     const blogList = document.getElementById('blog-list');
@@ -533,7 +559,15 @@ document.addEventListener("DOMContentLoaded", () => {
     async function showBlogFromHash(){
       const {route, slug} = parseHashParams();
       if(route!=="blogs"){ return }
-      const post = posts.find(p=>p.slug===slug) || posts[0];
+      if(!slug){
+        blogContent.innerHTML = '<em>Select a post to read…</em>';
+        return;
+      }
+      const post = posts.find(p=>p.slug===slug);
+      if(!post){
+        blogContent.innerHTML = '<em>Post not found.</em>';
+        return;
+      }
       const md = await loadMarkdown(post.file);
       blogContent.innerHTML = mdToHtml(md);
     }
@@ -551,6 +585,72 @@ document.addEventListener("DOMContentLoaded", () => {
       const subject = `Portfolio Contact from ${name}`;
       const body = `Email: ${email}%0A%0A${msg}`;
       window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+    });
+
+    // ---- Resume: password gate ----
+    document.getElementById('resume-link')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const file = e.currentTarget.getAttribute('data-file') || 'assets/Resume.pdf';
+      const modal = document.createElement('div');
+      modal.classList.add('modal-backdrop', 'active');
+      modal.innerHTML = `
+        <div class="modal">
+          <header>
+            <h4>Resume Password</h4>
+            <button class="close">&times;</button>
+          </header>
+          <div class="body">
+            <p>Enter the password to download the resume:</p>
+            <input type="password" id="resume-password-input" />
+            <div class="error" id="resume-password-error"></div>
+          </div>
+          <div class="footer">
+            <button class="btn" id="resume-password-cancel">Cancel</button>
+            <button class="btn primary" id="resume-password-submit">Submit</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      const closeBtn = modal.querySelector('.close');
+      const cancelBtn = modal.querySelector('#resume-password-cancel');
+      const submitBtn = modal.querySelector('#resume-password-submit');
+      const passwordInput = modal.querySelector('#resume-password-input');
+      const errorMsg = modal.querySelector('#resume-password-error');
+
+      closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+      });
+
+      submitBtn.addEventListener('click', () => {
+        const inputPassword = passwordInput.value;
+        if (inputPassword === 'dx73r@111') {
+          const a = document.createElement('a');
+          a.href = file;
+          a.download = file.split('/').pop() || 'Resume.pdf';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          modal.classList.remove('active');
+          setTimeout(() => modal.remove(), 300);
+        } else {
+          errorMsg.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = ''; // Clear input
+          setTimeout(() => errorMsg.textContent = '', 3000); // Clear error message after 3 seconds
+        }
+      });
+
+      passwordInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          submitBtn.click();
+        }
+      });
     });
 
     // ---- Footer year ----
