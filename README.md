@@ -1,16 +1,16 @@
 # dx7er.github.io
 
-> The official GitHub Pages site for **Syed Saqlain (dx7er)** — showcasing portfolio highlights, blogs, and infosec projects.
+> The official GitHub Pages site for **dx7er**, showcasing portfolio highlights, blogs, and infosec projects.
 
 ##  Overview
 
-This repository powers the personal website of **Syed Saqlain (dx7er)** — an OSINT Expert, Ethical Hacker, and Penetration Tester based in Rawalpindi, Pakistan. It hosts your portfolio, write-ups, and project showcases built with a static site generator (e.g., Jekyll, Hugo, plain HTML/CSS).
+This repository powers the personal website of **Syed Saqlain (dx7er)** an OSINT Expert, Ethical Hacker, and Penetration Tester based in Rawalpindi, Pakistan. It hosts your portfolio, write-ups, and project showcases built with a static site generator (e.g., Jekyll, Hugo, plain HTML/CSS).
 
 ##  Built With
 
 - Static site framework: _[Jekyll / Hugo / plain HTML]_  
 - HTML, CSS, JavaScript  
-- (Optional) Front-end framework _(e.g., Bootstrap, Tailwind)_  
+- (Optional) Front-end framework (e.g., Bootstrap, Tailwind)_  
 - GitHub Pages for hosting and deployment
 
 ##  Getting Started
@@ -44,7 +44,7 @@ Contributions are welcome! Whether it's adding blog posts, portfolio updates, or
 3. Make your improvements
 4. Commit: git commit -m "Add [your feature]"
 5. Push: git push origin feature/YourUpdate
-6. Open a Pull Request — I’ll review and merge it if all looks good!
+6. Open a Pull Request, I’ll review and merge it if all looks good!
 
 
 ### License
