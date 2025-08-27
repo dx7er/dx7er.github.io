@@ -4,7 +4,7 @@
 
 ##  Overview
 
-This repository powers the personal website of **Syed Saqlain (dx7er)** an OSINT Expert, Ethical Hacker, and Penetration Tester based in Rawalpindi, Pakistan. It hosts your portfolio, write-ups, and project showcases built with a static site generator (e.g., Jekyll, Hugo, plain HTML/CSS).
+This repository hosts my portfolio, write-ups, and project showcases built with a static site generator (e.g., Jekyll, Hugo, plain HTML/CSS).
 
 ##  Built With
 
