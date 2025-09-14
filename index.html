@@ -147,8 +147,107 @@
     .modal .body input{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text) }
     .modal .footer{ padding:14px 16px; display:flex; gap:10px; justify-content:flex-end; border-top:1px solid rgba(255,255,255,.06) }
     .error{ color:var(--danger); font-size:12px; margin-top:8px }
+
+
+/* Scrollable Experience Card */
+.experience-card {
+  max-height: 280px;       /* Adjust height */
+  overflow-y: auto;        /* Enable vertical scroll */
+  padding-right: 10px;     /* space for scrollbar */
+  scrollbar-width: thin;   /* Firefox */
+  scrollbar-color: var(--primary) var(--panel-2); /* scrollbar colors */
+}
+
+/* Chrome/Edge scrollbar styling */
+.experience-card::-webkit-scrollbar {
+  width: 8px;
+}
+.experience-card::-webkit-scrollbar-track {
+  background: var(--panel-2);
+  border-radius: 10px;
+}
+.experience-card::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+.experience-card::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dim);
+}
+
+/* Contact Section */
+.contact-section {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.contact-header h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.contact-header p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Two-column grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-info p {
+  margin: 12px 0;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-info i {
+  width: 18px;
+  height: 18px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.contact-info a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Input fields styling */
+#contact-form input,
+#contact-form textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: #0c1117;
+  color: var(--text);
+  font-size: 15px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
   </style>
 </head>
+
 <body>
   <div class="grid-bg" aria-hidden="true"></div>
   <header>
@@ -169,8 +268,8 @@
     <!-- HERO -->
     <section class="hero">
       <span class="badge">$ whoami — cybersecurity specialist</span>
-      <h1>Cybersecurity Expter & OSINT Investigations Specialist | Red Team Enthusiast ://</h1>
-      <p>Penetration Testing/Ethical Hacking, Cybersecurity Labs, & Client-ready Solutions.</p>
+      <h1>Cybersecurity Expert & OSINT Investigator<span class="accent"> | Red Team Enthusiast</span> ://</h1>
+      <p>Penetration Testing / Ethical Hacking, Cybersecurity Labs / CTF Challenges, & Client-ready Solutions.</p>
     </section>
 
 <!-- ABOUT -->
@@ -185,6 +284,50 @@
     </p>
 
     <div class="cards">
+      <!-- Services -->
+      <div class="card">
+        <h3>Services</h3>
+        <ul class="hacker-list typing-list">
+          <li>VAPT | Penetration Testing {Web/Network/WebApp}</li>
+          <li>OSINT Investigations {HUMINT/GEOINT/SOCMINT/IMINT/DarkNet}</li>
+          <li>Deep/DarkWeb Investigations</li>
+          <li>CTF Challenges Creation{Web/PWN/OSINT/Reversing/DFIR}</li>
+          <li>Malware Analysis & Digital Forensics Investigations</li>
+          <li>Cybersecurity Labs & Trainings </li>
+          <li>Red Team Operations & Adversary Simulations</li>
+        </ul>
+         <div>
+          <span class="tag">Ethical Hacking</span>
+          <span class="tag">Digital Forensics</span>
+          <span class="tag">OSINT</span>
+          <span class="tag">Red Team Ops</span>
+          <span class="tag">Online Trainings</span>
+          <span class="tag">Certifications Prep</span>
+          <span class="tag">DarkWeb</span>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="card">
+        <h3>Experience</h3>
+        <ul class="hacker-list typing-list">
+          <li>Cybersecurity Labs Engineer at Root Capture - (2024 - Current) </li>
+          <li>Research Officer at Pakistan Air Force - (2023 - 2025)</li>
+          <li>Cybersecurity Intern at NCFL Air University - (2022 - 2022)</li>
+          <li>Professional Cybersecurity Freelancer at Fiverr & Upwork - (2022 - Current)</li>
+          <li>Passionate CTF Player - BlackHat MEA & IgnitePK CTFs</li>
+        </ul>
+        <div>
+          <span class="tag">OSINT</span>
+          <span class="tag">GDPR</span>
+          <span class="tag">ISO27001</span>
+          <span class="tag">DFIR</span>
+          <span class="tag">NIST</span>
+          <span class="tag">HIPAA</span>
+          <span class="tag">Penetration Testing</span>
+        </div>
+      </div>
+
       <!-- Skills -->
       <div class="card">
         <h3>Skills</h3>
@@ -192,11 +335,12 @@
           <li>Penetration Testing</li>
           <li>OSINT Investigations</li>
           <li>Digital Forensics</li>
+          <li>Ethical Hacking</li>
           <li>Network Security</li>
           <li>Malware Analysis</li>
           <li>Red Team Operations</li>
-          <li>Python/C++/Bash</li>
-          <li>Deep/Darkweb Investigations</li>
+          <li>Python/C++/Bash Scripting</li>
+          <li>Deep/DarkNet Investigations</li>
         </ul>
         <div>
           <span class="tag">Kali Linux</span>
@@ -219,21 +363,24 @@
           <li>EC Council | DarkWeb Investigations</li>
           <li>EC Council | Ethical Hacking Essentials</li>
         </ul>
+        <div>
+          <span class="tag">OSCP</span>
+          <span class="tag">eJPTv2</span>
+          <span class="tag">eCPPT</span>
+          <span class="tag">eWPT</span>
+          <span class="tag">CEH</span>
+          <span class="tag">OSEP</span>
+        </div>
       </div>
-
-      <!-- Services -->
+      <!-- Education -->
       <div class="card">
-        <h3>Services</h3>
+        <h3>Education</h3>
         <ul class="hacker-list typing-list">
-          <li>VAPT | Penetration Testing {Web/Network/WebApp}</li>
-          <li>OSINT Investigations {HUMINT/GEOINT/SOCMINT/IMINT}</li>
-          <li>Deep/DarkWeb Investigations</li>
-          <li>CTF Challenges Creation{Web/PWN/OSINT/Reversing/DFIR}</li>
-          <li>Malware Analysis & Digital Forensics Investigations</li>
-          <li>Cybersecurity Labs & Trainings </li>
-          <li>Red Team Operations & Adversary Simulations</li>
+          <li>Msc Cyber Security and Forensics from University of Westminster - (2025-2026)</li>
+          <li>Bachelors in CyberSecurity from Air University, Islamabad - (2019-2023) </li>
         </ul>
       </div>
+
     </div>
   </div>
   
@@ -347,35 +494,109 @@ document.addEventListener("DOMContentLoaded", () => {
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" data-route>
-      <h2>Contact</h2>
-      <p class="muted">Want to collaborate or need help with a security engagement? Reach out.</p>
-      <div class="cards">
-        <div class="card">
-          <h3>Message</h3>
-          <form id="contact-form">
-            <div style="display:grid; gap:10px">
-              <input required name="name" placeholder="Your Name" style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text)" />
-              <input required type="email" name="email" placeholder="Email" style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text)" />
-              <textarea required name="message" placeholder="Your message" rows="4" style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text)"></textarea>
-              <button class="btn primary" type="submit">Send via Email</button>
-            </div>
-          </form>
+<section id="contact" data-route class="contact-section">
+  <div class="contact-header">
+    <h2>Get in Touch</h2>
+    <p class="muted">
+      I’m always excited to collaborate on security projects, training, and research.  
+      Whether you need penetration testing, OSINT investigations, or red team simulations,  
+      let’s connect and make your systems more secure.
+    </p>
+  </div>
+
+  <div class="contact-grid">
+    <!-- LEFT: Contact Info -->
+    <div class="card contact-info">
+      <h3>Let’s Connect</h3>
+      <p><i data-lucide="mail"></i> <a href="mailto:dx73r@protonmail.com">Mail</a></p>
+      <p><i data-lucide="phone"></i> <a href="tel:+447464530664">Phone</a></p>
+      <p><i data-lucide="linkedin"></i> <a href="https://www.linkedin.com/in/naqvio7/" target="_blank">LinkedIn</a></p>
+      <p><i data-lucide="github"></i> <a href="https://github.com/dx7er" target="_blank">GitHub</a></p>
+      <p><i data-lucide="globe"></i> <a href="https://dx7er.github.io" target="_blank">Website</a></p>
+    </div>
+
+      <!-- RIGHT: Contact Form -->
+    <div class="card contact-form">
+      <h3>Send a Message</h3>
+      <form id="contact-form">
+        <div style="display:grid; gap:12px">
+          <input required name="user_name" placeholder="Your Name" />
+          <input required type="email" name="user_email" placeholder="Email" />
+          <textarea required name="message" placeholder="Your message" rows="4"></textarea>
+          <button class="btn primary" type="submit">Send Message</button>
         </div>
-        <div class="card">
-          <h3>Resume</h3>
-          <p class="muted">Download a PDF copy of my resume.</p>
-          <a class="btn" id="resume-link" href="#" data-file="assets/Resume.pdf">Download Resume (PDF)</a>
-         <!-- <p class="muted" style="margin-top:8px">Place your file at <code>/assets/Saqlain_Resume.pdf</code> in the repo.</p>-->
-        </div>
-        <div class="card">
-          <h3>Direct</h3>
-          <p>Email: <a href="mailto:dx73r@protonmail.com">dx73r@protonmail.com</a></p>
-          <p>LinkedIn: <a href="https://www.linkedin.com/in/naqvio7/" target="_blank" rel="noopener">in/naqvio7</a></p>
-          <p>GitHub: <a href="https://github.com/dx7er" target="_blank" rel="noopener">@dx7er</a></p>
-        </div>
-      </div>
-    </section>
+      </form>
+      <p id="form-status" class="muted" style="margin-top:10px;"></p>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- ✅ CSS -->
+<style>
+  .contact-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  .contact-info, .contact-form {
+    flex: 1;
+    min-width: 280px;
+  }
+  .contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .contact-info a {
+    color: #00ff99;
+    text-decoration: none;
+  }
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+  #form-status {
+    font-size: 0.9rem;
+  }
+  #form-status.success {
+    color: #00ff99;
+  }
+  #form-status.error {
+    color: #ff5555;
+  }
+</style>
+
+<!-- ✅ JS (EmailJS Integration) -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("6jGaGd6vd5_iz0WMa"); // 🔑 Replace with your Public Key
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const status = document.getElementById("form-status");
+    status.textContent = "⏳ Sending...";
+    status.className = "";
+
+    emailjs.sendForm("service_cque23s", "template_x7lr12e", this)
+      .then(() => {
+        status.textContent = "✅ Message sent successfully!";
+        status.className = "success";
+        this.reset();
+      }, (err) => {
+        status.textContent = "❌ Failed to send. Please try again.";
+        status.className = "error";
+        console.error(err);
+      });
+  });
+</script>
+
+
+
   </main>
 
   <footer class="footer">
@@ -656,5 +877,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- Footer year ----
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
 </body>
 </html>
+
+<!--
+  Portfolio Template by dx73r aka Saqlain (https://naqvio7.github.io)
+  - Simple, lightweight, and easy to customize
+  - No frameworks, just vanilla HTML/CSS/JS
+  - Feel free to use and modify as you like
+-->
