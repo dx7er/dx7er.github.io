@@ -54,11 +54,11 @@ This project is open-source under the MIT License. Feel free to use and modify i
 ```python
 ###  Tips for Personalizing It:
 
-- **Specify your static site generator**: Replace “Jekyll / Hugo / plain HTML” with whichever you're using.
-- **Update the running instructions** to reflect your actual workflow.
-- **Add actual folder names and descriptions** to the “Repository Structure” section if different.
-- **Adjust the license** if you're using another one or if you have none yet.
-- **Link up your social handles/contacts** as needed for better personalization.
+- Specify your static site generator: Replace “Jekyll / Hugo / plain HTML” with whichever you're using.
+- Update the running instructions to reflect your actual workflow.
+- Add actual folder names and descriptions to the “Repository Structure” section if different.
+- Adjust the license if you're using another one or if you have none yet.
+- Link up your social handles/contacts as needed for better personalization.
 
 Let me know if you’d like help tailored to the actual frameworks or features your site uses!
 ::contentReference[oaicite:0]{index=0}
