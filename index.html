@@ -248,6 +248,12 @@
   </style>
 </head>
 
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+  
 <body>
   <div class="grid-bg" aria-hidden="true"></div>
   <header>
@@ -724,9 +730,11 @@ document.addEventListener("DOMContentLoaded", () => {
     <!-- CONTACT -->
 <section id="contact" data-route class="contact-section">
   <div class="contact-header">
+  <section id="contact" data-route class="contact-section">
+  <div class="contact-header">
     <h2>Get in Touch</h2>
     <p class="muted">
-      I’m always excited to collaborate on security projects, training, and research.  
+      I am always excited to collaborate on security projects, training, and research.  
       Whether you need penetration testing, OSINT investigations, or red team simulations,  
       let’s connect and make your systems more secure.
     </p>
@@ -736,14 +744,60 @@ document.addEventListener("DOMContentLoaded", () => {
     <!-- LEFT: Contact Info -->
     <div class="card contact-info">
       <h3>Let’s Connect</h3>
-      <p><i data-lucide="mail"></i> <a href="mailto:dx73r@protonmail.com">Mail</a></p>
-      <p><i data-lucide="phone"></i> <a href="tel:+447464530664">Phone</a></p>
-      <p><i data-lucide="linkedin"></i> <a href="https://www.linkedin.com/in/naqvio7/" target="_blank">LinkedIn</a></p>
-      <p><i data-lucide="github"></i> <a href="https://github.com/dx7er" target="_blank">GitHub</a></p>
-      <p><i data-lucide="telegram"></i> <a href="t.me/dx73r0" target="_blank">Telegram</a></p>
-      <p><i data-lucide="whatsapp"></i> <a href="https://whatsapp.com/channel/0029VbBbiPHA2pLGnt2ypf2A" target="_blank">Whatsapp Channel</a></p>
-      <p><i data-lucide="globe"></i> <a href="https://dx7er.github.io" target="_blank">Website</a></p>
-    </div>
+    <p><i data-lucide="mail"></i> <a href="mailto:dx73r@protonmail.com">Mail</a></p>
+  <p><i data-lucide="phone"></i> <a href="tel:+447464530664">Phone</a></p>
+  <p><i data-lucide="linkedin"></i> <a href="https://www.linkedin.com/in/naqvio7/" target="_blank">LinkedIn</a></p>
+  <p><i data-lucide="github"></i> <a href="https://github.com/dx7er" target="_blank">GitHub</a></p>
+  <p><i data-lucide="send"></i> <a href="https://t.me/dx73r0" target="_blank">Telegram</a></p>
+  <p><i data-lucide="message-circle"></i> <a href="https://whatsapp.com/channel/0029VbBbiPHA2pLGnt2ypf2A" target="_blank">WhatsApp Channel</a></p>
+  <p><i data-lucide="globe"></i> <a href="https://dx7er.github.io" target="_blank">Website</a></p>
+
+<style>
+/* --- CONTACT ICONS --- */
+.contact-info {
+  transition: all 0.3s ease;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.contact-info p:hover {
+  transform: translateX(5px);
+}
+
+.contact-info i {
+  width: 18px;
+  height: 18px;
+  color: var(--primary);
+  transition: color 0.3s ease, filter 0.3s ease, transform 0.2s ease;
+}
+
+.contact-info a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.contact-info p:hover i {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent));
+  transform: scale(1.15);
+}
+
+.contact-info a:hover {
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent);
+}
+
+</style>
 
       <!-- RIGHT: Contact Form -->
     <div class="card contact-form">
