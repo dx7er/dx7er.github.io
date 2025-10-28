@@ -1,6 +1,6 @@
 
 
-![](https://github.com/dx7er/dx7er.github.io/blob/main/assets/ejptv2.png)
+![](../assets/ejptv2.png)
 
 # Ejptv2 Exam Review
 
