@@ -1,11 +1,4 @@
----
-title: Windows Password/Login Screen Bypass
-date: '2024-05-15'
-tags: ['backdoor', 'read team', 'hacking', 'windows password bypass', 'login screen', 'hacking', 'techniques', 'bypass']
-draft: false
-summary: How to Bypass windows password.
----
-
+![Windows Password Reset](../assets/reset_psswd.jpg)
 
 Forgetting or losing access to a Windows computer due to a forgotten password can be frustrating. However, there's a way to bypass the password without formatting the hard disk or losing data. In this blog, I'll explain how to use Kali Linux and the chntpw tool to remove user passwords on a Windows machine.
 
@@ -94,6 +87,7 @@ When the computer restarts, you should be able to log in to Windows without ente
 By following these steps, you can bypass the password on a Windows computer without formatting the hard disk or losing any data. This method uses `Kali Linux` and the `chntpw` tool to modify the `Windows SAM` files and `registry`, effectively removing the password. 
 
 
---- 
-### If you like this blog do follow me on [GitHub](https://github.com/dx7er), [LinkedIn](https://www.linkedin.com/in/naqvio7/). A supporter is worth a thousand followers [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r).
+---
+
+##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx7er) and [LinkedIn](https://www.linkedin.com/in/naqvio7/). 
 
