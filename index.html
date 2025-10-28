@@ -277,10 +277,10 @@
   <div>
     <h2>About Me</h2>
     <p class="muted">
-      I’m Saqlain, a cybersecurity professional driven by a passion for protecting digital ecosystems. 
+      I am Saqlain, a cybersecurity professional driven by a passion of protecting your digital ecosystems. 
       My expertise spans Penetration Testing, OSINT Investigations, and Red Team Operations, where I 
       specialize in uncovering vulnerabilities and extracting actionable intelligence to help organizations 
-      strengthen their defenses.
+      strengthen their defenses and mitigate risks.
     </p>
 
     <div class="cards">
@@ -797,6 +797,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 </style>
 
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+
+
 <!-- ✅ JS (EmailJS Integration) -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
@@ -956,13 +963,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---- Markdown Blog Loader ----
     // Add your posts here. Files should live under /blogs/*.md in the repo.
+     /* --- Configure Marked + Highlight.js --- */
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+      smartLists: true,
+      highlight: function(code, lang) {
+        return hljs.highlightAuto(code, [lang]).value;
+      }
+    });
+
+    /* --- Load Markdown File --- */
+    async function loadMarkdown(url) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Not found');
+        return await res.text();
+      } catch {
+        return `# Post Not Found\nFile missing: \`${url}\``;
+      }
+    }
+
+    /* --- Markdown → HTML --- */
+    function mdToHtml(md) {
+      return marked.parse(md);
+    }
+
+    /* --- Posts Metadata --- */
     const posts = [
       { slug:"ejptv2_exam_review", title:"eJPTv2 Exam Review", file:"./blogs/ejptv2_exam_review.md", date:"2023-09-06" },
       { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"./blogs/hiding_backdoor.md", date:"2024-03-15" },
       { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"blogs/ip_information.md", date:"2024-04-14" },
       { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"blogs/malpdf2k24.md", date:"2024-05-03"},
       { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"blogs/phishing_email.md", date:"2024-06-05"},
-      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"blogs/windows_password_bypass.md", date:"2024-05-15"},
+      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"blogs/windows_password_bypass.md", date:"2024-05-15"}  
     ];
 
     const blogList = document.getElementById("blog-list");
@@ -971,49 +1005,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalContent = document.getElementById("modal-content");
     const closeModal = document.getElementById("close-modal");
 
-     // Load markdown file (reuses previous logic)
-    async function loadMarkdown(url){
-      try {
-        const res = await fetch(url);
-        if(!res.ok) throw new Error('Not found');
-        return await res.text();
-      } catch {
-        return `# Post Not Found\nFile missing: \`${url}\``;
-      }
-    }
-
-    // Basic Markdown → HTML (lightweight)
-    function mdToHtml(md){
-      md = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      md = md.replace(/```([\s\S]*?)```/g,(m,code)=>`<pre><code>${code}</code></pre>`);
-      md = md.replace(/^######\s?(.*)$/gm,'<h6>$1</h6>')
-             .replace(/^#####\s?(.*)$/gm,'<h5>$1</h5>')
-             .replace(/^####\s?(.*)$/gm,'<h4>$1</h4>')
-             .replace(/^###\s?(.*)$/gm,'<h3>$1</h3>')
-             .replace(/^##\s?(.*)$/gm,'<h2>$1</h2>')
-             .replace(/^#\s?(.*)$/gm,'<h1>$1</h1>');
-      md = md.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
-             .replace(/\*([^*]+)\*/g,'<em>$1</em>');
-      md = md.replace(/\[(.*?)\]\((.*?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
-      md = md.replace(/!\[(.*?)\]\((.*?)\)/g,'<img alt="$1" src="$2" />');
-      md = md.replace(/^\s*[-*]\s+(.*)$/gm,'<li>$1</li>')
-             .replace(/(<li>.*<\/li>\n?)+/g,(m)=>`<ul>${m}</ul>`);
-      md = md.replace(/^(?!<h\d|<ul|<pre|<img|<blockquote)(.+)$/gm,'<p>$1</p>');
-      return md;
-    }
-
-    // Render blog list
+    /* --- Render Blog List --- */
     function renderPostList() {
       blogList.innerHTML = posts
-        .sort((a,b) => (a.date < b.date ? 1 : -1))
-        .map(p => `
-          <div class="post-item" data-slug="${p.slug}">
-            <h4>${p.title}</h4>
-            <small class="muted">${p.date}</small>
-          </div>
-        `).join('');
+        .sort((a, b) => (a.date < b.date ? 1 : -1))
+        .map(
+          (p) => `
+            <div class="post-item" data-slug="${p.slug}">
+              <h4>${p.title}</h4>
+              <small class="muted">${p.date}</small>
+            </div>`
+        ).join('');
 
-      // Add click event for popup
+      // Click → Open Modal
       document.querySelectorAll(".post-item").forEach(item => {
         item.addEventListener("click", async () => {
           const slug = item.getAttribute("data-slug");
@@ -1023,49 +1027,26 @@ document.addEventListener("DOMContentLoaded", () => {
           const md = await loadMarkdown(post.file);
           modalContent.innerHTML = mdToHtml(md);
           modalBackdrop.classList.add("active");
+          // Syntax highlight after render
+          modalContent.querySelectorAll("pre code").forEach(el => {
+            hljs.highlightElement(el);
+          });
         });
       });
     }
 
-    // Close modal
-    closeModal.addEventListener("click", () => {
-      modalBackdrop.classList.remove("active");
-    });
+    /* --- Close Modal --- */
+    closeModal.addEventListener("click", () => modalBackdrop.classList.remove("active"));
     modalBackdrop.addEventListener("click", (e) => {
       if (e.target === modalBackdrop) modalBackdrop.classList.remove("active");
     });
 
-    // Initialize
+    /* --- Init --- */
     document.addEventListener("DOMContentLoaded", renderPostList);
+   
 
 
-    // Lightweight Markdown renderer (headings, lists, code, links, bold/italic)
-    function mdToHtml(md){
-      // Escape HTML
-      md = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      // Code blocks ```
-      md = md.replace(/```([\s\S]*?)```/g,(m,code)=>`<pre><code>${code}</code></pre>`);
-      // Headings
-      md = md.replace(/^######\s?(.*)$/gm,'<h6>$1</h6>')
-             .replace(/^#####\s?(.*)$/gm,'<h5>$1</h5>')
-             .replace(/^####\s?(.*)$/gm,'<h4>$1</h4>')
-             .replace(/^###\s?(.*)$/gm,'<h3>$1</h3>')
-             .replace(/^##\s?(.*)$/gm,'<h2>$1</h2>')
-             .replace(/^#\s?(.*)$/gm,'<h1>$1</h1>');
-      // Bold/Italic
-      md = md.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
-             .replace(/\*([^*]+)\*/g,'<em>$1</em>');
-      // Links
-      md = md.replace(/\[(.*?)\]\((.*?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
-      // Images ![]()
-      md = md.replace(/!\[(.*?)\]\((.*?)\)/g,'<img alt="$1" src="$2" />');
-      // Lists
-      md = md.replace(/^\s*[-*]\s+(.*)$/gm,'<li>$1</li>')
-             .replace(/(<li>.*<\/li>\n?)+/g,(m)=>`<ul>${m}</ul>`);
-      // Paragraphs
-      md = md.replace(/^(?!<h\d|<ul|<pre|<img|<blockquote)(.+)$/gm,'<p>$1</p>');
-      return md;
-    }
+
 
     function parseHashParams(){
       const [route, query] = (location.hash||'#about').slice(1).split('?');
