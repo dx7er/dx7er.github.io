@@ -11,7 +11,6 @@ Scheduled tasks in Windows automate the execution of programs or scripts at spec
 
 ### Evasion Technique
 > The SD (Security Descriptor), essentially an Access Control List (ACL), dictates which users can access the scheduled task. By removing this descriptor, we render the task invisible to all users, including administrators. Windows only displays tasks that users have permission to use, so restricting access conceals our activity.
-> 
 - **Locate the SDs:** All scheduled tasks' security descriptors are stored in `HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tree\\`. Each task has a corresponding registry key containing an `SD` value.
 - **Erase the SD:** Only `SYSTEM privileges` allow you to delete these values. Use tools like `psexec` to open Regedit with SYSTEM access.
 - **Remove the SD for Our Task:** Target the `Backdoor` task and delete its SD value.
@@ -20,8 +19,7 @@ Scheduled tasks in Windows automate the execution of programs or scripts at spec
     
 
 > This maneuver keeps our task hidden, evading detection even under scrutiny.
-> 
 
 ---
 
-### If you like this blog, follow me on [GitHub](https://github.com/dx7er) and [LinkedIn](https://www.linkedin.com/in/naqvio7/). A supporter is worth a thousand followers—[Buy Me a Coffee](https://www.buymeacoffee.com/dx73r).
+##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx7er) and [LinkedIn](https://www.linkedin.com/in/naqvio7/). 
