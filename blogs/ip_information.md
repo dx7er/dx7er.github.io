@@ -1,12 +1,3 @@
----
-title: Trace IP Information
-date: '2024-04-14'
-tags: ['IP', 'track', 'information', 'ms word', 'locate person', 'hacking', 'techniques']
-draft: false
-summary: Track IP address and location of person by sending simple word or other files.
----
-
-
 Lets dive into a fascinating topic: tracking someone's IP using files. We'll break down the concept first before delving into a step-by-step guide. While crafting custom code is an option, there's a simpler way. Buckle up, and let's get started!
 
 ### Canary Tokens
@@ -27,12 +18,15 @@ But in `our case` we will use them to `track`, `identify` and `locate` the perso
 - Go to [CanaryToken](https://canarytokens.org/generate) and choose your Canarytoken. This is like setting up a `digital trap`. Provide `an email` where you want to be notified and a note to remind yourself where you placed it.
 - [Temp Mail](https://temp-mail.org/en/) services can be used to setup email on which you want to be notified.
 - Create a `CanaryToken`.
-![image](https://github.com/dx7er/portfolio/assets/79792270/edc4a961-28ba-4186-a55e-8a29c716e055)
+![Canary Token](../assets/canary_token.png)
 - Click on Create button. Your file containing canary token will be downloaded.
 - Send the file to `target person`.
-- As soon as person open the file, you will get alert on the provided email. ![image](https://github.com/dx7er/portfolio/assets/79792270/a7d04daa-5c4c-4323-adbf-ba3504ba3cbc)
-- Required information can be seen in the recived email from `canarytokens.org` ![image](https://github.com/dx7er/portfolio/assets/79792270/a7c62a65-928e-416c-8f33-e98f81dd8a2f)
+- As soon as person open the file, you will get alert on the provided email. ![Email Generation](../assets/email_gen.png)
+- Required information can be seen in the recived email from `canarytokens.org` ![Token Info](../assets/token_info.png)
 
 >You can also rename the generated PDF/Excel/Word document without affecting its operation.
 
-###### If you like this blog do follow me on [GitHub](https://github.com/dx7er), [LinkedIn](https://www.linkedin.com/in/naqvio7/). A supporter is worth a thousand followers [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r).
+---
+
+##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx7er) and [LinkedIn](https://www.linkedin.com/in/naqvio7/).
+
