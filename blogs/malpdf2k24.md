@@ -1,10 +1,4 @@
----
-title: Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions
-date: '2024-05-03'
-tags: ['AV', 'red team', 'MITRE', 'malicious pdf', 'Pakistan', 'prime minister', 'ioc', 'breach']
-draft: false
-summary: My insights on suspicious file detection that targeted Pakistan PM Office.
----
+![Government of Pakistan](../assets/gop.png)
 
 In the realm of cybersecurity, the detection and analysis of suspicious files is a critical task. In this blog, I will share my insights on a case where a suspicious PDF file evaded all antivirus (AV) systems and targeted the office of the Prime Minister of Pakistan.
 
@@ -63,3 +57,8 @@ The incident at the Prime Minister’s office is a stark reminder of the evolvin
 ### Conclusion
 
 In conclusion, the blog post highlights the importance of vigilant cybersecurity practices in the face of increasingly sophisticated cyber threats. This incident underscores the need for advanced threat detection and analysis tools and it serves as a reminder that no entity, regardless of its stature, is immune to cyberattacks. Therefore, continuous vigilance, regular system checks, and the use of advanced threat detection tools are crucial in maintaining a robust defense against such threats.
+
+
+--- 
+
+##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx7er) and [LinkedIn](https://www.linkedin.com/in/naqvio7/).
