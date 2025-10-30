@@ -608,84 +608,99 @@ document.addEventListener("DOMContentLoaded", () => {
     <section id="blogs" data-route>
   <h2>Blogs & Write-ups</h2>
   <p class="muted">Deep-dive write-ups, security research, and real-world findings.</p>
+
+    <!-- Category Tabs -->
+  <div class="blog-categories" id="blogCategories">
+  <button class="category-btn active" onclick="filterBlogs('all')">All</button>
+  <button class="category-btn" onclick="filterBlogs('htb')">HTB</button>
+  <button class="category-btn" onclick="filterBlogs('cheatsheets')">Cheatsheets</button>
+  </div>
+
     <!-- Blog List -->
   <div class="blog-list" id="blog-list"></div>
 
   <!-- Popup Modal -->
-  <div class="blog-modal-backdrop" id="blog-modal">
+  
+    <div class="blog-modal-backdrop" id="blog-modal">
     <div class="blog-modal">
-      <header>
-        <h3 id="modal-title">Blog Title</h3>
-        <button class="close" id="close-modal">&times;</button>
-      </header>
-      <div class="blog-body" id="modal-content"></div>
+    <header>
+    <h3 id="modal-title">Blog Title</h3>
+    <button class="close" id="close-modal">&times;</button>
+    </header>
+    <div class="blog-body" id="modal-content"></div>
     </div>
-  </div>
+    </div>
 
    <style>
-    /* Popup Modal Styles */
+    /* Blog Categories */
+    .blog-categories {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    }
+
+
+    .category-btn {
+    background: #11161b;
+    color: #d1d1d1;
+    border: 1px solid #222;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+
+    .category-btn:hover {
+    background: #1a2128;
+    color: #00ff88;
+    }
+
+
+    .category-btn.active {
+    background: #00ff88;
+    color: #0a0d10;
+    }
+
+
+    /* Blog list items */
+    .post-item {
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,.02);
+    transition: all 0.2s ease-in-out;
+    width: 80%;
+    max-width: 680px;
+    margin: 0 auto;
+    }
+
+
+    .post-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(55,255,139,.35);
+    box-shadow: var(--glow);
+    background: rgba(55,255,139,.04);
+    }
+
+
+    .post-item h4 {
+    margin: 0;
+    color: var(--text);
+    transition: color 0.2s ease;
+    }
+
+
+    .post-item:hover h4 {
+    color: var(--primary);
+    }
+
+
+    /* Modal styling */
     .blog-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-    }
-    .blog-modal-backdrop.active {
-      display: flex;
-      animation: fadeIn 0.3s ease;
-    }
-    .blog-modal {
-      width: min(700px, 90%);
-      max-height: 80vh;
-      overflow-y: auto;
-      background: linear-gradient(180deg, rgba(17,24,32,.95), rgba(17,24,32,.85));
-      border: 1px solid rgba(55,255,139,.25);
-      border-radius: 16px;
-      box-shadow: var(--glow);
-      color: var(--text);
-    }
-    .blog-modal header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .blog-modal header h3 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .blog-modal .close {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 22px;
-      cursor: pointer;
-      transition: color 0.2s ease;
-    }
-    .blog-modal .close:hover {
-      color: var(--primary);
-    }
-    .blog-modal .blog-body {
-      padding: 16px 20px;
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--text);
-    }
-    .blog-modal .blog-body img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
-      border: 1px solid rgba(255,255,255,.1);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    position: fixed;}
 
 
     /* Blog list hover effect + cursor */
@@ -1048,12 +1063,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* --- Posts Metadata --- */
     const posts = [
-      { slug:"ejptv2_exam_review", title:"eJPTv2 Exam Review", file:"./blogs/ejptv2_exam_review.md", date:"2023-09-06" },
-      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"./blogs/hiding_backdoor.md", date:"2024-03-15" },
-      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"./blogs/ip_information.md", date:"2024-04-14" },
-      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"./blogs/malpdf2k24.md", date:"2024-05-03"},
-      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"./blogs/phishing_email.md", date:"2024-06-05"},
-      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"./blogs/windows_password_bypass.md", date:"2024-05-15"}
+      { slug:"ejptv2_exam_review", title:"eJPTv2 Exam Review", file:"./blogs/ejptv2_exam_review.md", date:"2023-09-06", category:'general'},
+      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"./blogs/hiding_backdoor.md", date:"2024-03-15",category:'general'},
+      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"./blogs/ip_information.md", date:"2024-04-14", category:'general' },
+      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"./blogs/malpdf2k24.md", date:"2024-05-03", category:'general'},
+      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"./blogs/phishing_email.md", date:"2024-06-05", category:'general'},
+      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"./blogs/windows_password_bypass.md", date:"2024-05-15", category:'general'}
         
     ];
 
@@ -1062,6 +1077,58 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalTitle = document.getElementById("modal-title");
     const modalContent = document.getElementById("modal-content");
     const closeModal = document.getElementById("close-modal");
+
+    function renderPosts(category='all') {
+    blogList.innerHTML = posts
+    .filter(p => category === 'all' || p.category === category)
+    .sort((a,b)=> a.date < b.date ? 1 : -1)
+    .map(p => `
+    <div class='post-item' data-slug='${p.slug}'>
+    <h4>${p.title}</h4>
+    <small class='muted'>${p.date}</small>
+    </div>
+    `).join('');
+
+
+    document.querySelectorAll('.post-item').forEach(item => {
+    item.addEventListener('click', async () => {
+    const post = posts.find(p => p.slug === item.dataset.slug);
+    const res = await fetch(post.file);
+    const md = await res.text();
+    modalTitle.textContent = post.title;
+    modalContent.innerHTML = marked.parse(md);
+    modalBackdrop.classList.add('active');
+    modalContent.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+    });
+    });
+    }
+
+
+    function filterBlogs(category){
+    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[onclick="filterBlogs('${category}')"]`).classList.add('active');
+    renderPosts(category);
+    }
+
+
+    closeModal.addEventListener('click', ()=> modalBackdrop.classList.remove('active'));
+    modalBackdrop.addEventListener('click', e=>{ if(e.target===modalBackdrop) modalBackdrop.classList.remove('active'); });
+
+
+    document.addEventListener('DOMContentLoaded', ()=> renderPosts());
+
+
+    // Dynamically add category from console
+    function addCategory(name) {
+    const categories = document.getElementById('blogCategories');
+    const button = document.createElement('button');
+    button.className = 'category-btn';
+    button.innerText = name.charAt(0).toUpperCase() + name.slice(1);
+    button.onclick = () => filterBlogs(name.toLowerCase());
+    categories.appendChild(button);
+    }
+
+
 
     /* --- Render Blog List --- */
     function renderPostList() {
@@ -1074,6 +1141,11 @@ document.addEventListener("DOMContentLoaded", () => {
               <small class="muted">${p.date}</small>
             </div>`
         ).join('');
+
+        
+
+
+
 
       // Click → Open Modal
       document.querySelectorAll(".post-item").forEach(item => {
