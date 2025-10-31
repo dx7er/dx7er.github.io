@@ -33,3 +33,5 @@ In addition to the tips mentioned above, I would also recommend taking the follo
 - Get enough sleep and eat healthy foods on the day of the exam. This will help you stay alert and focused.
 
 I believe that anyone can pass the eJPTv2 exam if they are willing to put in the hard work and dedication. With proper preparation, you can achieve your goal of becoming an eJPT certified cybersecurity professional.
+
+##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx7er) and [LinkedIn](https://www.linkedin.com/in/naqvio7/). 
