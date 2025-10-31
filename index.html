@@ -9,6 +9,7 @@
   <meta name="description" content="Cybersecurity portfolio: projects, blogs, and contact. Professional hacker-theme, fast and lightweight. Built with HTML, CSS, JS, and Markdown." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#0a0d10;           /* deep charcoal */
@@ -117,18 +118,26 @@
     .btn.primary{ border-color: rgba(55,255,139,.5); color:var(--bg); background:linear-gradient(180deg, var(--primary), var(--primary-dim)) }
 
     /* Blog styles */
-    .blog-list{ display:grid; gap:12px }
-    .post-item{ padding:14px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.02) }
-    .post-item h4{ margin:.2rem 0 }
-    .blog-content{ line-height:1.7; overflow-wrap:anywhere; word-break:break-word }
-    .blog-content pre{ background:#0b0f14; padding:12px; border-radius:10px; overflow:auto; border:1px solid rgba(255,255,255,.08); white-space:pre-wrap; word-break:break-word }
-    .blog-content code{ font-family:"JetBrains Mono",monospace }
-    .blog-content img{ max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.08) }
-    .blog-content a{ color:var(--text); word-break:break-word }
-    .blog-list a{ color:var(--text); text-decoration:none }
-    .blog-list a:hover{ text-decoration:underline }
-    #contact .card a{ color:var(--primary); text-decoration:none }
-    #contact .card a:hover{ text-decoration:underline }
+    .category-filter { display:flex; flex-wrap:wrap; gap:10px; margin: 20px 0; }
+    .category-btn { padding:8px 14px; border-radius:12px; border:1px solid rgba(55,255,139,.35); background:rgba(55,255,139,.05); color:var(--text); font-weight:600; cursor:pointer; transition:all .2s ease; }
+    .category-btn:hover, .category-btn.active { background:var(--primary); color:var(--bg); box-shadow:var(--glow); }
+
+
+    .blog-list{ display:flex; flex-direction:column; align-items:flex-start; gap:12px }
+    .post-item{ width:80%; max-width:680px; padding:14px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.02); cursor:pointer; transition:.2s ease; }
+    .post-item:hover{ border-color:rgba(55,255,139,.35); box-shadow:var(--glow); background:rgba(55,255,139,.04); }
+    .post-item h4{ margin:0; color:var(--text); }
+
+
+    /* Modal */
+    .blog-modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:100; }
+    .blog-modal-backdrop.active { display:flex; animation:fadeIn .3s ease; }
+    .blog-modal { width:min(700px,90%); max-height:80vh; overflow-y:auto; background:linear-gradient(180deg, rgba(17,24,32,.95), rgba(17,24,32,.85)); border:1px solid rgba(55,255,139,.25); border-radius:16px; box-shadow:var(--glow); color:var(--text); }
+    .blog-modal header { display:flex; justify-content:space-between; align-items:center; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .blog-modal header h3 { margin:0; font-size:18px; font-weight:700; }
+    .blog-modal .close { background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; }
+    .blog-modal .blog-body { padding:16px 20px; font-size:15px; line-height:1.7; color:var(--text); }
+    @keyframes fadeIn { from{opacity:0; transform:scale(.98);} to{opacity:1; transform:scale(1);} }
 
     /* Router hidden/visible */
     [data-route]{ display:none }
@@ -137,123 +146,105 @@
     /* Small helper */
     .muted{ color:var(--muted) }
 
-    /* Modal (resume password) */
-    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:50 }
-    .modal-backdrop.active{ display:flex }
-    .modal{ width:min(420px, 92vw); background:linear-gradient(180deg, rgba(17,24,32,.95), rgba(17,24,32,.85)); border:1px solid rgba(55,255,139,.25); border-radius:16px; box-shadow:var(--glow) }
-    .modal header{ padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:center; justify-content:space-between }
-    .modal header h4{ margin:0; font-size:16px }
-    .modal .close{ background:none; border:0; color:var(--muted); cursor:pointer; font-size:18px }
-    .modal .body{ padding:16px }
-    .modal .body p{ margin:0 0 10px; color:var(--muted) }
-    .modal .body input{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:#0c1117; color:var(--text) }
-    .modal .footer{ padding:14px 16px; display:flex; gap:10px; justify-content:flex-end; border-top:1px solid rgba(255,255,255,.06) }
-    .error{ color:var(--danger); font-size:12px; margin-top:8px }
-
-
-/* Scrollable Experience Card */
-.experience-card {
-  max-height: 280px;       /* Adjust height */
-  overflow-y: auto;        /* Enable vertical scroll */
-  padding-right: 10px;     /* space for scrollbar */
-  scrollbar-width: thin;   /* Firefox */
-  scrollbar-color: var(--primary) var(--panel-2); /* scrollbar colors */
-}
-
-/* Chrome/Edge scrollbar styling */
-.experience-card::-webkit-scrollbar {
-  width: 8px;
-}
-.experience-card::-webkit-scrollbar-track {
-  background: var(--panel-2);
-  border-radius: 10px;
-}
-.experience-card::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 10px;
-}
-.experience-card::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dim);
-}
-
-/* Contact Section */
-.contact-section {
-  text-align: center;
-  margin-top: 60px;
-}
-
-.contact-header h2 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.contact-header p {
-  max-width: 700px;
-  margin: 0 auto 40px;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-/* Two-column grid */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.contact-info p {
-  margin: 12px 0;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.contact-info i {
-  width: 18px;
-  height: 18px;
-  color: var(--primary);
-  flex-shrink: 0;
-}
-
-.contact-info a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.contact-info a:hover {
-  text-decoration: underline;
-}
-
-/* Input fields styling */
-#contact-form input,
-#contact-form textarea {
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: #0c1117;
-  color: var(--text);
-  font-size: 15px;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
+  /* Scrollable Experience Card */
+  .experience-card {
+    max-height: 280px;       /* Adjust height */
+    overflow-y: auto;        /* Enable vertical scroll */
+    padding-right: 10px;     /* space for scrollbar */
+    scrollbar-width: thin;   /* Firefox */
+    scrollbar-color: var(--primary) var(--panel-2); /* scrollbar colors */
   }
-}
 
+  /* Chrome/Edge scrollbar styling */
+  .experience-card::-webkit-scrollbar {
+    width: 8px;
+  }
+  .experience-card::-webkit-scrollbar-track {
+    background: var(--panel-2);
+    border-radius: 10px;
+  }
+  .experience-card::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+  }
+  .experience-card::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dim);
+  }
 
+  /* Contact Section */
+  .contact-section {
+    text-align: center;
+    margin-top: 60px;
+  }
 
+  .contact-header h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .contact-header p {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Two-column grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .contact-info p {
+    margin: 12px 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contact-info i {
+    width: 18px;
+    height: 18px;
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+
+  .contact-info a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+
+  /* Input fields styling */
+  #contact-form input,
+  #contact-form textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: #0c1117;
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
   </style>
 </head>
 
+<!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
-<script>
-  lucide.createIcons();
-</script>
+<script>lucide.createIcons();</script>
 
 
 <body>
@@ -391,11 +382,10 @@
           <li>Bachelors in CyberSecurity from Air University, Islamabad - (2019-2023) </li>
         </ul>
       </div>
-
     </div>
   </div>
-  
-  <!-- Terminal Style Box-->
+
+ <!-- Terminal Style Box-->
   <div>
     <div class="terminal" aria-label="intro terminal">
       <div class="term-top">
@@ -405,45 +395,42 @@
       </div>
       <div class="term-body" id="terminal-text"></div>
     </div>
-    <div style="margin-top:50px">
-      <a class="btn primary" href="#projects">View Projects →</a>
-    </div>
   </div>
 </section>
 
-<!-- CSS -->
+<!-- CSS for terminal commands-->
 <style>
-/* Hacker-style bullet list */
-.hacker-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
+  /* Hacker-style bullet list */
+  .hacker-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
 
-.hacker-list li {
-  color: #00ff88;
-  font-family: "Fira Code", monospace;
-  margin-bottom: 6px;
-  position: relative;
-  padding-left: 24px;
-  display: block;          /* changed from inline-block to block */
-  white-space: normal;     /* changed from nowrap to normal */
-  overflow: visible;       /* changed from hidden to visible */
-  opacity: 0;
-  border-right: 2px solid #00ff88; /* typing cursor */
-  /* Remove width: 0; to prevent single character per line */
-  word-wrap: break-word;   /* allows long words to break */
-  word-break: break-word;  /* ensures text breaks when needed */
-}
+  .hacker-list li {
+    color: #00ff88;
+    font-family: "Fira Code", monospace;
+    margin-bottom: 6px;
+    position: relative;
+    padding-left: 24px;
+    display: block;          /* changed from inline-block to block */
+    white-space: normal;     /* changed from nowrap to normal */
+    overflow: visible;       /* changed from hidden to visible */
+    opacity: 0;
+    border-right: 2px solid #00ff88; /* typing cursor */
+    /* Remove width: 0; to prevent single character per line */
+    word-wrap: break-word;   /* allows long words to break */
+    word-break: break-word;  /* ensures text breaks when needed */
+  }
 
-/* Hacker bullet > */
-.hacker-list li::before {
-  content: ">";
-  position: absolute;
-  left: 0;
-  color: #00ff88;
-  font-weight: bold;
-}
+  /* Hacker bullet > */
+  .hacker-list li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: #00ff88;
+    font-weight: bold;
+  }
 </style>
 
 <!-- JavaScript -->
@@ -475,232 +462,218 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }, 50);
       }, delay);
-
       delay += text.length * 60;
     });
   });
 });
 
 
-
 </script>
+  <!-- PROJECTS -->
+  <section id="projects" data-route>
+    <h2>Projects</h2>
+    <p style="font-family: 'Roboto', sans-serif;" class="muted">A collection of <b>Cybersecurity</b> projects demonstrating expertise in <b>Red Team Ops</b>, <b>Penetration Testing</b>, <b>OSINT</b>, <b>Digital Forensics</b> & <b> CTF Development</b>.</p>
+    <div class="cards" id="projects-grid"></div>
+    <style>
+      /* Project Card Hover Reveal */
+      #projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
 
-    <!-- PROJECTS -->
-    <section id="projects" data-route>
-      <h2>Projects</h2>
-      <p class="muted">A selection of practical, client-friendly and lab-grade security projects.</p>
-      <div class="cards" id="projects-grid"></div>
-      <style>
-        /* Project Card Hover Reveal */
-        #projects-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-          gap: 18px;
-          margin-top: 18px;
-        }
+      .project-card {
+        position: relative;
+        background: linear-gradient(180deg, rgba(17,24,32,.9), rgba(17,24,32,.7));
+        border: 1px solid rgba(255,255,255,.05);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.3);
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.25s ease-in-out;
+      }
 
-        .project-card {
-          position: relative;
-          background: linear-gradient(180deg, rgba(17,24,32,.9), rgba(17,24,32,.7));
-          border: 1px solid rgba(255,255,255,.05);
-          border-radius: 16px;
-          padding: 20px;
-          box-shadow: 0 10px 30px rgba(0,0,0,.3);
-          cursor: pointer;
-          overflow: hidden;
-          transition: all 0.25s ease-in-out;
-        }
+      .project-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(55,255,139,.35);
+        box-shadow: var(--glow);
+      }
 
-        .project-card:hover {
-          transform: translateY(-4px);
-          border-color: rgba(55,255,139,.35);
-          box-shadow: var(--glow);
-        }
+      .project-card h3 {
+        font-size: 17px;
+        margin: 0;
+        color: var(--text);
+        transition: color 0.2s ease;
+      }
 
-        .project-card h3 {
-          font-size: 17px;
-          margin: 0;
-          color: var(--text);
-          transition: color 0.2s ease;
-        }
+      .project-card:hover h3 {
+        color: var(--primary);
+      }
 
-        .project-card:hover h3 {
-          color: var(--primary);
-        }
+      /* Hidden content */
+      .project-desc, .project-tags, .project-link {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transform: translateY(10px);
+        transition: all 0.35s ease;
+      }
 
-        /* Hidden content */
-        .project-desc, .project-tags, .project-link {
-          opacity: 0;
-          max-height: 0;
-          overflow: hidden;
-          transform: translateY(10px);
-          transition: all 0.35s ease;
-        }
+      /* Reveal on hover */
+      .project-card:hover .project-desc,
+      .project-card:hover .project-tags,
+      .project-card:hover .project-link {
+        opacity: 1;
+        max-height: 300px;
+        transform: translateY(0);
+      }
 
-        /* Reveal on hover */
-        .project-card:hover .project-desc,
-        .project-card:hover .project-tags,
-        .project-card:hover .project-link {
-          opacity: 1;
-          max-height: 300px;
-          transform: translateY(0);
-        }
+      .project-desc {
+        margin-top: 10px;
+        font-size: 17px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
 
-        .project-desc {
-          margin-top: 10px;
-          font-size: 14px;
-          color: var(--muted);
-          line-height: 1.5;
-        }
+      .project-tags {
+        margin-top: 10px;
+      }
 
-        .project-tags {
-          margin-top: 10px;
-        }
+      .project-tags .tag {
+        display: inline-block;
+        font-size: 11px;
+        border: 1px solid rgba(255,255,255,.08);
+        padding: 4px 8px;
+        border-radius: 999px;
+        color: var(--text);
+        opacity: 0.9;
+        margin: 3px 3px 0 0;
+      }
 
-        .project-tags .tag {
-          display: inline-block;
-          font-size: 11px;
-          border: 1px solid rgba(255,255,255,.08);
-          padding: 4px 8px;
-          border-radius: 999px;
-          color: var(--text);
-          opacity: 0.9;
-          margin: 3px 3px 0 0;
-        }
+      .project-link {
+        margin-top: 14px;
+        display: inline-block;
+        border: 1px solid rgba(55,255,139,.35);
+        color: var(--text);
+        background: rgba(55,255,139,.08);
+        border-radius: 10px;
+        padding: 8px 12px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.25s ease;
+      }
 
-        .project-link {
-          margin-top: 14px;
-          display: inline-block;
-          border: 1px solid rgba(55,255,139,.35);
-          color: var(--text);
-          background: rgba(55,255,139,.08);
-          border-radius: 10px;
-          padding: 8px 12px;
-          text-decoration: none;
-          font-size: 13px;
-          font-weight: 600;
-          transition: all 0.25s ease;
-        }
+      .project-link:hover {
+        background: var(--primary);
+        color: var(--bg);
+        box-shadow: var(--glow);
+      }
+    </style>
+  </section>
 
-        .project-link:hover {
-          background: var(--primary);
-          color: var(--bg);
-          box-shadow: var(--glow);
-        }
-      </style>
-
-    </section>
-
-    <!-- BLOGS -->
-    <!-- <section id="blogs" data-route>
+  <!-- BLOGS -->
+  <main>
+    <section id="blogs" data-route>
       <h2>Blogs & Write-ups</h2>
-      <p class="muted">Deep-dive write-ups, security research, and real-world findings.</p>
-      <div class="two-col">
-        <div>
-          <div class="blog-list" id="blog-list"></div>
-        </div>
-        <div>
-          <div class="card blog-content" id="blog-content"><em>Select a post to read…</em></div>
+    <p style="font-family: 'Roboto', sans-serif; font-size: 18px;" class="muted">My <b>insights</b>, <b>writeups</b>, <b>research</b> & <b>cheatsheets</b> uncovering real-world cybersecurity incidents, exploits, and defense techniques.</p>
+    
+      <div class="category-filter" id="category-filter"></div>
+      <div class="blog-list" id="blog-list"></div>
+    
+      <!-- Blog Modal -->
+      <div class="blog-modal-backdrop" id="blog-modal">
+        <div class="blog-modal">
+          <header>
+            <h3 id="modal-title">Blog Title</h3>
+            <button class="close" id="close-modal">&times;</button>
+          </header>
+        <div class="blog-body" id="modal-content"></div>
         </div>
       </div>
-    </section> -->
+    </section>
+  </main>
 
-    <section id="blogs" data-route>
-  <h2>Blogs & Write-ups</h2>
-  <p class="muted">Deep-dive write-ups, security research, and real-world findings.</p>
-
-    <!-- Category Tabs -->
-  <div class="blog-categories" id="blogCategories">
-  <button class="category-btn active" onclick="filterBlogs('all')">All</button>
-  <button class="category-btn" onclick="filterBlogs('htb')">HTB</button>
-  <button class="category-btn" onclick="filterBlogs('cheatsheets')">Cheatsheets</button>
-  </div>
-
-    <!-- Blog List -->
-  <div class="blog-list" id="blog-list"></div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
   <!-- Popup Modal -->
-  
-    <div class="blog-modal-backdrop" id="blog-modal">
+  <div class="blog-modal-backdrop" id="blog-modal">
     <div class="blog-modal">
-    <header>
-    <h3 id="modal-title">Blog Title</h3>
-    <button class="close" id="close-modal">&times;</button>
-    </header>
-    <div class="blog-body" id="modal-content"></div>
+      <header>
+        <h3 id="modal-title">Blog Title</h3>
+        <button class="close" id="close-modal">&times;</button>
+      </header>
+      <div class="blog-body" id="modal-content"></div>
     </div>
-    </div>
+  </div>
 
-   <style>
-    /* Blog Categories */
-    .blog-categories {
-    display: flex;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    }
-
-
-    .category-btn {
-    background: #11161b;
-    color: #d1d1d1;
-    border: 1px solid #222;
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    }
-
-
-    .category-btn:hover {
-    background: #1a2128;
-    color: #00ff88;
-    }
-
-
-    .category-btn.active {
-    background: #00ff88;
-    color: #0a0d10;
-    }
-
-
-    /* Blog list items */
-    .post-item {
-    cursor: pointer;
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 10px;
-    padding: 12px 14px;
-    background: rgba(255,255,255,.02);
-    transition: all 0.2s ease-in-out;
-    width: 80%;
-    max-width: 680px;
-    margin: 0 auto;
-    }
-
-
-    .post-item:hover {
-    transform: translateY(-2px);
-    border-color: rgba(55,255,139,.35);
-    box-shadow: var(--glow);
-    background: rgba(55,255,139,.04);
-    }
-
-
-    .post-item h4 {
-    margin: 0;
-    color: var(--text);
-    transition: color 0.2s ease;
-    }
-
-
-    .post-item:hover h4 {
-    color: var(--primary);
-    }
-
-
-    /* Modal styling */
+  <style>
+    /* Popup Modal Styles */
     .blog-modal-backdrop {
-    position: fixed;}
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .blog-modal-backdrop.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+    .blog-modal {
+      width: min(700px, 90%);
+      max-height: 80vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, rgba(17,24,32,.95), rgba(17,24,32,.85));
+      border: 1px solid rgba(55,255,139,.25);
+      border-radius: 16px;
+      box-shadow: var(--glow);
+      color: var(--text);
+    }
+    .blog-modal header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .blog-modal header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .blog-modal .close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 22px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .blog-modal .close:hover {
+      color: var(--primary);
+    }
+    .blog-modal .blog-body {
+      padding: 16px 20px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .blog-modal .blog-body img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
 
     /* Blog list hover effect + cursor */
@@ -712,26 +685,22 @@ document.addEventListener("DOMContentLoaded", () => {
       background: rgba(255,255,255,.02);
       transition: all 0.2s ease-in-out;
     }
-
     .blog.list{
       display: flex;
       flex-direction: column;
       align-items: center;       /* centers the items horizontally */
       gap: 8px;
     }
-
     .post-item {
-    width: 80%;                /* adjust: try 80%, 70%, or 60% */
-    max-width: 680px;          /* keeps it tidy on large screens */
-  }
-
+      width: 80%;                /* adjust: try 80%, 70%, or 60% */
+      max-width: 680px;          /* keeps it tidy on large screens */
+    }
     .post-item:hover {
       transform: translateY(-2px);
       border-color: rgba(55,255,139,.35);
       box-shadow: var(--glow);
       background: rgba(55,255,139,.04);
     }
-
     .post-item h4 {
       margin: 0;
       color: var(--text);
@@ -740,82 +709,76 @@ document.addEventListener("DOMContentLoaded", () => {
     .post-item:hover h4 {
       color: var(--primary);
     }
-
   </style>
   </section>
 
-    <!-- CONTACT -->
-<section id="contact" data-route class="contact-section">
-  <div class="contact-header">
-    <h2>Get in Touch</h2>
-    <p class="muted">
+  <!-- CONTACT -->
+  <section id="contact" data-route class="contact-section">
+    <div class="contact-header">
+      <h2>Get in Touch</h2>
+      <p class="muted">
       I am always excited to collaborate on security projects, training, and research.  
       Whether you need penetration testing, OSINT investigations, or red team simulations,  
       let’s connect and make your systems more secure.
-    </p>
-  </div>
-
-  <div class="contact-grid">
-    <!-- LEFT: Contact Info -->
-    <div class="card contact-info">
-      <h3>Let’s Connect</h3>
-    <p><i data-lucide="mail"></i> <a href="mailto:dx73r@protonmail.com">Mail</a></p>
-  <p><i data-lucide="phone"></i> <a href="tel:+447464530664">Phone</a></p>
-  <p><i data-lucide="linkedin"></i> <a href="https://www.linkedin.com/in/naqvio7/" target="_blank">LinkedIn</a></p>
-  <p><i data-lucide="github"></i> <a href="https://github.com/dx7er" target="_blank">GitHub</a></p>
-  <p><i data-lucide="send"></i> <a href="https://t.me/dx73r0" target="_blank">Telegram</a></p>
-  <p><i data-lucide="message-circle"></i> <a href="https://whatsapp.com/channel/0029VbBbiPHA2pLGnt2ypf2A" target="_blank">WhatsApp Channel</a></p>
-  <p><i data-lucide="globe"></i> <a href="https://dx7er.github.io" target="_blank">Website</a></p>
+      </p>
+    </div>
+    <div class="contact-grid">
+      <!-- LEFT: Contact Info -->
+      <div class="card contact-info">
+        <h3>Let’s Connect</h3>
+        <p><i data-lucide="mail"></i> <a href="mailto:dx73r@protonmail.com">Mail</a></p>
+        <p><i data-lucide="phone"></i> <a href="tel:+447464530664">Phone</a></p>
+        <p><i data-lucide="linkedin"></i> <a href="https://www.linkedin.com/in/naqvio7/" target="_blank">LinkedIn</a></p>
+        <p><i data-lucide="github"></i> <a href="https://github.com/dx7er" target="_blank">GitHub</a></p>
+        <p><i data-lucide="send"></i> <a href="https://t.me/dx73r0" target="_blank">Telegram</a></p>
+        <p><i data-lucide="message-circle"></i> <a href="https://whatsapp.com/channel/0029VbBbiPHA2pLGnt2ypf2A" target="_blank">WhatsApp Channel</a></p>
+       <p><i data-lucide="globe"></i> <a href="https://dx73r.me" target="_blank">Website</a></p>
 
 <style>
-/* --- CONTACT ICONS --- */
-.contact-info {
-  transition: all 0.3s ease;
-}
+  /* --- CONTACT ICONS --- */
+  .contact-info {
+    transition: all 0.3s ease;
+  }
+  .contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .contact-info p:hover {
+    transform: translateX(5px);
+  }
 
-.contact-info p {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 8px 0;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
+  .contact-info i {
+    width: 18px;
+    height: 18px;
+    color: var(--primary);
+    transition: color 0.3s ease, filter 0.3s ease, transform 0.2s ease;
+  }
+  .contact-info a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
 
-.contact-info p:hover {
-  transform: translateX(5px);
-}
+  /* HOVER EFFECT */
+  .contact-info p:hover i {
+    color: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+    transform: scale(1.15);
+  }
 
-.contact-info i {
-  width: 18px;
-  height: 18px;
-  color: var(--primary);
-  transition: color 0.3s ease, filter 0.3s ease, transform 0.2s ease;
-}
+  .contact-info a:hover {
+    color: var(--accent);
+    text-shadow: 0 0 6px var(--accent);
+  }
+  </style>
+  </div>
 
-.contact-info a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-/* HOVER EFFECT */
-.contact-info p:hover i {
-  color: var(--accent);
-  filter: drop-shadow(0 0 6px var(--accent));
-  transform: scale(1.15);
-}
-
-.contact-info a:hover {
-  color: var(--accent);
-  text-shadow: 0 0 6px var(--accent);
-}
-
-</style>
-    </div>
-
-      <!-- RIGHT: Contact Form -->
+  <!-- RIGHT: Contact Form -->
     <div class="card contact-form">
       <h3>Send a Message</h3>
       <form id="contact-form">
@@ -828,8 +791,6 @@ document.addEventListener("DOMContentLoaded", () => {
       </form>
       <p id="form-status" class="muted" style="margin-top:10px;"></p>
     </div>
-
-
   </div>
 </section>
 
@@ -901,11 +862,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 </script>
-  </main>
+</main>
 
-  <footer class="footer">
-    <small>© <span id="year"></span> Saqlain | All rights reserved </small>
-  </footer>
+<footer class="footer">
+  <small>© <span id="year"></span> Saqlain | All rights reserved </small>
+</footer>
 
   <script>
     // ---- SPA Router (hash-based) ----
@@ -939,8 +900,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if(pos <= lines[idx].length){
         term.textContent = lines[idx].slice(0,pos++);
       } else { idx = (idx+1) % lines.length; pos = 0; term.textContent=''; }
-      setTimeout(type, pos===0? 900: 35);
-    } setTimeout(type, 600);
+      setTimeout(type, pos===0? 900: 45);
+    } setTimeout(type, 800);
+
 
     // ---- Projects (edit this array) ----
     const projects = [
@@ -1003,18 +965,6 @@ document.addEventListener("DOMContentLoaded", () => {
         link:"https://www.linkedin.com/in/naqvio7/details/projects/"
       },
     ];
-    // function renderProjects(){
-    //   const grid = document.getElementById('projects-grid');
-    //   grid.innerHTML = projects.map(p=>`
-    //     <article class="card">
-    //       <h3>${p.title}</h3>
-    //       <p class="muted">${p.desc}</p>
-    //       <div>${p.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}</div>
-    //       <div style="margin-top:10px"><a class="btn" href="${p.link}" target="_blank" rel="noopener">Project Link →</a></div>
-    //     </article>
-    //   `).join('');
-    // }
-    // renderProjects();
     function renderProjects() {
       const grid = document.getElementById('projects-grid');
       grid.innerHTML = projects.map(p => `
@@ -1028,10 +978,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `).join('');
     }
-
     document.addEventListener("DOMContentLoaded", renderProjects);
-
-
 
     // ---- Markdown Blog Loader ----
     // Add your posts here. Files should live under /blogs/*.md in the repo.
@@ -1063,90 +1010,76 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* --- Posts Metadata --- */
     const posts = [
-      { slug:"ejptv2_exam_review", title:"eJPTv2 Exam Review", file:"./blogs/ejptv2_exam_review.md", date:"2023-09-06", category:'general'},
-      { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", file:"./blogs/hiding_backdoor.md", date:"2024-03-15",category:'general'},
-      { slug:"ip_information", title:"Tract IP Info using MS Docs ", file:"./blogs/ip_information.md", date:"2024-04-14", category:'general' },
-      { slug:"malpdf2k24", title:"Pakistan Prime Minister's Office Themed Phishing PDF File Evaded All the AV Solutions", file:"./blogs/malpdf2k24.md", date:"2024-05-03", category:'general'},
-      { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", file:"./blogs/phishing_email.md", date:"2024-06-05", category:'general'},
-      { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", file:"./blogs/windows_password_bypass.md", date:"2024-05-15", category:'general'}
-        
-    ];
+        { slug:"ejptv2_exam_review", title:"eJPTv2 Exam Review", category:"General",file:"./blogs/ejptv2_exam_review.md", date:"2023-09-06"},
+        { slug:"hiding_backdoor", title:"Hide Backdoors in Shceduled Tasks", category:"Red Team", file:"./blogs/hiding_backdoor.md", date:"2024-03-15" },
+        { slug:"ip_information", title:"Tract IP Info using MS Docs ", category:"General",file:"./blogs/ip_information.md", date:"2024-04-14" },
+        { slug:"malpdf2k24", title:"Pakistan POffice Themed Phishing PDF File Evaded All the AV Solutions", category:"Red Team", file:"./blogs/malpdf2k24.md", date:"2024-05-03"},
+        { slug:"phishing_email", title:"The Anotomy of Social Engineering Attack", category:"General",file:"./blogs/phishing_email.md", date:"2024-06-05"},
+        { slug:"windows_password_bypass", title:"Windows Password/Login Screen Bypass", category:"Red Team", file:"./blogs/windows_password_bypass.md", date:"2024-05-15"},
+        { slug:"imap_pop3_writeup", title:"IMAP & POP3 HTB Academy Writeup", category:"HTB", file:"./blogs/imap_pop3.md", date:"2025-10-30" }
+      ];
 
-    const blogList = document.getElementById("blog-list");
-    const modalBackdrop = document.getElementById("blog-modal");
-    const modalTitle = document.getElementById("modal-title");
-    const modalContent = document.getElementById("modal-content");
-    const closeModal = document.getElementById("close-modal");
+    // === DYNAMIC CATEGORY FILTER ===
+    const categories = [...new Set(posts.map(p => p.category))];
+    const categoryFilter = document.getElementById('category-filter');
+    const blogList = document.getElementById('blog-list');
+    const modalBackdrop = document.getElementById('blog-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+    const closeModal = document.getElementById('close-modal');
 
-    function renderPosts(category='all') {
-    blogList.innerHTML = posts
-    .filter(p => category === 'all' || p.category === category)
-    .sort((a,b)=> a.date < b.date ? 1 : -1)
-    .map(p => `
-    <div class='post-item' data-slug='${p.slug}'>
+
+    let activeCategory = 'All';
+
+    function renderCategoryButtons() {
+      const allCats = ['All', ...categories];
+      categoryFilter.innerHTML = allCats.map(cat => `<button class="category-btn ${cat === 'All' ? 'active' : ''}" data-cat="${cat}">${cat}</button>`).join('');
+      document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.dataset.cat;
+      renderPostList();});
+      });
+    }
+    
+    async function loadMarkdown(url){ const res = await fetch(url); return res.ok ? await res.text() : '# Not Found'; }
+    function mdToHtml(md){ return marked.parse(md); }
+
+    function renderPostList(){
+    const filtered = activeCategory === 'All' ? posts : posts.filter(p => p.category === activeCategory);
+    blogList.innerHTML = filtered.map(p => `
+    <div class="post-item" data-slug="${p.slug}">
     <h4>${p.title}</h4>
-    <small class='muted'>${p.date}</small>
-    </div>
-    `).join('');
+    <small class="muted">${p.date} — ${p.category}</small>
+    </div>`).join('');
 
 
     document.querySelectorAll('.post-item').forEach(item => {
     item.addEventListener('click', async () => {
-    const post = posts.find(p => p.slug === item.dataset.slug);
-    const res = await fetch(post.file);
-    const md = await res.text();
+    const slug = item.dataset.slug;
+    const post = posts.find(p => p.slug === slug);
+    if(!post) return;
     modalTitle.textContent = post.title;
-    modalContent.innerHTML = marked.parse(md);
+    const md = await loadMarkdown(post.file);
+    modalContent.innerHTML = mdToHtml(md);
     modalBackdrop.classList.add('active');
     modalContent.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
     });
     });
-    }
+  }
+
+  closeModal.addEventListener('click', () => modalBackdrop.classList.remove('active'));
+  modalBackdrop.addEventListener('click', e => { if(e.target === modalBackdrop) modalBackdrop.classList.remove('active'); });
+  
+  document.getElementById('year').textContent = new Date().getFullYear();
 
 
-    function filterBlogs(category){
-    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`[onclick="filterBlogs('${category}')"]`).classList.add('active');
-    renderPosts(category);
-    }
-
-
-    closeModal.addEventListener('click', ()=> modalBackdrop.classList.remove('active'));
-    modalBackdrop.addEventListener('click', e=>{ if(e.target===modalBackdrop) modalBackdrop.classList.remove('active'); });
-
-
-    document.addEventListener('DOMContentLoaded', ()=> renderPosts());
-
-
-    // Dynamically add category from console
-    function addCategory(name) {
-    const categories = document.getElementById('blogCategories');
-    const button = document.createElement('button');
-    button.className = 'category-btn';
-    button.innerText = name.charAt(0).toUpperCase() + name.slice(1);
-    button.onclick = () => filterBlogs(name.toLowerCase());
-    categories.appendChild(button);
-    }
-
-
-
-    /* --- Render Blog List --- */
-    function renderPostList() {
-      blogList.innerHTML = posts
-        .sort((a, b) => (a.date < b.date ? 1 : -1))
-        .map(
-          (p) => `
-            <div class="post-item" data-slug="${p.slug}">
-              <h4>${p.title}</h4>
-              <small class="muted">${p.date}</small>
-            </div>`
-        ).join('');
-
-        
-
-
-
-
+  document.addEventListener('DOMContentLoaded', () => {
+  renderCategoryButtons();
+  renderPostList();
+  });
+  
       // Click → Open Modal
       document.querySelectorAll(".post-item").forEach(item => {
         item.addEventListener("click", async () => {
@@ -1163,7 +1096,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         });
       });
-    }
+    
 
     /* --- Close Modal --- */
     closeModal.addEventListener("click", () => modalBackdrop.classList.remove("active"));
@@ -1175,33 +1108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("DOMContentLoaded", renderPostList);
    
 
-
-
-
-    function parseHashParams(){
-      const [route, query] = (location.hash||'#about').slice(1).split('?');
-      return {route, slug: query||null};
-    }
-
-    async function showBlogFromHash(){
-      const {route, slug} = parseHashParams();
-      if(route!=="blogs"){ return }
-      if(!slug){
-        blogContent.innerHTML = '<em>Select a post to read…</em>';
-        return;
-      }
-      const post = posts.find(p=>p.slug===slug);
-      if(!post){
-        blogContent.innerHTML = '<em>Post not found.</em>';
-        return;
-      }
-      const md = await loadMarkdown(post.file);
-      blogContent.innerHTML = mdToHtml(md);
-    }
-
-    window.addEventListener('hashchange', showBlogFromHash);
-    window.addEventListener('DOMContentLoaded', ()=>{ renderPostList(); showBlogFromHash(); });
-
     // ---- Contact: mailto fallback ----
     document.getElementById('contact-form').addEventListener('submit', (e)=>{
       e.preventDefault();
@@ -1212,72 +1118,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const subject = `Portfolio Contact from ${name}`;
       const body = `Email: ${email}%0A%0A${msg}`;
       window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
-    });
-
-    // ---- Resume: password gate ----
-    document.getElementById('resume-link')?.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const file = e.currentTarget.getAttribute('data-file') || 'assets/Resume.pdf';
-      const modal = document.createElement('div');
-      modal.classList.add('modal-backdrop', 'active');
-      modal.innerHTML = `
-        <div class="modal">
-          <header>
-            <h4>Resume Password</h4>
-            <button class="close">&times;</button>
-          </header>
-          <div class="body">
-            <p>Enter the password to download the resume:</p>
-            <input type="password" id="resume-password-input" />
-            <div class="error" id="resume-password-error"></div>
-          </div>
-          <div class="footer">
-            <button class="btn" id="resume-password-cancel">Cancel</button>
-            <button class="btn primary" id="resume-password-submit">Submit</button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(modal);
-
-      const closeBtn = modal.querySelector('.close');
-      const cancelBtn = modal.querySelector('#resume-password-cancel');
-      const submitBtn = modal.querySelector('#resume-password-submit');
-      const passwordInput = modal.querySelector('#resume-password-input');
-      const errorMsg = modal.querySelector('#resume-password-error');
-
-      closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-      });
-
-      cancelBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-      });
-
-      submitBtn.addEventListener('click', () => {
-        const inputPassword = passwordInput.value;
-        if (inputPassword === 'dx73r@111') {
-          const a = document.createElement('a');
-          a.href = file;
-          a.download = file.split('/').pop() || 'Resume.pdf';
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          modal.classList.remove('active');
-          setTimeout(() => modal.remove(), 300);
-        } else {
-          errorMsg.textContent = 'Incorrect password. Please try again.';
-          passwordInput.value = ''; // Clear input
-          setTimeout(() => errorMsg.textContent = '', 3000); // Clear error message after 3 seconds
-        }
-      });
-
-      passwordInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-          submitBtn.click();
-        }
-      });
     });
 
     // ---- Footer year ----
