@@ -31,8 +31,7 @@ During an authorized HTB Academy lab, enumeration was performed against the mail
 * **nmap** – for service discovery
 * **openssl** – for certificate inspection and interactive IMAP/POP3 access
 * **curl** – for quick IMAP/POP3 authentication testing
-* **hydra (optional)** – for credential validation (lab use only)
-
+* 
 ---
 
 ## Methodology
@@ -69,7 +68,7 @@ Not After: 2295-08-23
 ### 3. Authentication Testing via Curl
 
 ```bash
-curl -k imaps://10.129.242.62/INBOX --user "robin:robin" --verbose
+curl -k imaps://10.129.242.62 --user "robin:robin"
 ```
 
 **Result:** Successful login and mailbox listing.
@@ -82,7 +81,7 @@ curl -k imaps://10.129.242.62/INBOX --user "robin:robin" --verbose
 ### 4. Interactive IMAP Enumeration
 
 ```bash
-openssl s_client -connect 10.129.242.62:993 -crlf
+openssl s_client -connect 10.129.242.62:imaps
 ```
 
 Once connected:
@@ -108,7 +107,7 @@ HTB{983uzn8jmfgpd8jmof8c34n7zio}
 ### 5. POP3 Interaction Example
 
 ```bash
-openssl s_client -connect 10.129.242.62:995 -crlf
+openssl s_client -connect 10.129.242.62:pop3
 ```
 
 After connection:
