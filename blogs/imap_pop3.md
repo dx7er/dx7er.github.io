@@ -1,4 +1,4 @@
-# IMAP / POP3 Enumeration Write-up - HTB Academy
+# IMAP / POP3 Enumeration Writeup - HTB Academy
 
 **Target:** `10.129.242.62` (FQDN: `dev.inlanefreight.htb`)
 **Scope:** HTB Academy Lab (Authorized environment)
