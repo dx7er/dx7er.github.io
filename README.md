@@ -1,65 +1,50 @@
-# dx7er.github.io
+# 🕶️ dx73r.me
 
-> The official GitHub Pages site for **dx7er**, showcasing portfolio highlights, blogs, and infosec projects.
+Welcome to my personal **Cybersecurity Portfolio Website** — a minimalist, hacker-themed site built using **HTML, CSS, and JavaScript**. It showcases my projects, writeups, and research work in **Pentesting, OSINT, and Digital Forensics**.
 
-##  Overview
+---
 
-This repository hosts my portfolio, write-ups, and project showcases built with a static site generator (e.g., Jekyll, Hugo, plain HTML/CSS).
+## 🚀 Features
 
-##  Built With
+* **Projects Section** – Showcases cybersecurity labs, CTFs, and technical work.
+* **Blogs Section** – Writeups on ethical hacking, malware analysis, and investigations.
+* **Contact Section** – Quick access to my professional profiles.
+* **Responsive UI** – Clean and lightweight interface optimized for all devices.
 
-- Static site framework: _[Jekyll / Hugo / plain HTML]_  
-- HTML, CSS, JavaScript  
-- (Optional) Front-end framework (e.g., Bootstrap, Tailwind)_  
-- GitHub Pages for hosting and deployment
+---
 
-##  Getting Started
+## 🧠 Tech Stack
 
-### Prerequisites
+* HTML5
+* CSS3 (Custom theme)
+* JavaScript (Vanilla)
+* Markdown for blog content
 
-Ensure you have:
+---
 
-- A modern web browser to preview the site  
-- Ruby or Hugo (if using a static site generator) installed locally
+## ⚡ Deployment
 
-### Running Locally
+This site is hosted using **GitHub Pages** at:
+👉 [https://dx7er.github.io](https://dx7er.github.io) & [dx73r.me](https://dx73r.me) 
 
-To preview the site on your machine:
+To deploy your own version:
 
 ```bash
-git clone https://github.com/dx7er/dx7er.github.io.git
+git clone https://github.com/dx7er/dx7er.github.io
 cd dx7er.github.io
-# If using Jekyll:
-bundle install && bundle exec jekyll serve
-# Or if using Hugo:
-hugo server
-# Or simply open index.html in your browser
+git push origin main
 ```
 
-### Contributing
+---
 
-Contributions are welcome! Whether it's adding blog posts, portfolio updates, or site enhancements, feel free to send a PR. Here's how:
-1. Fork this repo
-2. Create a feature branch: git checkout -b feature/YourUpdate
-3. Make your improvements
-4. Commit: git commit -m "Add [your feature]"
-5. Push: git push origin feature/YourUpdate
-6. Open a Pull Request, I’ll review and merge it if all looks good!
+## 📬 Connect With Me
 
+* **Portfolio:** [dx73r.me](https://dx73r.me)
+* **LinkedIn:** [Saqlain Naqvi](https://linkedin.com/in/saqlain-naqvi)
+* **GitHub:** [@dx7er](https://github.com/dx7er)
 
-### License
+---
 
-This project is open-source under the MIT License. Feel free to use and modify it as you please. See the LICENSE
- file for more details.
-```python
-###  Tips for Personalizing It:
+### 💡 About
 
-- Specify your static site generator: Replace “Jekyll / Hugo / plain HTML” with whichever you're using.
-- Update the running instructions to reflect your actual workflow.
-- Add actual folder names and descriptions to the “Repository Structure” section if different.
-- Adjust the license if you're using another one or if you have none yet.
-- Link up your social handles/contacts as needed for better personalization.
-
-Let me know if you’d like help tailored to the actual frameworks or features your site uses!
-::contentReference[oaicite:0]{index=0}
-```
+Created and maintained by **Saqlain (dx7er)** – Penetration Tester, OSINT Investigator, and Digital Forensics Analyst passionate about cybersecurity education and CTF development.
