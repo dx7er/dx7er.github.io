@@ -1,3 +1,5 @@
+![htb](../assets/htb.png)
+
 # SNMP Enumeration Writeup – HTB Academy
 
 ## Overview
