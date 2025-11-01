@@ -54,8 +54,6 @@ InFreight SNMP v0.91
 * **Admin Email:** `devadmin@inlanefreight.htb`
 * **Customized SNMP Version:** `InFreight SNMP v0.91`
 
-![SNMPWalk Output](f02a6cb6-5db6-4236-9fb7-b572d57e8208.png)
-
 ---
 
 ## Step 3: Brute Force Community Strings
@@ -77,7 +75,6 @@ To identify valid SNMP community strings using a wordlist.
 
 The community string `public` is confirmed valid.
 
-![onesixtyone Scan](91d6e8fd-b2f8-47b0-ae6a-9393d87e7cbe.png)
 
 ---
 
@@ -102,8 +99,6 @@ The SNMP Management Architecture MIB.
 The MIB module for managing UDP implementations.
 ```
 
-![Braa Output](9cace810-6e16-4c44-9ef6-71f63d05947b.png)
-
 ---
 
 ## Step 5: Exporting SNMP Data
@@ -117,7 +112,6 @@ snmpwalk -v2c -c public 10.129.164.238 > snmp-out.txt
 **Purpose:**
 To save the complete enumeration output for offline analysis.
 
-![SNMP Output Save](36e8043e-016d-48db-b277-050f1b7af312.png)
 
 ---
 
@@ -137,7 +131,6 @@ HTB{5nMp_fl4g_uidhfljnsldiuhbfsdij44738b2u763g}
 
 **Flag Found:** ✅ `HTB{5nMp_fl4g_uidhfljnsldiuhbfsdij44738b2u763g}`
 
-![Flag Extraction](d33e7530-8706-48ce-a662-53057bb3e4b4.png)
 
 ---
 
@@ -149,7 +142,7 @@ HTB{5nMp_fl4g_uidhfljnsldiuhbfsdij44738b2u763g}
 | **Customized SNMP Version**     | `InFreight SNMP v0.91`                            |
 | **Custom Script Output (Flag)** | `HTB{5nMp_fl4g_uidhfljnsldiuhbfsdij44738b2u763g}` |
 
-![HTB Academy Submission](5619bd55-a166-4f76-b384-b87b46a97fb4.png)
+
 
 ---
 
