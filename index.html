@@ -118,26 +118,25 @@
     .btn.primary{ border-color: rgba(55,255,139,.5); color:var(--bg); background:linear-gradient(180deg, var(--primary), var(--primary-dim)) }
 
     /* Blog styles */
-    .category-filter { display:flex; flex-wrap:wrap; gap:10px; margin: 20px 0; }
-    .category-btn { padding:8px 14px; border-radius:12px; border:1px solid rgba(55,255,139,.35); background:rgba(55,255,139,.05); color:var(--text); font-weight:600; cursor:pointer; transition:all .2s ease; }
-    .category-btn:hover, .category-btn.active { background:var(--primary); color:var(--bg); box-shadow:var(--glow); }
-
-
-    .blog-list{ display:flex; flex-direction:column; align-items:flex-start; gap:12px }
-    .post-item{ width:80%; max-width:680px; padding:14px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.02); cursor:pointer; transition:.2s ease; }
-    .post-item:hover{ border-color:rgba(55,255,139,.35); box-shadow:var(--glow); background:rgba(55,255,139,.04); }
-    .post-item h4{ margin:0; color:var(--text); }
+    .category-filter{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;}
+    .category-btn{padding:8px 14px;border-radius:12px;border:1px solid rgba(55,255,139,.35);background:rgba(55,255,139,.05);color:var(--text);font-weight:600;cursor:pointer;transition:.2s;}
+    .category-btn:hover,.category-btn.active{background:var(--primary);color:var(--bg);box-shadow:var(--glow);}
+    .blog-list{display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
+    .post-item{width:80%;max-width:680px;padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.02);cursor:pointer;transition:.2s;}
+    .post-item:hover{border-color:rgba(55,255,139,.35);box-shadow:var(--glow);background:rgba(55,255,139,.04);}
+    .post-item h4{margin:0;color:var(--text);}
+    .post-item:hover h4{color:var(--primary);}
+    #view-all-btn{display:inline-block;margin:20px 0 0 0;font-size:15px;font-weight:700;padding:10px 18px;border-radius:12px;border:1px solid rgba(55,255,139,.35);background:linear-gradient(180deg,var(--primary),var(--primary-dim));color:var(--bg);cursor:pointer;transition:.2s;}
+    #view-all-btn:hover{transform:translateY(-1px);box-shadow:var(--glow);}
 
 
     /* Modal */
-    .blog-modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:100; }
-    .blog-modal-backdrop.active { display:flex; animation:fadeIn .3s ease; }
-    .blog-modal { width:min(700px,90%); max-height:80vh; overflow-y:auto; background:linear-gradient(180deg, rgba(17,24,32,.95), rgba(17,24,32,.85)); border:1px solid rgba(55,255,139,.25); border-radius:16px; box-shadow:var(--glow); color:var(--text); }
-    .blog-modal header { display:flex; justify-content:space-between; align-items:center; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.08); }
-    .blog-modal header h3 { margin:0; font-size:18px; font-weight:700; }
-    .blog-modal .close { background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; }
-    .blog-modal .blog-body { padding:16px 20px; font-size:15px; line-height:1.7; color:var(--text); }
-    @keyframes fadeIn { from{opacity:0; transform:scale(.98);} to{opacity:1; transform:scale(1);} }
+    .blog-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;}
+    .blog-modal-backdrop.active{display:flex;}
+    .blog-modal{width:min(700px,90%);max-height:80vh;overflow-y:auto;background:linear-gradient(180deg,rgba(17,24,32,.95),rgba(17,24,32,.85));border:1px solid rgba(55,255,139,.25);border-radius:16px;box-shadow:var(--glow);}
+    .blog-modal header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.08);}
+    .blog-modal header h3{margin:0;font-size:18px;}
+    .blog-modal .close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;}
 
     /* Router hidden/visible */
     [data-route]{ display:none }
@@ -1023,84 +1022,75 @@ document.addEventListener("DOMContentLoaded", () => {
         { slug:"snmp_writeup", title:"SNMP HTB Academy Writeup", category:"HTB", file:"./blogs/snmpwrt.md", date:"2025-11-1" },
         { slug:"mysql_writeup", title:"MySQL HTB Academy Writeup", category:"HTB", file:"./blogs/mysql_wrt.md", date:"2025-11-2" }
       ];
-
-    // === DYNAMIC CATEGORY FILTER ===
-    const categories = [...new Set(posts.map(p => p.category))];
-    const categoryFilter = document.getElementById('category-filter');
-    const blogList = document.getElementById('blog-list');
-    const modalBackdrop = document.getElementById('blog-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalContent = document.getElementById('modal-content');
-    const closeModal = document.getElementById('close-modal');
-
-
-    let activeCategory = 'All';
-
-    function renderCategoryButtons() {
-      const allCats = ['All', ...categories];
-      categoryFilter.innerHTML = allCats.map(cat => `<button class="category-btn ${cat === 'All' ? 'active' : ''}" data-cat="${cat}">${cat}</button>`).join('');
-      document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCategory = btn.dataset.cat;
-      renderPostList();});
-      });
-    }
     
-    async function loadMarkdown(url){ const res = await fetch(url); return res.ok ? await res.text() : '# Not Found'; }
-    function mdToHtml(md){ return marked.parse(md); }
+   posts.sort((a,b)=>new Date(b.date)-new Date(a.date)); 
+   const categories=[...new Set(posts.map(p=>p.category))].sort();
 
-    function renderPostList(){
-    const filtered = activeCategory === 'All' ? posts : posts.filter(p => p.category === activeCategory);
-    blogList.innerHTML = filtered.map(p => `
-    <div class="post-item" data-slug="${p.slug}">
-    <h4>${p.title}</h4>
-    <small class="muted">${p.date} — ${p.category}</small>
-    </div>`).join('');
+  const categoryFilter=document.getElementById("category-filter");
+  const blogList=document.getElementById("blog-list");
+  const modalBackdrop=document.getElementById("blog-modal");
+  const modalTitle=document.getElementById("modal-title");
+  const modalContent=document.getElementById("modal-content");
+  const closeModal=document.getElementById("close-modal");
+  document.getElementById("year").textContent=new Date().getFullYear();
 
+  let activeCategory="All";
+  let showingAll=false;
 
-    document.querySelectorAll('.post-item').forEach(item => {
-    item.addEventListener('click', async () => {
-    const slug = item.dataset.slug;
-    const post = posts.find(p => p.slug === slug);
-    if(!post) return;
-    modalTitle.textContent = post.title;
-    const md = await loadMarkdown(post.file);
-    modalContent.innerHTML = mdToHtml(md);
-    modalBackdrop.classList.add('active');
-    modalContent.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
-    });
+  function renderCategoryButtons(){
+    const allCats=["All",...categories];
+    categoryFilter.innerHTML=allCats.map(cat=>`
+      <button class="category-btn ${cat==='All'?'active':''}" data-cat="${cat}">${cat}</button>
+    `).join('');
+    document.querySelectorAll(".category-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory=btn.dataset.cat;
+        showingAll=false;
+        renderPostList();
+      });
     });
   }
 
-  closeModal.addEventListener('click', () => modalBackdrop.classList.remove('active'));
-  modalBackdrop.addEventListener('click', e => { if(e.target === modalBackdrop) modalBackdrop.classList.remove('active'); });
-  
-  document.getElementById('year').textContent = new Date().getFullYear();
+  function renderPostList(){
+    const filtered=activeCategory==="All"?posts:posts.filter(p=>p.category===activeCategory);
+    const visiblePosts=showingAll?filtered:filtered.slice(0,5);
 
+    blogList.innerHTML=visiblePosts.map(p=>`
+      <div class="post-item" data-slug="${p.slug}">
+        <h4>${p.title}</h4>
+        <small class="muted">${p.date} — ${p.category}</small>
+      </div>`).join('');
 
-  document.addEventListener('DOMContentLoaded', () => {
-  renderCategoryButtons();
-  renderPostList();
-  });
-  
-      // Click → Open Modal
-      document.querySelectorAll(".post-item").forEach(item => {
-        item.addEventListener("click", async () => {
-          const slug = item.getAttribute("data-slug");
-          const post = posts.find(p => p.slug === slug);
-          if (!post) return;
-          modalTitle.textContent = post.title;
-          const md = await loadMarkdown(post.file);
-          modalContent.innerHTML = mdToHtml(md);
-          modalBackdrop.classList.add("active");
-          // Syntax highlight after render
-          modalContent.querySelectorAll("pre code").forEach(el => {
-            hljs.highlightElement(el);
-          });
-        });
+    if(filtered.length>5){
+      const btnText=showingAll?"Show Less":`View All (${filtered.length})`;
+      blogList.innerHTML+=`<button id="view-all-btn">${btnText}</button>`;
+    }
+
+    document.querySelectorAll(".post-item").forEach(item=>{
+      item.addEventListener("click",async()=>{
+        const slug=item.dataset.slug;
+        const post=posts.find(p=>p.slug===slug);
+        if(!post)return;
+        modalTitle.textContent=post.title;
+        const md=await loadMarkdown(post.file);
+        modalContent.innerHTML=mdToHtml(md);
+        modalBackdrop.classList.add("active");
+        modalContent.querySelectorAll("pre code").forEach(el=>hljs.highlightElement(el));
       });
+    });
+
+    const viewBtn=document.getElementById("view-all-btn");
+    if(viewBtn){
+      viewBtn.addEventListener("click",()=>{showingAll=!showingAll;renderPostList();});
+    }
+  }
+
+  closeModal.addEventListener("click",()=>modalBackdrop.classList.remove("active"));
+  modalBackdrop.addEventListener("click",e=>{if(e.target===modalBackdrop)modalBackdrop.classList.remove("active");});
+
+  document.addEventListener("DOMContentLoaded",()=>{renderCategoryButtons();renderPostList();});
     
 
     /* --- Close Modal --- */
