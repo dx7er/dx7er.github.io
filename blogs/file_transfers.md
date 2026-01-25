@@ -1,11 +1,3 @@
----
-title: File Transfer Techniques
-date: '2024-04-14'
-tags: ['file-transfer', 'red-team', 'post-exploitation', 'windows', 'linux', 'LOLBins', 'opsec', 'techniques']
-draft: false
-summary: Practical file transfer techniques used during security testing, including common tools, safe handling, and operational trade-offs.
----
-
 # File Transfer Techniques
 ![alt text](../assets/image-18.png)
 
