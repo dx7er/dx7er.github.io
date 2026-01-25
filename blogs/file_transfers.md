@@ -131,21 +131,17 @@ Invoke-AESEncryption -Mode Decrypt -Key "P@ssw0rd" -Path .\demofaes.txt.aes
 The following table maps each demonstrated file transfer technique to the relevant MITRE ATT&CK techniques and tactics, highlighting how adversaries transfer, stage, execute, and protect payloads during post-exploitation activities.<br>
 
 ### ATT&CK Technique Mapping
-| Technique Demonstrated               | ATT&CK ID | ATT&CK Technique                              | ATT&CK Tactic       | Description                                                                                                                      |
-| ------------------------------------ | --------- | --------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Base64 String Encoding               | T1132.001 | Data Encoding: Standard Encoding              | Command and Control | Files are encoded into Base64 to safely transmit data through restricted channels such as shells, forms, or injection points.    |
-| Base64 Reconstruction via PowerShell | T1059.001 | Command and Scripting Interpreter: PowerShell | Execution           | PowerShell is used to decode Base64 data and reconstruct the original file on the target system.                                 |
-| Invoke-WebRequest File Download      | T1105     | Ingress Tool Transfer                         | Command and Control | Tools and files are downloaded from attacker-controlled infrastructure using native PowerShell functionality.                    |
-| WebClient DownloadFile               | T1105     | Ingress Tool Transfer                         | Command and Control | Files are retrieved using the .NET WebClient class, offering faster execution and reduced logging compared to Invoke-WebRequest. |
-| Fileless In-Memory Execution (IEX)   | T1059.001 | Command and Scripting Interpreter: PowerShell | Execution           | PowerShell executes attacker-controlled scripts directly in memory without writing files to disk.                                |
-| Fileless Payload Delivery            | T1027     | Obfuscated/Compressed Files or Information    | Defense Evasion     | Disk-based artifacts are avoided, reducing forensic evidence and bypassing file-based detection mechanisms.                      |
-| Certutil File Download (LOLBins)     | T1105     | Ingress Tool Transfer                         | Command and Control | Certutil is abused to download files while blending malicious activity with legitimate system operations.                        |
-| Certutil Abuse                       | T1218     | Signed Binary Proxy Execution                 | Defense Evasion     | A trusted, signed Windows binary is leveraged to proxy malicious behavior and evade security controls.                           |
-| Netcat File Transfer (TCP)           | T1105     | Ingress Tool Transfer                         | Command and Control | Files are transferred over raw TCP connections, bypassing traditional HTTP-based monitoring.                                     |
-| Netcat Bidirectional Data Transfer   | T1041     | Exfiltration Over C2 Channel                  | Exfiltration        | Netcat enables two-way data movement, supporting both tool staging and data exfiltration.                                        |
-| AES-Encrypted File Transfer          | T1027     | Obfuscated/Compressed Files or Information    | Defense Evasion     | Files are encrypted prior to transfer, preventing content inspection and analysis.                                               |
-| Encrypted Transport Channel          | T1573     | Encrypted Channel                             | Command and Control | Encrypted communication channels are used to conceal payload contents during transfer.                                           |
-
+| Technique                       | ATT&CK ID | ATT&CK Technique                  | Tactic              |
+| ------------------------------- | --------- | --------------------------------- | ------------------- |
+| Base64 Encoding / Decoding      | T1132.001 | Data Encoding: Standard Encoding  | Command and Control |
+| PowerShell Execution (IEX)      | T1059.001 | Command and Scripting Interpreter | Execution           |
+| PowerShell File Download        | T1105     | Ingress Tool Transfer             | Command and Control |
+| WebClient DownloadFile          | T1105     | Ingress Tool Transfer             | Command and Control |
+| Fileless Payload Execution      | T1027     | Obfuscated/Compressed Information | Defense Evasion     |
+| Certutil (LOLBins Abuse)        | T1218     | Signed Binary Proxy Execution     | Defense Evasion     |
+| Certutil / Netcat File Transfer | T1105     | Ingress Tool Transfer             | Command and Control |
+| Netcat Data Exfiltration        | T1041     | Exfiltration Over C2 Channel      | Exfiltration        |
+| Encrypted File / Channel Usage  | T1573     | Encrypted Channel                 | Command and Control |
 
 # Conclusion
 Understanding multiple file transfer techniques is essential for realistic penetration testing. Different environments demand different approaches, and effective operators adapt quickly. From basic HTTP downloads to encrypted fileless execution, these techniques demonstrate how attackers move tools and data while minimizing detection.
