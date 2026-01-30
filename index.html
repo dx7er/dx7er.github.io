@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Saqlain Naqvi</title>
-  <link rel="icon" type="image/png" href="./assets/ddpp.png">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
   <meta name="theme-color" content="#0a0d10">
   <meta name="description" content="Cybersecurity portfolio: projects, blogs, and contact. Professional hacker-theme, fast and lightweight. Built with HTML, CSS, JS, and Markdown." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,6 +69,18 @@
     }
     .logo-img{ height:28px; width:auto; display:block }
     .brand span{font-weight:800; letter-spacing:.4px}
+
+    /* Terminal Icon Hover Effects */
+    .terminal-icon {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      filter: drop-shadow(0 0 8px rgba(55,255,139,.3));
+    }
+
+    .brand:hover .terminal-icon {
+      transform: scale(1.1) rotate(-3deg);
+      filter: drop-shadow(0 0 15px rgba(55,255,139,.6));
+    }
 
     .nav a{
       color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px;
@@ -1017,8 +1029,29 @@
   <header>
     <nav class="nav">
       <a class="brand" href="#about" data-link>
-        <img src="assets/ddpp.png" class="logo-img"/>
-        <span></span>
+        <!-- ⭐ TERMINAL ICON (SVG) - ADDED HERE ⭐ -->
+        <svg class="terminal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="50" height="50" style="border-radius: 8px;">
+          <defs>
+            <style>
+              @keyframes blink {
+                0%, 49% { opacity: 1; }
+                50%, 100% { opacity: 0; }
+              }
+              .cursor { animation: blink 1s infinite; }
+            </style>
+          </defs>
+          <rect width="200" height="200" fill="#0f141a" rx="12"/>
+          <rect width="200" height="200" fill="none" stroke="#37ff8b" stroke-width="1.5" rx="12" opacity="0.5"/>
+          <rect x="20" y="20" width="160" height="160" fill="#0a0d10" stroke="#37ff8b" stroke-width="2" rx="8"/>
+          <rect x="20" y="20" width="160" height="25" fill="#37ff8b" rx="8"/>
+          <circle cx="35" cy="32" r="3" fill="#0a0d10"/>
+          <circle cx="50" cy="32" r="3" fill="#0a0d10"/>
+          <circle cx="65" cy="32" r="3" fill="#0a0d10"/>
+          <line x1="30" y1="60" x2="140" y2="60" stroke="#37ff8b" stroke-width="2.5" opacity="0.8"/>
+          <line x1="30" y1="85" x2="110" y2="85" stroke="#37ff8b" stroke-width="2.5" opacity="0.6"/>
+          <line x1="30" y1="110" x2="130" y2="110" stroke="#37ff8b" stroke-width="2.5" opacity="0.4"/>
+          <rect x="30" y="135" width="12" height="15" fill="#37ff8b" class="cursor"/>
+        </svg>
       </a>
       <a href="#about" data-link>About Me</a>
       <a href="#projects" data-link>Projects</a>
@@ -1092,12 +1125,10 @@
       <div class="card">
         <h3>Licenses & Certifications</h3>
         <ul class="hacker-list typing-list">
-          <li>INE | eJPTv2</li>
-          <li>TCM | Practical Ethical Hacking</li>
-          <li>TCP | Practical WebApp Sec</li>
-          <li>EC Council | Digital Forensics</li>
-          <li>EC Council | DarkWeb Investigations</li>
-          <li>EC Council | Ethical Hacking Essentials</li>
+          <li>INE | eLearnSecurity Junior Penetration Tester - eJPTv2</li>
+          <li>TheSecOps | Certified Network Security Practitioner - CNSP</li>
+          <li>TheSecOps | Certified AppSec Practitioner v2 - CAP</li>
+          <li>CyberWarfare Labs | Certified Cyber Security Analysit - C3SA</li>
         </ul>
         
         </div>
@@ -1235,6 +1266,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <path d="M588.67 296.35c0 163.64-131.78 296.36-294.33 296.36S0 460 0 296.35 131.78 0 294.34 0s294.33 132.71 294.33 296.35zM931.69 296.35c0 154.07-65.89 279-147.12 279S637.46 450.42 637.46 296.35 703.35 17.35 784.57 17.35 931.69 142.28 931.69 296.35zM1043.63 296.35c0 138.15-23.14 250.08-51.71 250.08s-51.72-111.93-51.72-250.08 23.15-250.08 51.72-250.08 51.71 111.93 51.71 250.08z"/>
         </svg>
         <a href="https://medium.com/@dx7er" target="_blank">Medium</a></p>
+        <p><i data-lucide="globe"></i> <a href="https://dx73r.me" target="_blank">Website</a></p>
+        <p><i data-lucide="heart"></i> <a href="https://buymeacoffee.com/dx73r" target="_blank">Buy Me a Coffee</a></p>
         <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
           data-lucide="calendar" class="lucide lucide-calendar">
