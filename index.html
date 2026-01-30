@@ -367,17 +367,18 @@
 
     /* BLOG MODAL - TWO COLUMN LAYOUT */
     .blog-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 20px;
-      padding-top: 80px;
-      overflow-y: auto;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.85);
+        display: none;
+        align-items: flex-start;      
+        justify-content: center;
+        z-index: 100;
+        padding: 20px;
+        padding-top: 100px;           
+        overflow-y: auto;
     }
+    
 
     .blog-modal-backdrop.active {
       display: flex;
@@ -396,6 +397,8 @@
       grid-template-columns: 280px 1fr;
       grid-template-rows: auto 1fr;
       overflow: hidden;
+      animation: fadeIn 0.3s ease;
+      margin-top: 20px;
     }
 
     .blog-modal-header {
