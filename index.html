@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!--open graph data-->
   <meta property="og:title" content="Saqlain Naqvi – Professional Penetration Tester | Digital Forensics & OSINT Investigator" />
@@ -50,10 +51,138 @@
     }
     @keyframes drift{0%{background-position:0 0,0 0}100%{background-position:0 1000px,1000px 0}}
 
+    /* ===== HERO ANIMATIONS ===== */
+    @keyframes heroFadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroSlideInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes terminalType {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+
+    @keyframes terminalCursor {
+      0%, 49% {
+        border-right: 3px solid var(--primary);
+      }
+      50%, 100% {
+        border-right: 3px solid transparent;
+      }
+    }
+
+    @keyframes cardLift {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 0 0 12px rgba(55,255,139,.2), 0 10px 30px rgba(0,0,0,.3);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(55,255,139,.4), 0 15px 40px rgba(0,0,0,.4);
+      }
+    }
+
+    @keyframes blogItemStagger {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes categoryBounce {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes textGlow {
+      0%, 100% {
+        text-shadow: 0 0 5px rgba(55,255,139,.3),
+                     0 0 10px rgba(55,255,139,.1);
+      }
+      50% {
+        text-shadow: 0 0 15px rgba(55,255,139,.6),
+                     0 0 25px rgba(55,255,139,.3),
+                     0 0 35px rgba(55,255,139,.1);
+      }
+    }
+
+    @keyframes modalSlideIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    @keyframes scrollReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     header{
-      position:sticky; top:0; z-index:20; backdrop-filter: blur(8px);
+      position:fixed; top:0; z-index:20; width:100%; backdrop-filter: blur(8px);
       background:linear-gradient(180deg, rgba(10,13,16,.9), rgba(10,13,16,.5));
       border-bottom:1px solid rgba(55,255,139,.15);
+      transform:translateY(0); transition:transform 0.3s ease;
+    }
+    header.hide{
+      transform:translateY(-100%);
     }
     .nav{
       max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:16px;
@@ -84,28 +213,45 @@
 
     .nav a{
       color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px;
-      transition:.2s ease; font-weight:600; font-size:14px;
+      transition:.2s ease; font-weight:600; font-size:14px; position: relative;
+    }
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(55,255,139,.5);
+    }
+    .nav a:hover::after {
+      width: 70%;
     }
     .nav a.active, .nav a:hover{ color:var(--text); background:rgba(55,255,139,.08); box-shadow:var(--glow)}
     .spacer{flex:1}
     .cta{ border:1px solid rgba(55,255,139,.35)}
 
-    main{ position:relative; z-index:1 }
+    main{ position:relative; z-index:1; padding-top:60px }
     section{ max-width:1100px; margin:32px auto; padding:24px; }
 
     .hero{ display:grid; gap:18px; padding:36px 24px 6px }
-    .hero h1{ font-size:38px; line-height:1.15; margin:0; font-weight:800 }
-    .hero p{ color:var(--muted); margin:0 }
+    .hero h1{ font-size:38px; line-height:1.15; margin:0; font-weight:800; animation: heroFadeInUp 0.8s ease-out; }
+    .hero p{ color:var(--muted); margin:0; animation: heroFadeInUp 0.8s ease-out 0.2s both; }
 
     .badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
       border:1px solid rgba(55,255,139,.35); color:var(--primary); font-family:"JetBrains Mono",monospace;
       background:linear-gradient(180deg, rgba(55,255,139,.08), rgba(55,255,139,.03)); box-shadow:var(--glow);
-      font-size:12px; letter-spacing:.2px
+      font-size:12px; letter-spacing:.2px; animation: heroSlideInRight 0.8s ease-out 0.4s both;
     }
 
     .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:18px }
     .card{ background:linear-gradient(180deg, rgba(17,24,32,.9), rgba(17,24,32,.7)); border:1px solid rgba(255,255,255,.05);
-      border-radius:16px; padding:18px; box-shadow: 0 10px 30px rgba(0,0,0,.3)}
+      border-radius:16px; padding:18px; box-shadow: 0 10px 30px rgba(0,0,0,.3); transition: all 0.3s ease;
+    }
+    .card:hover{ animation: cardLift 0.4s ease-out forwards, glowPulse 2s ease-in-out forwards; border-color: rgba(55,255,139,.25); }
     .card h3{ margin:.2rem 0 .4rem; font-size:18px }
     .card p{ margin:0; color:var(--muted) }
     .tag{ display:inline-block; font-size:12px; border:1px solid rgba(255,255,255,.08); padding:4px 8px; border-radius:999px; margin-right:6px; margin-top:8px; color:var(--text); opacity:.9 }
@@ -133,7 +279,22 @@
     /* Buttons */
     .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; text-decoration:none; cursor:pointer; font-weight:700;
       border:1px solid rgba(255,255,255,.12); color:var(--text); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      transition: transform .08s ease, box-shadow .2s ease
+      transition: transform .08s ease, box-shadow .2s ease; position: relative; overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background: rgba(255,255,255,.5);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .btn:active::before {
+      animation: ripple 0.6s ease-out;
     }
     .btn:hover{ transform: translateY(-1px); box-shadow:var(--glow) }
     .btn.primary{ border-color: rgba(55,255,139,.5); color:var(--bg); background:linear-gradient(180deg, var(--primary), var(--primary-dim)) }
@@ -167,8 +328,6 @@
       border-radius: 16px;
       padding: 20px;
       height: fit-content;
-      position: sticky;
-      top: 100px;
     }
 
     .blog-sidebar h3 {
@@ -234,6 +393,7 @@
       border-color: var(--primary);
       font-weight: 600;
       box-shadow: var(--glow);
+      animation: categoryBounce 0.5s ease-out;
     }
 
     .category-count {
@@ -255,6 +415,7 @@
       padding: 16px;
       cursor: pointer;
       transition: all 0.2s ease;
+      animation: blogItemStagger 0.6s ease-out backwards;
     }
 
     .blog-item:hover {
@@ -375,7 +536,7 @@
         justify-content: center;
         z-index: 100;
         padding: 20px;
-        padding-top: 100px;           
+        padding-top: 80px;           
         overflow-y: auto;
     }
     
@@ -385,9 +546,13 @@
       animation: fadeIn 0.3s ease;
     }
 
+    .blog-modal-backdrop.active .blog-modal {
+      animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
     .blog-modal {
       width: 95%;
-      height: 90vh;
+      max-height: calc(100vh - 120px);
       max-width: 1400px;
       background: linear-gradient(180deg, rgba(17,24,32,.95), rgba(17,24,32,.85));
       border: 1px solid rgba(55,255,139,.25);
@@ -399,6 +564,7 @@
       overflow: hidden;
       animation: fadeIn 0.3s ease;
       margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     .blog-modal-header {
@@ -1259,7 +1425,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <!-- LEFT: Contact Info -->
       <div class="card contact-info">
         <h3>Let's Connect</h3>
-        <p><i data-lucide="mail"></i> <a href="mailto:dx73r@protonmail.com">Mail</a></p>
+        <p><i data-lucide="mail"></i> <a href="/cdn-cgi/l/email-protection#90f4e8a7a3e2d0e0e2ffe4fffefdf1f9fcbef3fffd">Mail</a></p>
         <p><i data-lucide="phone"></i> <a href="tel:+447464530664">Phone</a></p>
         <p><i data-lucide="linkedin"></i> <a href="https://www.linkedin.com/in/naqvio7/" target="_blank">LinkedIn</a></p>
         <p><i data-lucide="github"></i> <a href="https://github.com/dx7er" target="_blank">GitHub</a></p>
@@ -1305,7 +1471,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <small>© <span id="year"></span> Saqlain | All rights reserved </small>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
@@ -1568,6 +1734,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     blogList.innerHTML = html;
 
+    // Add stagger animation delay to blog items
+    document.querySelectorAll('.blog-item').forEach((item, index) => {
+      item.style.animationDelay = (index * 0.1) + 's';
+    });
+
     document.querySelectorAll(".blog-item").forEach(item=>{
       item.addEventListener("click",async()=>{
         const slug=item.dataset.slug;
@@ -1659,13 +1830,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.addEventListener("DOMContentLoaded",()=>{renderCategoryButtons();renderPostList();});
-</script>
-
-<script src="https://unpkg.com/lucide@latest"></script>
-<script>
-  lucide.createIcons();
-</script>
-
+  document.addEventListener("DOMContentLoaded",()=>{
+    // Initialize Lucide icons
+    if(window.lucide) {
+      lucide.createIcons();
+    }
+    
+    renderCategoryButtons();
+    renderPostList();
+    
+    // Header scroll hide/show behavior
+    let lastScrollTop = 0;
+    let headerHideTimeout;
+    const header = document.querySelector('header');
+    
+    window.addEventListener('scroll', function() {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      clearTimeout(headerHideTimeout);
+      
+      // Hide header when scrolling down, show when scrolling up
+      if (currentScroll > lastScrollTop && currentScroll > 100) {
+        // Scrolling DOWN - hide header
+        header.classList.add('hide');
+      } else {
+        // Scrolling UP - show header
+        header.classList.remove('hide');
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    });
+  });
+  
+  // Ensure Lucide icons are rendered (backup initialization)
+  if(window.lucide) {
+    setTimeout(() => lucide.createIcons(), 100);
+  }
+  </script>
+  <script>
+    // Final fallback - initialize icons after small delay
+    setTimeout(() => {
+      if(window.lucide) lucide.createIcons();
+    }, 500);
+  </script>
 </body>
 </html>
