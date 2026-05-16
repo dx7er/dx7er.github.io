@@ -1,5 +1,5 @@
 ---
-title: "HTB Footprinting Skill Assessment Lab"
+title: HTB Footprinting Skill Assessment Lab
 date: 2025-12-17
 tags: [htb, writeup, footprinting, enumeration, ssh, ftp, dns]
 ---
