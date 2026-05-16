@@ -1,4 +1,8 @@
-
+---
+title: "eJPTv2 Exam Review"
+date: 2023-09-06
+tags: [certification, ejptv2, penetration-testing, review]
+---
 
 ![](../assets/ejptv2.png)
 
