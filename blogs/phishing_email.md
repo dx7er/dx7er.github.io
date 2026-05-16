@@ -1,3 +1,9 @@
+---
+title: The Anatomy of a Social Engineering Attack
+date: 2024-06-05
+tags: [social-engineering, phishing, research, awareness]
+---
+
 In this blog, we are going to discuss social engineering attacks. Social engineering is a powerful tool in the arsenal of cybercriminals. Unlike technical exploits that target software vulnerabilities, social engineering attacks exploit human psychology to gain access to sensitive information or systems.
 
 ### Social Engineering
