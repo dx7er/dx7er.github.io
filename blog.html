@@ -422,16 +422,7 @@ function loadMore(newCount) {
   renderFiltered(newCount);
 }
 
-/* ── category filter ────────────────────────────────────────────── */
-document.getElementById('blogFilter').addEventListener('click',e=>{
-  const btn=e.target.closest('.bf-btn'); if(!btn)return;
-  document.querySelectorAll('.bf-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  const cat=btn.dataset.cat;
-  document.querySelectorAll('.bl-item').forEach(item=>{
-    item.classList.toggle('hidden',cat!=='all'&&!item.dataset.cats.includes(cat));
-  });
-});
+
 
 /* ── open post reader ───────────────────────────────────────────── */
 async function openPost(idx){
