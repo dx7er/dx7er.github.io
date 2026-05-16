@@ -1,6 +1,10 @@
-![htb](../assets/htb.png)
+---
+title: "HTB Footprinting Skill Assessment Lab"
+date: 2025-12-17
+tags: [htb, writeup, footprinting, enumeration, ssh, ftp, dns]
+---
 
-# HTB Academy – Footprinting Skill Assessment Lab (Easy)
+![htb](../assets/htb.png)
 
 ## Target Information
 
