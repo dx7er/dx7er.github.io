@@ -1,3 +1,9 @@
+---
+title: Hiding Backdoors with Scheduled Tasks
+date: 2024-03-15
+tags: [offensive-security, windows, persistence, evasion, scheduled-tasks]
+---
+
 ### Scheduled Tasks
 Scheduled tasks in Windows automate the execution of programs or scripts at specific times or in response to events. These tasks can include system maintenance, application updates, backups, or any operation that needs regular execution without manual intervention. Attackers can misuse scheduled tasks to hide backdoors by using techniques that evade detection or execute at specific times to avoid suspicion.
 
