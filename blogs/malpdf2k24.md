@@ -1,3 +1,9 @@
+---
+title: Pakistan PM Office Themed Phishing PDF Evaded All AV Solutions
+date: 2024-05-03
+tags: [malware, malware-analysis, phishing, pdf, threat-analysis]
+---
+
 ![Government of Pakistan](../assets/gop.png)
 
 In the realm of cybersecurity, the detection and analysis of suspicious files is a critical task. In this blog, I will share my insights on a case where a suspicious PDF file evaded all antivirus (AV) systems and targeted the office of the Prime Minister of Pakistan.
