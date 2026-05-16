@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Blog | dx73r</title>
+  <title>Blogs | dx7er</title>
   <meta name="description" content="Cybersecurity insights, CTF writeups, penetration testing research and cheatsheets by Saqlain Naqvi (@dx7er).">
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/dx7er/dx7er.github.io/main/assets/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,6 +48,14 @@
     .bl-item.hidden { display:none; }
 
     .bl-date { font-size:.72rem; color:var(--gm); font-family:var(--mono); padding-top:.2rem; white-space:nowrap; }
+    .bl-icon-wrap { display:flex; flex-direction:column; align-items:flex-start; gap:.5rem; }
+    .bl-icon {
+      width:42px; height:42px; border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--g); font-size:.95rem; background:rgba(0,255,65,.05);
+      flex-shrink:0; transition:all .2s;
+    }
+    .bl-item:hover .bl-icon { border-color:var(--borderh); background:rgba(0,255,65,.1); }
     .bl-tags { display:flex; flex-wrap:wrap; gap:.3rem; margin-bottom:.5rem; }
     .bl-tag {
       font-size:.6rem; font-family:var(--mono); letter-spacing:.8px;
@@ -381,6 +389,22 @@ function renderList(posts) {
   renderFiltered(INITIAL_SHOW);
 }
 
+/* ── post icon by tags ───────────────────────────────────── */
+function getPostIcon(tags) {
+  const s = (tags || []).join(' ').toLowerCase();
+  if (/htb|writeup|hackthebox/.test(s))                return 'fa-flag';
+  if (/forensic|ntfs|dfir|volatil/.test(s))            return 'fa-brain';
+  if (/malware|malware-analysis|pdf/.test(s))          return 'fa-bug';
+  if (/phishing|social-engineer|awareness/.test(s))    return 'fa-user-secret';
+  if (/osint|recon|canary|ip-track/.test(s))           return 'fa-binoculars';
+  if (/pentest|post-exploit|file-transfer|offensive/.test(s)) return 'fa-crosshairs';
+  if (/cloud|azure|aws/.test(s))                       return 'fa-cloud';
+  if (/certif|review|ejpt/.test(s))                   return 'fa-certificate';
+  if (/windows|password/.test(s))                     return 'fa-desktop';
+  if (/network|snmp|nfs|imap|mysql|mssql/.test(s))    return 'fa-network-wired';
+  return 'fa-terminal';
+}
+
 function renderFiltered(showCount) {
   const list = document.getElementById('blogList');
   const posts = ALL_POSTS;
@@ -397,7 +421,10 @@ function renderFiltered(showCount) {
     const newBadge = age < NEW_MS ? '<span class="bl-new">NEW</span>' : '';
     return `
       <div class="bl-item rv" data-idx="${i}">
-        <div class="bl-date">${fmtDate(p.date)}</div>
+        <div class="bl-icon-wrap">
+          <div class="bl-icon"><i class="fas ${getPostIcon(p.tags)}"></i></div>
+          <div class="bl-date">${fmtDate(p.date)}</div>
+        </div>
         <div class="bl-right">
           <div class="bl-tags">${tagChips(p.tags)}</div>
           <div class="bl-title" onclick="openPost(${i})">${p.title}${newBadge}</div>
