@@ -1,50 +1,91 @@
-# 🕶️ dx73r.me
+# dx73r.me
 
-Welcome to my personal **Cybersecurity Portfolio Website** — a minimalist, hacker-themed site built using **HTML, CSS, and JavaScript**. It showcases my projects, writeups, and research work in **Pentesting, OSINT, and Digital Forensics**.
+Personal cybersecurity portfolio — hacker-themed, minimal, fast.  
+Built with vanilla HTML, CSS, and JavaScript. No frameworks. No bloat.
 
----
-
-## 🚀 Features
-
-* **Projects Section** – Showcases cybersecurity labs, CTFs, and technical work.
-* **Blogs Section** – Writeups on ethical hacking, malware analysis, and investigations.
-* **Contact Section** – Quick access to my professional profiles.
-* **Responsive UI** – Clean and lightweight interface optimized for all devices.
+**Live:** [dx73r.me](https://dx73r.me)
 
 ---
 
-## 🧠 Tech Stack
+## About
 
-* HTML5
-* CSS3 (Custom theme)
-* JavaScript (Vanilla)
-* Markdown for blog content
+**Saqlain Naqvi (@dx7er)** — Cybersecurity professional based in London, UK.  
+Specialising in Penetration Testing, Red Teaming, Digital Forensics, OSINT, and Cloud Security (Azure).  
+Currently completing an MSc in Cyber Security & Forensics at the University of Westminster.
 
 ---
 
-## ⚡ Deployment
+## Pages
 
-This site is hosted using **GitHub Pages** at:
-👉 [https://dx7er.github.io](https://dx7er.github.io) & [dx73r.me](https://dx73r.me) 
+| Page | Description |
+|---|---|
+| **About** | Bio, services, certifications, experience, skills, education |
+| **Projects** | Live GitHub API — auto-updates when new repos are published |
+| **Blog** | Markdown-powered writeups fetched from the `blogs/` folder |
+| **Contact** | EmailJS contact form + social links |
 
-To deploy your own version:
+---
 
-```bash
-git clone https://github.com/dx7er/dx7er.github.io
-cd dx7er.github.io
-git push origin main
+## Tech Stack
+
+- HTML5, CSS3, Vanilla JavaScript
+- GitHub API — live project and blog fetching
+- Markdown — blog content with frontmatter support
+- EmailJS — contact form
+- Highlight.js + Marked.js — blog post rendering
+- GitHub Pages — hosting
+
+---
+
+## Structure
+
+```
+dx7er.github.io/
+├── about.html
+├── projects.html
+├── blog.html
+├── contact.html
+├── style.css
+├── favicon.svg
+├── assets/
+│   └── images...
+└── blogs/
+    └── *.md
 ```
 
 ---
 
-## 📬 Connect With Me
+## Writing a Blog Post
 
-* **Portfolio:** [dx73r.me](https://dx73r.me)
-* **LinkedIn:** [Saqlain Naqvi](https://linkedin.com/in/saqlain-naqvi)
-* **GitHub:** [@dx7er](https://github.com/dx7er)
+Create a `.md` file in `blogs/` with frontmatter:
+
+```markdown
+---
+title: "Your Post Title"
+date: 2026-01-24
+tags: [pentesting, active-directory]
+---
+
+Content here...
+```
+
+Push to `main` — it appears on the site automatically.
 
 ---
 
-### 💡 About
+## Deployment
 
-Created and maintained by **Saqlain (dx7er)** – Penetration Tester, OSINT Investigator, and Digital Forensics Analyst passionate about cybersecurity education and CTF development.
+Hosted on GitHub Pages. Any push to `main` deploys instantly.
+
+```bash
+git clone https://github.com/dx7er/dx7er.github.io
+cd dx7er.github.io
+# make changes
+git add . && git commit -m "update" && git push origin main
+```
+
+---
+
+## Connect
+
+[dx73r.me](https://dx73r.me) · [GitHub](https://github.com/dx7er) · [LinkedIn](https://www.linkedin.com/in/naqvio7/) · [dx73r@protonmail.com](mailto:dx73r@protonmail.com)
