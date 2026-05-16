@@ -1,3 +1,9 @@
+---
+title: IMAP / POP3 Enumeration Writeup
+date: 2025-10-30
+tags: [htb, writeup, enumeration, imap, pop3, email]
+---
+
 ![htb](../assets/htb.png)
 
 # IMAP / POP3 Enumeration Writeup - HTB Academy
