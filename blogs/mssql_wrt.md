@@ -1,6 +1,10 @@
-![htb](../assets/htb.png)
+---
+title: MSSQL Enumeration Writeup
+date: 2025-11-25
+tags: [htb, writeup, mssql, enumeration, database]
+---
 
-# MSSQL Enumeration Writeup - HTB Academy
+![htb](../assets/htb.png)
 
 **Target:** 10.129.230.249 (Hostname: `ILF-SQL-01`)
 **Scope:** HTB Academy Lab (Authorized environment)
