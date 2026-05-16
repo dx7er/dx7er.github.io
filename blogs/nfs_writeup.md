@@ -1,6 +1,11 @@
-![htb](../assets/htb.png)
+---
+title: NFS Enumeration Writeup
+date: 2025-12-05
+tags: [htb, writeup, nfs, enumeration, linux]
+---
 
-# NFS Enumeration Writeup - HTB Academy
+
+![htb](../assets/htb.png)
 
 **Platform:** Hack The Box Academy <br>
 **Target:** 10.129.188.210 (ACADEMY-FOOT-NIX01) <br>
