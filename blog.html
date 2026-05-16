@@ -548,37 +548,71 @@ function closeReader(){
 document.getElementById('postBack').addEventListener('click',closeReader);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReader();});
 
+/* ── fetch with timeout helper ──────────────────────────────────── */
+function fetchTimeout(url, ms=8000){
+  const ctrl=new AbortController();
+  const timer=setTimeout(()=>ctrl.abort(),ms);
+  return fetch(url,{signal:ctrl.signal}).finally(()=>clearTimeout(timer));
+}
+
 /* ── load blog ───────────────────────────────────────────────────
-   Only 1 api.github.com call (file listing).
-   Content fetched from raw.githubusercontent.com (no rate limit).
-   Date from: frontmatter > filename pattern > unknown
+   1 api.github.com call (listing) + N raw CDN calls (no rate limit)
+   Has timeout, rate-limit detection, stale-cache fallback.
 ─────────────────────────────────────────────────────────────────── */
 async function loadBlog(){
-  // show cached instantly if available
+  const list=document.getElementById('blogList');
+
+  // 1. show cached content instantly — never leave page blank
   try{
     const c=JSON.parse(localStorage.getItem(CACHE_K)||'null');
-    if(c&&c.posts){
+    if(c&&c.posts&&c.posts.length){
       renderList(c.posts);
-      if(Date.now()-c.ts<CACHE_T) return; // fresh cache — skip fetch
+      if(Date.now()-c.ts<CACHE_T) return; // still fresh — done
     }
   }catch(e){}
 
   try{
-    // single API call — just get file list
-    const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${BLOGS_DIR}`);
-    if(!r.ok) throw new Error('GitHub API '+r.status);
-    const files=await r.json();
-    if(!Array.isArray(files)) throw new Error('Unexpected response');
-    const mds=files.filter(f=>f.name.endsWith('.md'));
+    // 2. fetch file listing (1 API call, 8s timeout)
+    const res=await fetchTimeout(
+      `https://api.github.com/repos/${REPO}/contents/${BLOGS_DIR}`, 8000
+    );
 
-    // fetch all raw content in parallel (raw CDN — no rate limit)
+    // detect rate limit
+    if(res.status===403||res.status===429){
+      const reset=res.headers.get('X-RateLimit-Reset');
+      const resetTime=reset?new Date(reset*1000).toLocaleTimeString():'soon';
+      // if we already rendered cached posts, silently ignore
+      if(document.querySelector('.bl-item')) return;
+      list.innerHTML=`
+        <div style="color:var(--gray);font-size:.8rem;padding:2rem 0">
+          <i class="fas fa-clock" style="margin-right:.5rem;color:var(--amber)"></i>
+          GitHub API rate limit reached. Resets at <span style="color:var(--g)">${resetTime}</span>.<br>
+          <a href="https://github.com/${REPO}/tree/${BRANCH}/${BLOGS_DIR}"
+            target="_blank" style="color:var(--g);margin-top:.5rem;display:inline-block">
+            View posts on GitHub →
+          </a>
+        </div>`;
+      return;
+    }
+
+    if(!res.ok) throw new Error('API '+res.status);
+    const files=await res.json();
+    if(!Array.isArray(files)) throw new Error('Not an array');
+
+    const mds=files.filter(f=>f.name.endsWith('.md'));
+    if(!mds.length){
+      if(!document.querySelector('.bl-item'))
+        list.innerHTML='<div style="color:var(--gray);font-size:.8rem;padding:2rem 0">No posts found in blogs/ folder yet.</div>';
+      return;
+    }
+
+    // 3. fetch all raw content in parallel (raw CDN — no rate limit)
     const posts=await Promise.all(mds.map(async f=>{
       try{
-        const raw=await fetch(f.download_url).then(r=>r.text());
-        // date priority: frontmatter > filename YYYY-MM-DD > no date
+        const raw=await fetchTimeout(f.download_url,10000).then(r=>r.text());
         const fnDate=f.name.match(/^(\d{4}-\d{2}-\d{2})/)?.[1]||null;
-        const meta=extractMeta(raw, f.name, fnDate);
-        return {...meta, file:f.name};
+        const meta=extractMeta(raw,f.name,fnDate);
+        return {...meta,file:f.name};
       }catch{ return null; }
     }));
 
@@ -590,18 +624,19 @@ async function loadBlog(){
     renderList(valid);
 
   }catch(err){
-    // try stale cache before showing error
+    // network error / timeout — try stale cache, else show link
     try{
       const c=JSON.parse(localStorage.getItem(CACHE_K)||'null');
-      if(c&&c.posts){ renderList(c.posts); return; }
+      if(c&&c.posts&&c.posts.length){ renderList(c.posts); return; }
     }catch(e){}
-    document.getElementById('blogList').innerHTML=`
-      <div style="color:var(--gray);font-size:.8rem;padding:2rem 0">
-        <i class="fab fa-github" style="margin-right:.5rem;color:var(--gm)"></i>
-        Could not load posts.
-        <a href="https://github.com/${REPO}/tree/${BRANCH}/${BLOGS_DIR}"
-          target="_blank" style="color:var(--g);margin-left:.4rem">View on GitHub →</a>
-      </div>`;
+    if(!document.querySelector('.bl-item'))
+      list.innerHTML=`
+        <div style="color:var(--gray);font-size:.8rem;padding:2rem 0">
+          <i class="fab fa-github" style="margin-right:.5rem;color:var(--gm)"></i>
+          Could not reach GitHub right now.
+          <a href="https://github.com/${REPO}/tree/${BRANCH}/${BLOGS_DIR}"
+            target="_blank" style="color:var(--g);margin-left:.4rem">View posts directly →</a>
+        </div>`;
   }
 }
 
