@@ -1,5 +1,5 @@
 ---
-title: "File Transfer Techniques"
+title: File Transfer Techniques
 date: 2026-01-24
 tags: [pentesting, post-exploitation, mitre, file-transfer, offensive-security]
 ---
