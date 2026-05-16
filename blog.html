@@ -303,7 +303,7 @@ const BRANCH    = 'main';
 const BLOGS_DIR = 'blogs';
 const RAW_BASE  = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 const NEW_MS    = 7*24*60*60*1000;
-const CACHE_K   = 'dx7er_blog_v2';
+const CACHE_K   = 'dx7er_blog_v3';
 const CACHE_T   = 10*60*1000;
 
 /* ── tag category map ───────────────────────────────────────────── */
@@ -548,61 +548,59 @@ function closeReader(){
 document.getElementById('postBack').addEventListener('click',closeReader);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReader();});
 
-/* ── fetch posts: gets ACTUAL commit date from GitHub API ────────── */
-async function getCommitDate(filename){
-  try{
-    const r=await fetch(`https://api.github.com/repos/${REPO}/commits?path=${BLOGS_DIR}/${filename}&per_page=1`);
-    const c=await r.json();
-    return c[0]?.commit?.author?.date?.slice(0,10)||null;
-  }catch{return null;}
-}
-
+/* ── load blog ───────────────────────────────────────────────────
+   Only 1 api.github.com call (file listing).
+   Content fetched from raw.githubusercontent.com (no rate limit).
+   Date from: frontmatter > filename pattern > unknown
+─────────────────────────────────────────────────────────────────── */
 async function loadBlog(){
-  // try cache
+  // show cached instantly if available
   try{
     const c=JSON.parse(localStorage.getItem(CACHE_K)||'null');
-    if(c&&Date.now()-c.ts<CACHE_T){renderList(c.posts);return;}
+    if(c&&c.posts){
+      renderList(c.posts);
+      if(Date.now()-c.ts<CACHE_T) return; // fresh cache — skip fetch
+    }
   }catch(e){}
 
   try{
-    // 1. get file list
+    // single API call — just get file list
     const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${BLOGS_DIR}`);
-    if(!r.ok)throw new Error('API '+r.status);
+    if(!r.ok) throw new Error('GitHub API '+r.status);
     const files=await r.json();
+    if(!Array.isArray(files)) throw new Error('Unexpected response');
     const mds=files.filter(f=>f.name.endsWith('.md'));
 
-    // 2. for each file: fetch content + commit date in parallel
+    // fetch all raw content in parallel (raw CDN — no rate limit)
     const posts=await Promise.all(mds.map(async f=>{
       try{
-        // fetch content and commit date simultaneously
-        const [rawRes,commitDate]=await Promise.all([
-          fetch(f.download_url).then(r=>r.text()),
-          getCommitDate(f.name)
-        ]);
-        // also check if filename starts with date: 2025-04-14-title.md
+        const raw=await fetch(f.download_url).then(r=>r.text());
+        // date priority: frontmatter > filename YYYY-MM-DD > no date
         const fnDate=f.name.match(/^(\d{4}-\d{2}-\d{2})/)?.[1]||null;
-        const meta=extractMeta(rawRes,f.name,fnDate||commitDate);
-        return {...meta,file:f.name};
-      }catch{return null;}
+        const meta=extractMeta(raw, f.name, fnDate);
+        return {...meta, file:f.name};
+      }catch{ return null; }
     }));
 
-    const valid=posts.filter(Boolean)
+    const valid=posts
+      .filter(Boolean)
       .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+
     localStorage.setItem(CACHE_K,JSON.stringify({ts:Date.now(),posts:valid}));
     renderList(valid);
 
   }catch(err){
-    // stale cache fallback
+    // try stale cache before showing error
     try{
       const c=JSON.parse(localStorage.getItem(CACHE_K)||'null');
-      if(c){renderList(c.posts);return;}
+      if(c&&c.posts){ renderList(c.posts); return; }
     }catch(e){}
     document.getElementById('blogList').innerHTML=`
       <div style="color:var(--gray);font-size:.8rem;padding:2rem 0">
         <i class="fab fa-github" style="margin-right:.5rem;color:var(--gm)"></i>
-        Could not load posts. &nbsp;
+        Could not load posts.
         <a href="https://github.com/${REPO}/tree/${BRANCH}/${BLOGS_DIR}"
-          target="_blank" style="color:var(--g)">View on GitHub →</a>
+          target="_blank" style="color:var(--g);margin-left:.4rem">View on GitHub →</a>
       </div>`;
   }
 }
