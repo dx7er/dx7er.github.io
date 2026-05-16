@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Projects — dx7er</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .proj-ls {
+      font-size:.78rem; color:var(--gm); margin-bottom:1.5rem;
+      border:1px solid var(--border); background:var(--card);
+      padding:.8rem 1.2rem; display:flex; align-items:center; gap:.5rem;
+    }
+    .proj-ls span { color:var(--gray); }
+
+    .proj-loading {
+      grid-column:1/-1; display:flex; align-items:center; justify-content:center;
+      gap:.75rem; padding:3rem 1rem; color:var(--gm); font-size:.8rem;
+      font-family:var(--mono);
+    }
+    .proj-loading i { color:var(--g); font-size:1rem; animation:spin .8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .proj-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.2rem;
+    }
+
+    .pj {
+      background:var(--card); border:1px solid var(--border);
+      padding:1.6rem; transition:all .25s;
+      position:relative; overflow:hidden; display:flex; flex-direction:column;
+    }
+    .pj::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:var(--g); transform:scaleX(0); transform-origin:left; transition:transform .3s;
+    }
+    .pj:hover { border-color:var(--borderh); box-shadow:var(--glows); }
+    .pj:hover::before { transform:scaleX(1); }
+
+    .pj-head {
+      display:flex; align-items:flex-start;
+      justify-content:space-between; margin-bottom:1rem;
+    }
+    .pj-ico {
+      width:44px; height:44px; border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--g); font-size:1.1rem; background:rgba(0,255,65,.05);
+    }
+    .pj-head-right { display:flex; align-items:center; gap:.4rem; }
+
+    .pj-new {
+      font-size:.56rem; font-family:var(--mono); color:#0a0a0a;
+      background:var(--g); padding:2px 6px; letter-spacing:1px; font-weight:700;
+      animation:new-glow 2s ease-in-out infinite;
+    }
+    @keyframes new-glow {
+      0%,100% { box-shadow:0 0 5px rgba(0,255,65,.5); }
+      50%      { box-shadow:0 0 14px rgba(0,255,65,1); }
+    }
+
+    .pj-link {
+      width:30px; height:30px; border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--gray); text-decoration:none; font-size:.8rem; transition:all .2s;
+    }
+    .pj-link:hover { border-color:var(--g); color:var(--g); }
+
+    .pj-name {
+      font-size:.98rem; font-weight:700; color:var(--g);
+      margin-bottom:.4rem; font-family:var(--mono);
+    }
+    .pj-desc { font-size:.8rem; color:var(--gray); line-height:1.75; flex:1; margin-bottom:1rem; }
+    .pj-stack { display:flex; flex-wrap:wrap; gap:.3rem; margin-bottom:.8rem; }
+
+    .pj-foot {
+      display:flex; align-items:center; justify-content:space-between;
+      padding-top:.8rem; border-top:1px solid var(--border);
+    }
+    .pj-status { display:flex; align-items:center; gap:5px; font-size:.68rem; font-family:var(--mono); }
+    .pj-status .sd { width:5px; height:5px; border-radius:50%; }
+
+    /* Active — green */
+    .sa { color:var(--g); }
+    .sa .sd { background:var(--g); animation:pulse 2s infinite; }
+    /* In Progress — amber */
+    .sw { color:var(--amber); }
+    .sw .sd { background:var(--amber); }
+    /* Completed — blue */
+    .sc { color:#64b5f6; }
+    .sc .sd { background:#64b5f6; }
+
+    .pj-stats { display:flex; align-items:center; gap:.9rem; }
+    .pj-stat  { display:flex; align-items:center; gap:4px; font-size:.7rem; color:var(--gray); }
+    .pj-stat i { font-size:.65rem; }
+    .pj-stat.stars i { color:var(--amber); }
+    .pj-stat.forks i { color:var(--gm); }
+    .pj-stat.watch i { color:var(--gm); }
+  </style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-brand">
+    <span class="nb-user">saqlain</span><span class="nb-at">@</span><span class="nb-host">kali</span><span class="nb-path">:~/projects</span><span class="nb-sym">$</span><span class="nb-cur"></span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="about.html"><i class="fas fa-user"></i> about</a></li>
+    <li><a href="projects.html" class="active"><i class="fas fa-code-branch"></i> projects</a></li>
+    <li><a href="blog.html"><i class="fas fa-terminal"></i> blog</a></li>
+    <li><a href="contact.html"><i class="fas fa-envelope"></i> contact</a></li>
+  </ul>
+  <div class="nav-badge"><span class="dot"></span> available</div>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="section">
+    <div class="container">
+
+      <div class="rv" style="margin-bottom:2.5rem">
+        <div class="sec-label">ls -la ~/projects/</div>
+        <h1 class="sec-title">Open Source <span class="c">Projects</span></h1>
+      </div>
+
+      <div class="proj-ls rv">
+        <span style="color:var(--g)">$</span>
+        <span>ls -la ~/projects/ &nbsp;|&nbsp; total <span style="color:var(--g)" id="repoCount">6</span> repos &nbsp;|&nbsp; sorted by: <span style="color:var(--g)">latest</span></span>
+      </div>
+
+      <div class="proj-grid rv" id="projGrid">
+        <div class="proj-loading">
+          <i class="fas fa-circle-notch"></i>
+          <span>fetching repos from github.com/dx7er...</span>
+        </div>
+      </div>
+
+      <div class="rv" style="margin-top:2.5rem;text-align:center">
+        <a href="https://github.com/dx7er" target="_blank" class="btn">
+          <i class="fab fa-github"></i> View All on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span class="foot-brand">[dx7er]</span>
+    <span style="color:var(--gray);font-size:.7rem">© 2026 Saqlain Naqvi</span>
+    <div class="foot-links">
+      <a href="https://github.com/dx7er" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="mailto:dx73r@protonmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.getElementById('burger').addEventListener('click',()=>
+  document.getElementById('navLinks').classList.toggle('open'));
+
+const obs = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting) e.target.classList.add('in');
+}),{threshold:.07});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PINNED LIST — these 7 repos are always the base display pool.
+   Once you publish something new on GitHub (after CUTOFF), it enters
+   the pool and the least-recently-pushed one drops off. Max 6 shown.
+───────────────────────────────────────────────────────────────────────── */
+const PINNED  = ['Creep','Shrek','Wifiter','Entity','CTF','w3bxAN','Keylogger'];
+const CUTOFF  = new Date('2026-05-16').getTime();
+const MAX     = 6;
+const NEW_MS  = 7 * 24 * 60 * 60 * 1000;
+const CACHE_K = 'dx7er_repos_v3';
+const CACHE_T = 5 * 60 * 1000;
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PER-PROJECT STATUS — manually set for pinned repos.
+   'active'   = green dot  "Active"
+   'progress' = amber dot  "In Progress"
+   'done'     = blue dot   "Completed"
+   New repos not in this map get auto-status based on push date.
+───────────────────────────────────────────────────────────────────────── */
+const STATUS = {
+  Entity    : 'active',    // actively maintained WiFi tool
+  w3bxAN    : 'active',    // active web scanner
+  CTF       : 'progress',  // ongoing CTF work
+  Creep     : 'done',      // finished toolkit
+  Shrek     : 'done',      // finished bash script
+  Wifiter   : 'done',      // finished DOS script
+  Keylogger : 'done',      // finished C++ tool
+};
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FALLBACKS — only for repos with sparse GitHub data (Wifiter, Keylogger).
+   All other projects use whatever GitHub returns directly.
+───────────────────────────────────────────────────────────────────────── */
+const FALLBACK = {
+  Wifiter: {
+    description: 'Bash DoS script that deauthenticates devices from a target WiFi router. Detects nearby networks, targets by BSSID and channel, runs in continuous loop.',
+    topics: ['bash', 'wifi', 'wireless', 'dos', 'deauth']
+  },
+  Keylogger: {
+    description: 'Basic keylogger written in C++ that logs every keystroke and saves to a text file. Hides itself from the Windows task manager. Built as an offensive security learning project.',
+    topics: ['cpp', 'keylogger', 'windows', 'c-plus-plus', 'stealth']
+  }
+};
+
+/* ── icon picker ─────────────────────────────────────────────────────── */
+function getIcon(repo) {
+  const s = (repo.name + ' ' + (repo.topics||[]).join(' ')).toLowerCase();
+  if (/wifi|wireless|wifiter/.test(s))                   return 'fa-wifi';
+  if (/web|http|xss|sql|w3b|scanner/.test(s))           return 'fa-spider';
+  if (/forensic|memory|volatil|memdump/.test(s))        return 'fa-brain';
+  if (/ctf|challenge|flag/.test(s))                     return 'fa-flag';
+  if (/osint|recon|intel|harvest/.test(s))              return 'fa-binoculars';
+  if (/azure|cloud|aws|gcp/.test(s))                    return 'fa-cloud';
+  if (/active.dir|bloodhound|kerbero/.test(s))          return 'fa-sitemap';
+  if (/payload|reverse.shell|metasploit|shrek/.test(s)) return 'fa-terminal';
+  if (/malware|worm|creep|virus/.test(s))               return 'fa-bug';
+  if (/key|log/.test(s))                                return 'fa-keyboard';
+  if (/network|nmap|port|scan/.test(s))                 return 'fa-network-wired';
+  if (/game|snake/.test(s))                             return 'fa-gamepad';
+  if (/speed|bench/.test(s))                            return 'fa-tachometer-alt';
+  return 'fa-code';
+}
+
+/* ── status helpers ──────────────────────────────────────────────────── */
+function getStatus(repo) {
+  // manual override for pinned repos
+  if (STATUS[repo.name]) return STATUS[repo.name];
+  // auto for new repos: pushed within 90 days = active, else done
+  const days90 = 90 * 24 * 60 * 60 * 1000;
+  return (Date.now() - new Date(repo.pushed_at)) < days90 ? 'active' : 'done';
+}
+
+const STATUS_MAP = {
+  active:   { cls:'sa', label:'Active' },
+  progress: { cls:'sw', label:'In Progress' },
+  done:     { cls:'sc', label:'Completed' }
+};
+
+/* ── NEW badge logic ─────────────────────────────────────────────────── */
+const isNew = r =>
+  (Date.now() - new Date(r.created_at)) < NEW_MS ||
+  (Date.now() - new Date(r.pushed_at))  < NEW_MS;
+
+/* ── build display pool ─────────────────────────────────────────────── */
+function buildPool(repos) {
+  return repos
+    .filter(r => !r.fork && (
+      PINNED.includes(r.name) ||
+      new Date(r.created_at).getTime() > CUTOFF
+    ))
+    .sort((a,b) => new Date(b.pushed_at) - new Date(a.pushed_at))
+    .slice(0, MAX);
+}
+
+/* ── build one card ─────────────────────────────────────────────────── */
+function card(r) {
+  // merge fallback only if GitHub has no data
+  const fb   = FALLBACK[r.name] || {};
+  const desc = r.description || fb.description || 'No description provided.';
+  const tops = (r.topics && r.topics.length) ? r.topics : (fb.topics || []);
+  const tags = tops.length
+    ? tops.slice(0,5).map(t => `<span class="htag">${t}</span>`).join('')
+    : (r.language ? `<span class="htag">${r.language}</span>` : '');
+
+  const st   = STATUS_MAP[getStatus(r)];
+  const ico  = getIcon({ name: r.name, topics: tops });
+  const badge = isNew(r) ? '<span class="pj-new">NEW</span>' : '';
+  const demo  = r.homepage
+    ? `<a href="${r.homepage}" target="_blank" class="pj-link" title="Demo"><i class="fas fa-external-link-alt"></i></a>`
+    : '';
+
+  return `
+    <div class="pj rv">
+      <div class="pj-head">
+        <div class="pj-ico"><i class="fas ${ico}"></i></div>
+        <div class="pj-head-right">
+          ${badge}
+          <a href="${r.html_url}" target="_blank" class="pj-link" title="GitHub"><i class="fab fa-github"></i></a>
+          ${demo}
+        </div>
+      </div>
+      <div class="pj-name">${r.name}</div>
+      <p class="pj-desc">${desc}</p>
+      ${tags ? `<div class="pj-stack">${tags}</div>` : ''}
+      <div class="pj-foot">
+        <span class="pj-status ${st.cls}">
+          <span class="sd"></span>${st.label}
+        </span>
+        <div class="pj-stats">
+          <span class="pj-stat stars"><i class="fas fa-star"></i>${r.stargazers_count}</span>
+          <span class="pj-stat forks"><i class="fas fa-code-branch"></i>${r.forks_count}</span>
+          <span class="pj-stat watch"><i class="fas fa-eye"></i>${r.watchers_count}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ── render ─────────────────────────────────────────────────────────── */
+function render(repos) {
+  const pool = buildPool(repos);
+  const grid = document.getElementById('projGrid');
+  document.getElementById('repoCount').textContent = pool.length;
+  grid.innerHTML = pool.map(card).join('');
+  grid.querySelectorAll('.rv').forEach(el => obs.observe(el));
+}
+
+/* ── load ───────────────────────────────────────────────────────────── */
+async function load() {
+  try {
+    const c = JSON.parse(localStorage.getItem(CACHE_K) || 'null');
+    if (c && Date.now() - c.ts < CACHE_T) { render(c.data); return; }
+  } catch(e) {}
+
+  try {
+    const res  = await fetch('https://api.github.com/users/dx7er/repos?sort=pushed&per_page=100');
+    const data = await res.json();
+    localStorage.setItem(CACHE_K, JSON.stringify({ ts: Date.now(), data }));
+    render(data);
+  } catch(err) {
+    try {
+      const c = JSON.parse(localStorage.getItem(CACHE_K) || 'null');
+      if (c) { render(c.data); return; }
+    } catch(e) {}
+    document.getElementById('projGrid').innerHTML = `
+      <div style="color:var(--gray);font-size:.8rem;padding:2rem 0;grid-column:1/-1">
+        <i class="fab fa-github" style="margin-right:.5rem;color:var(--gm)"></i>
+        Could not reach GitHub.
+        <a href="https://github.com/dx7er" target="_blank" style="color:var(--g);margin-left:.4rem">View directly →</a>
+      </div>`;
+  }
+}
+
+load();
+</script>
+</body>
+</html>
