@@ -1,3 +1,10 @@
+---
+title: Track IP Information using Canary Tokens
+date: 2024-04-14
+tags: [osint, recon, canary-tokens, ip-tracking]
+---
+
+
 Lets dive into a fascinating topic: tracking someone's IP using files. We'll break down the concept first before delving into a step-by-step guide. While crafting custom code is an option, there's a simpler way. Buckle up, and let's get started!
 
 ### Canary Tokens
