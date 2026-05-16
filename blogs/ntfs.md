@@ -4,6 +4,8 @@ date: 2025-12-20
 tags: [forensics, ntfs, windows, digital-forensics, research]
 ---
 
+
+
 ![image](../assets/ntfs.png)
 
 # NTFS Explained: Architecture, Security Features, and Forensic Value
