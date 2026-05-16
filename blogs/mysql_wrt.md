@@ -1,5 +1,10 @@
+---
+title: MySQL Enumeration Writeup
+date: 2025-11-02
+tags: [htb, writeup, mysql, enumeration, database]
+---
+
 ![htb](../assets/htb.png)
-# MySQL Enumeration Writeup – HTB Academy
 
 ## Overview
 
