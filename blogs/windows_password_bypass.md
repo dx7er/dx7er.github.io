@@ -1,3 +1,10 @@
+---
+title: Windows Password / Login Screen Bypass
+date: 2024-05-15
+tags: [offensive-security, windows, password-bypass, kali-linux]
+---
+
+
 ![Windows Password Reset](../assets/reset_psswd.jpg)
 
 Forgetting or losing access to a Windows computer due to a forgotten password can be frustrating. However, there's a way to bypass the password without formatting the hard disk or losing data. In this blog, I'll explain how to use Kali Linux and the chntpw tool to remove user passwords on a Windows machine.
