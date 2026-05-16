@@ -1,6 +1,11 @@
-![htb](../assets/htb.png)
+---
+title: SNMP Enumeration Writeup
+date: 2025-11-01
+tags: [htb, writeup, snmp, enumeration, network]
+---
 
-# SNMP Enumeration Writeup – HTB Academy
+
+![htb](../assets/htb.png)
 
 ## Overview
 
