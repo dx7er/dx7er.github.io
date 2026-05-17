@@ -6,7 +6,7 @@ tags: [cloud-security, azure, career, certifications, offensive-security]
 
 ## Introduction
 
-The threat landscape has moved to the cloud — and so has my career direction. My background is in offensive security: penetration testing, OSINT, malware analysis, and digital forensics. That is where I spent the last several years building my technical foundation, alongside a BSc in Cyber Security and now an MSc in Cybersecurity and Forensics at the University of Westminster.
+The threat landscape has moved to the cloud and so has my career direction. My background is in offensive security: penetration testing, OSINT, malware analysis, and digital forensics. That is where I spent the last several years building my technical foundation, alongside a BSc in Cyber Security and now an MSc in Cybersecurity and Forensics at the University of Westminster.
 
 Passing the **Microsoft Certified: Azure Fundamentals (AZ-900)** on March 19, 2026 was a deliberate first step. Not because it was the most difficult, but because I value strong foundations before moving into more advanced territory like AZ-104 and AZ-500.
 
@@ -16,7 +16,7 @@ This blog covers what I learned, how my offensive background mapped to Azure sec
 
 ## 1. Why Start with AZ-900?
 
-AZ-900 is entry-level. That is the point. Before touching Azure security tooling, you need to understand how Azure is actually structured — core services, the shared responsibility model, IAM fundamentals, and governance.
+AZ-900 is entry-level. That is the point. Before touching Azure security tooling, you need to understand how Azure is actually structured core services, the shared responsibility model, IAM fundamentals, and governance.
 
 Skipping this layer and jumping straight to AZ-500 is like running a web app pentest without understanding HTTP. You can follow a checklist, but you will miss things.
 
@@ -88,7 +88,7 @@ Each certification builds on the last. The goal is not to collect badges — it 
 
 If you are coming from a traditional security background and thinking about cloud security, do not skip the fundamentals because they feel too basic. Most breaches do not start with advanced techniques — they start with the basics being overlooked.
 
-AZ-900 gave me the mental model I needed. The attacker mindset gives me the right lens to apply it. The next phase is building that out through AZ-104, CCSK, and AZ-500 — and turning it into real portfolio work on the way.
+AZ-900 gave me the mental model I needed. The attacker mindset gives me the right lens to apply it. The next phase is building that out through AZ-104, CCSK, and AZ-500 and turning it into real portfolio work on the way.
 
 The journey continues.
 
