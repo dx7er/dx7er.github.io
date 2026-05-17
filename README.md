@@ -1,6 +1,6 @@
 # dx73r.me
 
-Personal cybersecurity portfolio — hacker-themed, minimal, fast.  
+Personal cybersecurity portfolio hacker-themed, minimal, fast.  
 Built with vanilla HTML, CSS, and JavaScript. No frameworks. No bloat.
 
 **Live:** [dx73r.me](https://dx73r.me)
@@ -10,8 +10,8 @@ Built with vanilla HTML, CSS, and JavaScript. No frameworks. No bloat.
 ## About
 
 **Saqlain Naqvi (@dx7er)** — Cybersecurity professional based in London, UK.  
-Specialising in Penetration Testing, Red Teaming, Digital Forensics, OSINT, and Cloud Security (Azure).  
-Currently completing an MSc in Cyber Security & Forensics at the University of Westminster.
+Specialising in Penetration Testing, Digital Forensics, OSINT, and Cloud Security (Azure).  
+Currently completing an MSc in Cybersecurity & Forensics at the University of Westminster.
 
 ---
 
@@ -19,6 +19,7 @@ Currently completing an MSc in Cyber Security & Forensics at the University of W
 
 | Page | Description |
 |---|---|
+| **Home** | Landing page with navigation |
 | **About** | Bio, services, certifications, experience, skills, education |
 | **Projects** | Live GitHub API — auto-updates when new repos are published |
 | **Blog** | Markdown-powered writeups fetched from the `blogs/` folder |
@@ -41,12 +42,9 @@ Currently completing an MSc in Cyber Security & Forensics at the University of W
 
 ```
 dx7er.github.io/
-├── about.html
-├── projects.html
-├── blog.html
-├── contact.html
+├── index.html
 ├── style.css
-├── favicon.svg
+├── CNAME
 ├── assets/
 │   └── images...
 └── blogs/
@@ -69,7 +67,7 @@ tags: [pentesting, active-directory]
 Content here...
 ```
 
-Push to `main` — it appears on the site automatically.
+Push to `main` — it appears on the blog automatically.
 
 ---
 
@@ -88,4 +86,4 @@ git add . && git commit -m "update" && git push origin main
 
 ## Connect
 
-[dx73r.me](https://dx73r.me) · [GitHub](https://github.com/dx7er) · [LinkedIn](https://www.linkedin.com/in/naqvio7/) · [dx73r@protonmail.com](mailto:dx73r@protonmail.com)
+[dx73r.me](https://dx73r.me) · [GitHub](https://github.com/dx7er) · [LinkedIn](https://www.linkedin.com/in/dx73r/) · [dx73r@protonmail.com](mailto:dx73r@protonmail.com)
