@@ -1,6 +1,6 @@
 ---
-title: "NTFS at Byte Level: Tracing a File from GPT to Deletion"
-date: 2026-01-01
+title: NTFS at Byte Level - Tracing a File from GPT to Deletion
+date: 2026-05-18
 description: "A deep-dive into NTFS internals — manually tracing a file through GPT, Boot Sector, MFT, Root Directory, and INDX blocks, then watching what actually changes when you delete it."
 tags: ["digital-forensics", "NTFS", "MFT", "hex-analysis", "windows-forensics"]
 category: "Research"
