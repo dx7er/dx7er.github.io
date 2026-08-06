@@ -1,89 +1,64 @@
 # dx73r.me
 
-Personal cybersecurity portfolio hacker-themed, minimal, fast.  
-Built with vanilla HTML, CSS, and JavaScript. No frameworks. No bloat.
+Source for my personal site at [dx73r.me](https://dx73r.me).
 
-**Live:** [dx73r.me](https://dx73r.me)
+Single-page site, written in plain HTML/CSS/JS. The blog and projects list are dynamic: blog posts get pulled from `blogs/*.md` and rendered client-side, and the projects grid queries the GitHub API so I don't have to touch the site every time I push a new repo. Everything lives in one `index.html`, styled by `style.css`, hosted on GitHub Pages, pointed at the domain via CNAME.
 
----
-
-## About
-
-**Saqlain Naqvi (@dx7er)** — Cybersecurity professional based in London, UK.  
-Specialising in Penetration Testing, Digital Forensics, OSINT, and Cloud Security (Azure).  
-Currently completing an MSc in Cybersecurity & Forensics at the University of Westminster.
-
----
-
-## Pages
-
-| Page | Description |
-|---|---|
-| **Home** | Landing page with navigation |
-| **About** | Bio, services, certifications, experience, skills, education |
-| **Projects** | Live GitHub API — auto-updates when new repos are published |
-| **Blog** | Markdown-powered writeups fetched from the `blogs/` folder |
-| **Contact** | EmailJS contact form + social links |
-
----
-
-## Tech Stack
-
-- HTML5, CSS3, Vanilla JavaScript
-- GitHub API — live project and blog fetching
-- Markdown — blog content with frontmatter support
-- EmailJS — contact form
-- Highlight.js + Marked.js — blog post rendering
-- GitHub Pages — hosting
-
----
-
-## Structure
+## Repo layout
 
 ```
-dx7er.github.io/
-├── index.html
-├── style.css
-├── CNAME
-├── assets/
-│   └── images...
-└── blogs/
-    └── *.md
+index.html      the whole site
+style.css
+CNAME           dx73r.me
+.nojekyll       skip Jekyll on Pages
+assets/         images
+blogs/          markdown posts, rendered on the client
 ```
 
----
+## Adding a blog post
 
-## Writing a Blog Post
-
-Create a `.md` file in `blogs/` with frontmatter:
+Drop a markdown file in `blogs/` with front matter:
 
 ```markdown
 ---
-title: "Your Post Title"
+title: "Post title"
 date: 2026-01-24
-tags: [pentesting, active-directory]
+tags: [pentesting, cloud]
 ---
 
-Content here...
+Body starts here.
 ```
 
-Push to `main` — it appears on the blog automatically.
+Push to `main`. The blog index picks it up automatically.
 
----
+Keep the front matter minimal: `title`, `date`, `tags`. Skip `layout:` or `categories:` unless you want to fight Jekyll (I don't; that's what `.nojekyll` is for).
 
-## Deployment
+## Running locally
 
-Hosted on GitHub Pages. Any push to `main` deploys instantly.
+Any static file server will do:
 
 ```bash
-git clone https://github.com/dx7er/dx7er.github.io
-cd dx7er.github.io
-# make changes
-git add . && git commit -m "update" && git push origin main
+python3 -m http.server 8000
 ```
 
----
+Open `http://localhost:8000`.
 
-## Connect
+## Under the hood
 
-[dx73r.me](https://dx73r.me) · [GitHub](https://github.com/dx7er) · [LinkedIn](https://www.linkedin.com/in/dx73r/) · [dx73r@protonmail.com](mailto:dx73r@protonmail.com)
+- [marked.js](https://marked.js.org/) for markdown parsing
+- [highlight.js](https://highlightjs.org/) (github-dark theme) for code blocks
+- [EmailJS](https://www.emailjs.com/) for the contact form
+- [Font Awesome](https://fontawesome.com/) for icons
+
+No build step, no bundler, no framework.
+
+## Contact
+
+- Site: [dx73r.me](https://dx73r.me)
+- GitHub: [@dx7er](https://github.com/dx7er)
+- LinkedIn: [dx73r](https://www.linkedin.com/in/dx73r/)
+- Email: dx73r@protonmail.com
+
+## License
+
+Code is MIT (see `LICENSE`). Blog post text and images are mine. Ask before republishing.

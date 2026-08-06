@@ -1,5 +1,5 @@
 ---
-title: "How I Set Up Syncthing Between My Windows PC and Mac"
+title: How I Set Up Syncthing Between My Windows PC and Mac
 date: 2026-07-19
 tags: [syncthing, sync, workflow, windows, macos]
 ---
