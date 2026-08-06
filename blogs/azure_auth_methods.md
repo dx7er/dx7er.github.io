@@ -1,5 +1,5 @@
 ---
-title: A Guide to Azure Authentication Methods
+title: A Quick Look at Azure Authentication Methods 
 date: 2026-07-24
 tags: [azure, entra-id, authentication, cloud-security, identity]
 ---
