@@ -28,8 +28,6 @@ CARTP is a hands-on Azure red team certification. You get a bootcamp, a practice
 
 The course covers the full attack chain: initial access, enumeration, privilege escalation, lateral movement across tenants and resources, and persistence. It also touches on hybrid identity, where on-prem Active Directory and Entra ID meet.
 
-[Add: course price and how long your lab access lasted]
-
 ## The course and lab
 
 I finished the practice lab on 28 June 2026 with all 49 flags. Doing every flag, not just the ones I found interesting, was the single best preparation for the exam.
@@ -49,7 +47,7 @@ I kept notes per LO, plus cheat sheets for Az PowerShell, Azure CLI, the Microso
 
 ## Exam day
 
-I started the exam on 3 October 2026 and reached the final flag the same day. [Add: roughly how many hours it took you]
+I started the exam on 3 October 2026 and reached the final flag the same day in 4 hours.
 
 **Setting up.** The exam machine is a clean Windows VM with internet access but no tools installed. My first hour went on building a toolkit: Az PowerShell, Microsoft.Graph, AADInternals, Azure CLI, Python, Git, ROADtools, AzureHound and MicroBurst. Two small fixes helped: enabling .NET Framework 3.5 so older PowerShell tooling ran properly, and turning off IE Enhanced Security so downloads worked. Have your install list ready before you start.
 
@@ -62,7 +60,6 @@ I started the exam on 3 October 2026 and reached the final flag the same day. [A
 3. Log every command, output and credential as you go, in sections: findings, timeline, identities, resources.
 4. When stuck, go back to enumeration. In my experience the answer was almost always something I had already seen but not followed up.
 
-[Add: the moment that felt hardest, described without spoilers, e.g. "crossing into the second part of the environment took me longest"]
 
 ## The report
 
@@ -97,7 +94,7 @@ CARTP is worth it if you work with Azure or Microsoft 365 from either side. It m
 | Blue teamers who want to know what attacks look like | People looking only for theory or multiple-choice exams |
 | Cloud security engineers and incident responders | |
 
-**Rating:** [Add: your score out of 10]
+**Rating:** 7/10
 
 **What's next for me:** I am turning CARTP learning objectives into labs, each one showing the attack, the Sentinel detections and the hardening controls. The first, on OAuth illicit consent grants, is already [on my GitHub](https://github.com/dx7er/AzureConsentLab), with more in this series.
 
