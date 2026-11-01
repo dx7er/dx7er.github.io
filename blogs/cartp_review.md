@@ -39,9 +39,6 @@ What I liked:
 - **Tokens everywhere.** Much of Azure attacking is about getting, reading and reusing tokens. The course makes this click.
 - **It maps well to defence.** Each LO taught me something I could later turn into a detection. I have since been turning LOs into purple-team labs on my blog.
 
-What could be better:
-
-- [Add: anything you found weak, e.g. pace of the bootcamp, outdated commands, lab stability]
 
 I kept notes per LO, plus cheat sheets for Az PowerShell, Azure CLI, the Microsoft Graph module and token handling. Those cheat sheets saved me hours in the exam.
 
