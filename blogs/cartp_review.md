@@ -1,3 +1,12 @@
+---
+title: CARTP Exam Review
+date: 2026-11-01
+tags: [certification, cartp, azure, red-team, entra-id, review]
+---
+
+![](../assets/cartp.png)
+
+
 # CARTP Exam Review: Passing the Certified Azure Red Team Professional
 
 I passed the Certified Azure Red Team Professional (CARTP) exam from Altered Security in October 2026. This post covers the course, the 24-hour exam and the report, plus what I would do differently. There are no spoilers: no targets, no attack paths, no flags.
