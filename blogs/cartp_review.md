@@ -99,4 +99,6 @@ CARTP is worth it if you work with Azure or Microsoft 365 from either side. It m
 
 **Rating:** [Add: your score out of 10]
 
-**What's next for me:** I am turning CARTP learning objectives into purple-team labs, each one showing the attack, the Sentinel detections and the hardening controls. The first, on OAuth illicit consent grants, is already [on my GitHub](https://github.com/dx7er/AzureConsentLab), with more in my Defender Pack series.
+**What's next for me:** I am turning CARTP learning objectives into labs, each one showing the attack, the Sentinel detections and the hardening controls. The first, on OAuth illicit consent grants, is already [on my GitHub](https://github.com/dx7er/AzureConsentLab), with more in this series.
+
+##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx73r73r) and [LinkedIn](https://www.linkedin.com/in/dx73r/).
