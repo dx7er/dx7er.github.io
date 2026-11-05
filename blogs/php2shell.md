@@ -201,16 +201,14 @@ I ran the script on an Ubuntu 24.04 web server with Apache and `mod_php`, which 
 
 **Run 1 - the script raised two red flags.**
 
-![image](../assets/php2shell-fig01.png)
-*Figure 1: First run. PHP reports 8.3.6, which is below the fixed 8.3.36, and session upload progress is ON in Apache's php.ini*
+![Figure 1](../assets/php2shell-fig01.png "Figure 1: First run. PHP reports 8.3.6, which is below the fixed 8.3.36, and session upload progress is ON in Apache's php.ini")
 
 - **Section 1:** the version string says **8.3.6**. Going by the number alone this server is vulnerable and a basic scanner would flag it.
 - **Section 3:** `upload_progress=ON (risky)` in `/etc/php/8.3/apache2/php.ini`. This is the default setting that the CVE-2026-109619 and CVE-2026-115560 paths go through, and it is on the php.ini that serves web traffic.
 
 **Digging deeper.** Section 2 said "PATCHED by backport", so I checked the package changelog myself.
 
-![image](../assets/php2shell-fig02.png)
-*Figure 2: Ubuntu changelog showing the PHP2Shell patch (CVE-2026-109618_109619.patch) in build 8.3.6-0ubuntu0.24.04.13*
+![Figure 2](../assets/php2shell-fig02.png "Figure 2: Ubuntu changelog showing the PHP2Shell patch (CVE-2026-109618_109619.patch) in build 8.3.6-0ubuntu0.24.04.13")
 
 Ubuntu had copied the fix into its own 8.3.6 build without changing the version number. So the core bug was already patched but the risky default was still switched on.
 
@@ -222,15 +220,14 @@ sudo systemctl restart apache2
 ```
 
 **Run 2 - clean.**
-![image](../assets/php2shell-fig03.png)
-*Figure 3: Second run after the fix. Apache's php.ini now shows upload_progress=off*
+
+![Figure 3](../assets/php2shell-fig03.png "Figure 3: Second run after the fix. Apache's php.ini now shows upload_progress=off")
 
 The CLI php.ini still shows ON. Thats fine, because each SAPI has its own php.ini and the CLI does not serve web requests.
 
 However, changing the file is not the same as the running server using it. So I asked the live web server directly with a small test page and deleted it straight after.
 
-![image](../assets/php2shell-fig04.png)
-*Figure 4: Live Apache worker reporting upload_progress=off*
+![Figure 4](../assets/php2shell-fig04.png "Figure 4: Live Apache worker reporting upload_progress=off")
 
 **What I took from my own test:**
 
@@ -325,8 +322,7 @@ sudo ausearch -k web_exec -i | grep -E "comm=(sh|bash|curl|wget|nc)"
 
 **Testing the detection.** To make sure the rule actually fires I created a one-line test page that runs `id`. This simulates what an attacker does *after* a successful exploit. It is not the exploit itself. Then I requested the page and searched the audit log.
 
-![image](../assets/php2shell-fig05.png)
-*Figure 5: auditd catching the chain Apache worker (ppid 4235) → sh (pid 4616) → id (pid 4617), all running as www-data*
+![Figure 5](../assets/php2shell-fig05.png "Figure 5: auditd catching the chain Apache worker (ppid 4235) → sh (pid 4616) → id (pid 4617), all running as www-data")
 
 The web server (`www-data`) started `sh`, which is actually `/usr/bin/dash` on Ubuntu, and that ran `id`. Thats the exact pattern the Sigma rule and KQL query look for. It is also why both include `/dash` and not only `/sh`. On a real compromised server you would not see `id`. You would see `curl`, `wget` or a reverse shell instead.
 
