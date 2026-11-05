@@ -10,7 +10,7 @@ tags: [php, red-team, rce, detection, cve, dfir, threat, vulnerability, hacking,
 
 > **TL;DR** - In October 2026 PHP pushed emergency fixes for two critical bugs inside the interpreter itself. People started calling them **PHP2Shell** (`CVE-2026-109618` and `CVE-2026-109619`, both **CVSS v4.0 9.2**). They let an unauthenticated attacker run code on web server **before the application even starts running**. Attackers were already trying it four days before patch was out. The fix is simple on paper: upgrade PHP, **restart every worker** and go back through your logs to **17 October 2026**.
 
----
+
 
 ## Why This Matters
 
@@ -34,7 +34,6 @@ And PHP is everywhere. Apache `mod_php`, PHP-FPM, `php-cgi`, FrankenPHP and Lite
 
 **Reading the score:** `PR:N/UI:N` means no login and no user click is needed. `VC/VI/VA:H` means full loss of confidentiality, integrity and availability. It is 9.2 and not 10 because of `AC:H/AT:P`. A reliable exploit needs the right server setup and lot of effort from attacker. That didn't stop people from trying.
 
----
 
 ## Part 1 - How It Happened
 
@@ -55,7 +54,6 @@ Organisations didn't wait to find out. **BambooHR**, several **Dutch government 
 
 The bugs were found by **Wiz Research, Calif and OpenAI's Codex Security team**, working with the PHP security team. Google's Gemini team helped with the fix.
 
----
 
 ## Part 2 - What Was the Issue?
 
@@ -89,7 +87,6 @@ The root cause is the same for both. **A fatal error stops PHP halfway through s
 
 **Who was most at risk?** All the vendor write-ups put **Apache `mod_php`** at the top, because it runs that cleanup even when request start-up fails. PHP-FPM kills the worker when start-up fails, which blocks the main CVE-2026-109618 path. However, FPM is still exposed through CVE-2026-109619.
 
----
 
 ## Part 3 - How It Was Exploited
 
@@ -115,7 +112,6 @@ If a real production server was running vulnerable PHP with `mod_php`, the attac
 
 The attacker starts as `www-data` and not as root. However, on most web servers `www-data` can already read everything that matters for the application. Thats why organisations like BambooHR took their services offline instead of waiting.
 
----
 
 ## Part 4 - Am I Exposed? (Hands-on Check)
 
@@ -242,7 +238,6 @@ However, changing the file is not the same as the running server using it. So I 
 - **Patched does not mean hardened.** The core fix was there, but the risky default was still on until I changed it.
 - **Check the right php.ini.** The one serving web traffic is the one that matters.
 
----
 
 ## Part 5 - How It Was Detected
 
@@ -346,7 +341,6 @@ DeviceProcessEvents
 | project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine, AccountName
 ```
 
----
 
 ## Part 6 - How to Fix It
 
@@ -400,7 +394,6 @@ Also:
 - **Block outbound internet** from web servers. A reverse shell can't call home if egress is closed.
 - Keep `session.upload_progress.enabled = 0` **even after patching**, until CVE-2026-115560 gets its own fix.
 
----
 
 ## Part 7 - If You Think You Were Hit
 
@@ -418,7 +411,6 @@ This is the forensics side, briefly:
 4. **Review persistence**: new cron jobs, new users, new SSH keys, unknown systemd units.
 5. **Rotate secrets** the web user could read: `.env` files, database passwords, API keys, cloud credentials.
 
----
 
 ## Key Takeaways
 
@@ -428,8 +420,6 @@ This is the forensics side, briefly:
 - **Patched is not hardened.** In my own test the fix was there, but the risky default was still on.
 - **"HTTP 200, no crash" proves nothing.** Process lineage (web worker → shell) is the best signal.
 - **Attackers had a head start.** Hunt back to 17 October, not to the patch date.
-
----
 
 ## References
 
