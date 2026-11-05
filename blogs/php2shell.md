@@ -199,11 +199,12 @@ done
 
 I ran the script on an Ubuntu 24.04 web server with Apache and `mod_php`, which is the setup vendors rated as highest risk.
 
-**Run 1 - the script raised two red flags.**
+**Run 1 - the script raised two red flags and one surprise.**
 
 ![Figure 1](../assets/php2shell-fig01.png "Figure 1: First run. PHP reports 8.3.6, which is below the fixed 8.3.36, and session upload progress is ON in Apache's php.ini")
 
 - **Section 1:** the version string says **8.3.6**. Going by the number alone this server is vulnerable and a basic scanner would flag it.
+- **Section 2:** says **PATCHED by backport**, which contradicts section 1. More on that below.
 - **Section 3:** `upload_progress=ON (risky)` in `/etc/php/8.3/apache2/php.ini`. This is the default setting that the CVE-2026-109619 and CVE-2026-115560 paths go through, and it is on the php.ini that serves web traffic.
 
 **Digging deeper.** Section 2 said "PATCHED by backport", so I checked the package changelog myself.
