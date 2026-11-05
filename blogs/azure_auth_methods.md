@@ -115,4 +115,4 @@ Azure authentication sits on a spectrum, from weak (password-only) to phishing-r
 
 ---
 
-##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx73r73r) and [LinkedIn](https://www.linkedin.com/in/dx73r/).
+##### A supporter is worth a thousand followers! [Buy Me a Coffee](https://www.buymeacoffee.com/dx73r). If you like this blog, follow me on [GitHub](https://github.com/dx7er) and [LinkedIn](https://www.linkedin.com/in/dx73r/).
