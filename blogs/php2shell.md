@@ -226,7 +226,6 @@ sudo systemctl restart apache2
 ```
 
 **Run 2 - clean.**
-
 ![image](../assets/php2shell-fig03.png)
 *Figure 3: Second run after the fix. Apache's php.ini now shows upload_progress=off*
 
