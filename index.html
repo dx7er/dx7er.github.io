@@ -464,6 +464,9 @@ footer span{color:var(--g)}
 .r-back:hover{background:rgba(0,255,65,.07)}
 .r-path{font-size:.72rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .r-path .h{color:var(--cyan)} .r-path .p{color:var(--amber)}
+.r-right{display:flex;align-items:center;gap:.8rem;min-width:0}
+.r-share{flex-shrink:0}
+.r-share.copied{color:var(--cyan);border-color:var(--cyan)}
 .r-progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--g);box-shadow:0 0 10px var(--g)}
 
 .r-head{max-width:1140px;margin:0 auto;padding:clamp(24px,4vw,44px) clamp(16px,4vw,40px) 1.2rem}
@@ -1172,7 +1175,10 @@ footer span{color:var(--g)}
 <div class="reader" id="reader" aria-hidden="true">
   <div class="r-bar">
     <button class="r-back" id="rBack" type="button"><i class="fas fa-arrow-left"></i> back to posts</button>
-    <div class="r-path">dexter@<span class="h">kali</span>:<span class="p">~/blog/<span id="rFile"></span></span>$</div>
+    <div class="r-right">
+      <div class="r-path">dexter@<span class="h">kali</span>:<span class="p">~/blog/<span id="rFile"></span></span>$</div>
+      <button class="r-back r-share" id="rShare" type="button" title="Copy a direct link to this post"><i class="fas fa-link"></i> copy link</button>
+    </div>
     <div class="r-progress" id="rProgress"></div>
   </div>
   <header class="r-head">
@@ -1460,6 +1466,11 @@ const postCat = tags => (tags || []).map(tagCat).find(c => c !== 'default') || '
 const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const chips = (tags, n) => (tags || []).slice(0, n || 99).map(t => `<span class="chip c-${tagCat(t)}">${esc(t)}</span>`).join('');
 const readMins = body => Math.max(1, Math.round(String(body || '').replace(/```[\s\S]*?```/g, ' ').split(/\s+/).filter(Boolean).length / 200));
+/* each post gets its own link: dx73r.me/#blog/<file name without .md> */
+const slugOf  = file => String(file || '').replace(/\.md$/i, '').toLowerCase();
+const postUrl = p => `${location.origin}${location.pathname}#blog/${encodeURIComponent(slugOf(p.file))}`;
+const hashSlug = () => { const m = location.hash.match(/^#blog\/(.+)$/i); return m ? decodeURIComponent(m[1]).toLowerCase() : null; };
+let currentIdx = -1, pushedByUs = false;
 function fmtDate(d){ if(!d) return ''; const x = new Date(d); return isNaN(x) ? d : x.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
 
 function getPostIcon(tags){
@@ -1514,6 +1525,7 @@ function renderList(posts){
     return;
   }
   render();
+  openFromHash();
 }
 function render(){
   const list = document.getElementById('blogList');
@@ -1564,6 +1576,12 @@ const reader = document.getElementById('reader');
 async function openPost(idx){
   const p = ALL_POSTS[idx]; if (!p) return;
   const content = document.getElementById('rContent');
+  const target = '#blog/' + encodeURIComponent(slugOf(p.file));
+  if (location.hash !== target){
+    if (reader.classList.contains('open')) history.replaceState(null, '', target);
+    else { history.pushState(null, '', target); pushedByUs = true; }
+  }
+  currentIdx = idx;
   reader.classList.add('open'); reader.setAttribute('aria-hidden','false'); reader.scrollTop = 0;
   document.body.style.overflow = 'hidden';
   document.getElementById('rFile').textContent = p.file;
@@ -1667,12 +1685,56 @@ reader.addEventListener('scroll', () => {
   document.querySelectorAll('#rToc a').forEach(a => a.classList.toggle('on', a.dataset.id === current));
 });
 
-function closeReader(){
+function hideReader(){
   reader.classList.remove('open'); reader.setAttribute('aria-hidden','true');
   document.body.style.overflow = ''; document.title = 'Blog | dx73r';
+  currentIdx = -1;
+}
+function closeReader(){
+  if (!reader.classList.contains('open')) return;
+  hideReader();
+  if (hashSlug()){
+    if (pushedByUs) history.back();               // opened from the list: go back to it
+    else history.replaceState(null, '', '#blog'); // arrived via a shared link
+  }
+  pushedByUs = false;
 }
 document.getElementById('rBack').addEventListener('click', closeReader);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReader(); });
+
+/* open the post named in the URL, e.g. #blog/php2shell */
+async function openFromHash(){
+  const slug = hashSlug();
+  if (!slug){ if (reader.classList.contains('open')){ hideReader(); pushedByUs = false; } return; }
+  let idx = ALL_POSTS.findIndex(p => slugOf(p.file) === slug);
+  if (idx === currentIdx && idx !== -1) return;
+  if (idx === -1){
+    // not in the list (list failed or rate-limited): fetch the file directly
+    try {
+      const file = slug + '.md';
+      const raw = await fetchTimeout(`${RAW_BASE}/${BLOGS_DIR}/${encodeURIComponent(file)}`, 8000).then(r => { if (!r.ok) throw 0; return r.text(); });
+      ALL_POSTS.push({...extractMeta(raw, file, null), file, raw});
+      idx = ALL_POSTS.length - 1;
+    } catch {                                     // no such post: show the list instead
+      if (reader.classList.contains('open')) hideReader();
+      pushedByUs = false; history.replaceState(null, '', '#blog'); return;
+    }
+  }
+  openPost(idx);
+}
+window.addEventListener('hashchange', openFromHash);
+
+/* copy-link button */
+document.getElementById('rShare').addEventListener('click', () => {
+  const p = ALL_POSTS[currentIdx]; if (!p) return;
+  const btn = document.getElementById('rShare'), url = postUrl(p);
+  const done = () => {
+    btn.innerHTML = '<i class="fas fa-check"></i> copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = '<i class="fas fa-link"></i> copy link'; btn.classList.remove('copied'); }, 2000);
+  };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(done).catch(() => fallback(url, done));
+  else fallback(url, done);
+});
 
 /* ── copy code ───────────────────────────────────────────── */
 function copyCode(btn, id){
@@ -1697,7 +1759,7 @@ function fetchTimeout(url, ms = 8000){
 }
 async function loadBlog(){
   const list = document.getElementById('blogList');
-  const fail = html => { if (!document.querySelector('.bl')) list.innerHTML = `<div class="bl-msg">${html}</div>`; };
+  const fail = html => { if (!document.querySelector('.bl')) list.innerHTML = `<div class="bl-msg">${html}</div>`; openFromHash(); };
   const ghLink = `<a href="https://github.com/${REPO}/tree/${BRANCH}/${BLOGS_DIR}" target="_blank" rel="noopener">View posts on GitHub →</a>`;
 
   // preview mode: posts embedded in the page (blog-demo.html only)
@@ -1814,21 +1876,22 @@ const EMAILJS_TEMPLATE   = 'template_x7lr12e';
   }
 
   function show(){
-    const raw = (location.hash || '#about').slice(1).split('?')[0].toLowerCase();
+    const raw = (location.hash || '#about').slice(1).split('?')[0].split('/')[0].toLowerCase();
     let id = ALIAS[raw] || raw;
     if (!VIEWS.includes(id)) id = 'about';
 
+    const sameView = !!started[id] && document.getElementById('view-' + id).classList.contains('active');
     VIEWS.forEach(v => {
       document.getElementById('view-' + v).classList.toggle('active', v === id);
       const a = document.getElementById('lnk-' + v);
       a.classList.toggle('on', v === id);
       if (v === id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
     });
-    document.title = TITLES[id];
+    if (!/^#blog\//i.test(location.hash)) document.title = TITLES[id];  // keep the post title on shared links
     typePath(PATHS[id]);
 
     if (raw === 'contact') setTimeout(() => document.getElementById('contact').scrollIntoView(), 50);
-    else window.scrollTo(0, 0);
+    else if (!sameView) window.scrollTo(0, 0);
 
     if (!started[id]){
       started[id] = true;
